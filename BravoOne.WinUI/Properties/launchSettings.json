@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "BravoOne.WinUI": {
+      "commandName": "MsixPackage",
+      "nativeDebugging": false
+    }
+  }
+}
