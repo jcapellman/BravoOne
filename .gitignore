@@ -1,8 +1,7 @@
 .vs/
 bin/
 obj/
+node_modules/
+typings/
 *.lock.json
 /Properties/PublishProfiles
-packages/
-Debug/*
-*.user
