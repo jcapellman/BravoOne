@@ -35,8 +35,58 @@
         </Grid>
 
         <!-- Content Row -->
-        <Grid Grid.Row="1">
-            
+        <Grid Grid.Row="1" Margin="10,0,10,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Team Member Status -->
+            <Grid Grid.Column="0" Padding="10,0,10,0">
+                <Grid.Background>
+                    <SolidColorBrush Color="Black" Opacity="0.5" />
+                </Grid.Background>
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Style="{StaticResource SubheaderTextBlockStyle}" Text="Team Member Status" />
+            </Grid>
+
+            <!-- Contract Status -->
+            <Grid Grid.Column="1" Margin="50,0,0,0" Padding="10,0,10,0">
+                <Grid.Background>
+                    <SolidColorBrush Color="Black" Opacity="0.5" />
+                </Grid.Background>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Style="{StaticResource SubheaderTextBlockStyle}" Text="Contract Status" />
+            </Grid>
+
+            <!-- World Status -->
+            <Grid Grid.Column="2" Margin="50,0,0,0" Padding="10,0,10,0">
+                <Grid.Background>
+                    <SolidColorBrush Color="Black" Opacity="0.5" />
+                </Grid.Background>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Style="{StaticResource SubheaderTextBlockStyle}" Text="World Status" />
+            </Grid>
         </Grid>
         
         <!-- Footer Row -->
@@ -46,6 +96,12 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
+            <StackPanel Orientation="Horizontal" Grid.Column="0">
+                <Button Style="{StaticResource AccentButtonStyle}" Content="Armory" Margin="0,0,20,0" />
+                <Button Style="{StaticResource AccentButtonStyle}" Content="Training" Margin="0,0,20,0" />
+                <Button Style="{StaticResource AccentButtonStyle}" Content="Contracts" Margin="0,0,20,0" />
+            </StackPanel>
+            
             <Button Grid.Column="1" Content="End Month" Click="btnEndMonth_Click" Style="{StaticResource AccentButtonStyle}" />
         </Grid>
     </Grid>
