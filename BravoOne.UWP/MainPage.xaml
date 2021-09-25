@@ -6,13 +6,47 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:viewmodels="using:BravoOne.UWP.ViewModels"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    >
 
     <Page.DataContext>
         <viewmodels:GameViewModel />
     </Page.DataContext>
     
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="Assets/Backgrounds/Camo.png" />
+        </Grid.Background>
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Header Row -->
+        <Grid Grid.Row="0" VerticalAlignment="Top" Margin="10,0,10,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Style="{StaticResource HeaderTextBlockStyle}" Text="Bravo Team Sitrep" />
+            <TextBlock Grid.Column="1" Style="{StaticResource HeaderTextBlockStyle}" HorizontalAlignment="Right" Text="{Binding CurrentDateString}" />
+        </Grid>
+
+        <!-- Content Row -->
+        <Grid Grid.Row="1">
+            
+        </Grid>
+        
+        <!-- Footer Row -->
+        <Grid Grid.Row="2" VerticalAlignment="Bottom" Margin="10,0,10,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="1" Content="End Month" Click="btnEndMonth_Click" Style="{StaticResource AccentButtonStyle}" />
+        </Grid>
     </Grid>
 </Page>
