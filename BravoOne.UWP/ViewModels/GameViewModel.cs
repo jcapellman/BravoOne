@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿using BravoOne.lib.Objects;
 using BravoOne.UWP.ViewModels.Base;
 
 namespace BravoOne.UWP.ViewModels
@@ -19,28 +18,25 @@ namespace BravoOne.UWP.ViewModels
             }
         }
 
-        private DateTime _currentDate;
+        private Game game;
 
-        public DateTime CurrentDate
-        {
-            get => _currentDate;
-
-            set
-            {
-                _currentDate = value;
-
-                CurrentDateString = $"{_currentDate:MMMM} {_currentDate.Year}";
-                OnPropertyChanged();
-            }
-        }
         public GameViewModel()
         {
-            CurrentDate = DateTime.Now;
+            game = new Game();
+
+            UpdateDate();
+        }
+
+        private void UpdateDate()
+        {
+            CurrentDateString = $"{game.CurrentDate:MMMM} {game.CurrentDate.Year}";
         }
 
         public void EndMonth()
         {
-            CurrentDate = CurrentDate.AddMonths(1);
+            game.EndTurn();
+
+            UpdateDate();
         }
     }
 }
