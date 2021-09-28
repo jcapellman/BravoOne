@@ -6,7 +6,7 @@ namespace BravoOne.lib.Objects
     {
         public string Name { get; set; }
 
-        public int MonthlySalary { get; set; }
+        public uint MonthlySalary { get; set; }
 
         public DateTime StartDate { get; set; }
 

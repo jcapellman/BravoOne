@@ -9,13 +9,15 @@ namespace BravoOne.lib.Objects
 
         public DateTime CurrentDate { get; set; }
 
-        public double Money { get; set; }
+        public ulong Money { get; set; }
 
         public Game()
         {
             CurrentDate = DateTime.Now;
 
             TeamMembers = new List<TeamMember>();
+
+            Money = 10000000;
         }
 
         public void EndTurn()

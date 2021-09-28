@@ -18,23 +18,35 @@ namespace BravoOne.UWP.ViewModels
             }
         }
 
-        private Game game;
+        private Game _game;
+
+        public Game CurrentGame
+        {
+            get => _game;
+
+            set
+            {
+                _game = value;
+
+                OnPropertyChanged();
+            }
+        }
 
         public GameViewModel()
         {
-            game = new Game();
+            CurrentGame = new Game();
 
             UpdateDate();
         }
 
         private void UpdateDate()
         {
-            CurrentDateString = $"{game.CurrentDate:MMMM} {game.CurrentDate.Year}";
+            CurrentDateString = $"{CurrentGame.CurrentDate:MMMM} {CurrentGame.CurrentDate.Year}";
         }
 
         public void EndMonth()
         {
-            game.EndTurn();
+            CurrentGame.EndTurn();
 
             UpdateDate();
         }
