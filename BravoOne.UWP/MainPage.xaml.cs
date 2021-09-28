@@ -6,7 +6,7 @@ namespace BravoOne.UWP
 {
     public sealed partial class MainPage : Page
     {
-        private GameViewModel ViewModel => (GameViewModel)DataContext;
+        public GameViewModel ViewModel => (GameViewModel)DataContext;
 
         public MainPage()
         {

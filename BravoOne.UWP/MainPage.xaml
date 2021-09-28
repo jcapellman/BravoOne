@@ -30,8 +30,20 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="0" Style="{StaticResource HeaderTextBlockStyle}" Text="Bravo Team Sitrep" />
-            <TextBlock Grid.Column="1" Style="{StaticResource HeaderTextBlockStyle}" HorizontalAlignment="Right" Text="{Binding CurrentDateString}" />
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Style="{StaticResource HeaderTextBlockStyle}" Text="Bravo Team Sitrep" />
+            
+            <TextBlock Grid.Column="1" Grid.Row="0" Style="{StaticResource HeaderTextBlockStyle}" HorizontalAlignment="Right" Text="{Binding CurrentDateString}" />
+
+            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right">
+                <TextBlock Style="{StaticResource SubheaderTextBlockStyle}" FontWeight="Bold" Text="Bank Account Balance" />
+                <TextBlock Margin="20,0,0,0" Style="{StaticResource SubheaderTextBlockStyle}" Text="$" />
+                <TextBlock Style="{StaticResource SubheaderTextBlockStyle}" Text="{Binding CurrentGame.Money}" />
+            </StackPanel>
         </Grid>
 
         <!-- Content Row -->
