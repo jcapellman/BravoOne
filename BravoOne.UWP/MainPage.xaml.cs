@@ -1,4 +1,5 @@
 ﻿using BravoOne.UWP.ViewModels;
+using BravoOne.UWP.Views;
 
 using Windows.UI.Xaml.Controls;
 
@@ -16,6 +17,11 @@ namespace BravoOne.UWP
         private void btnEndMonth_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             ViewModel.EndMonth();
+        }
+
+        private void btnRecruitment_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            _ = Frame.Navigate(typeof(Recruitment), ViewModel.CurrentGame);
         }
     }
 }
