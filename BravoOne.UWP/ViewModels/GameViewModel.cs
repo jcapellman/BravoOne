@@ -44,6 +44,13 @@ namespace BravoOne.UWP.ViewModels
             CurrentDateString = $"{CurrentGame.CurrentDate:MMMM} {CurrentGame.CurrentDate.Year}";
         }
 
+        public void UpdateGame(Game game)
+        {
+            CurrentGame = game;
+
+            UpdateDate();
+        }
+
         public void EndMonth()
         {
             CurrentGame.EndTurn();

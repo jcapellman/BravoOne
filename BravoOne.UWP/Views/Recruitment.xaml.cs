@@ -24,5 +24,10 @@ namespace BravoOne.UWP.Views
 
             base.OnNavigatedTo(e);
         }
+
+        private void btnBack_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(MainPage), ViewModel.CurrentGame);
+        }
     }
 }

@@ -4,11 +4,47 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:BravoOne.UWP.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:viewmodels="using:BravoOne.UWP.ViewModels"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <viewmodels:RecruitmentViewModel />
+    </Page.DataContext>
 
     <Grid>
+        <Grid>
+            <Grid.Background>
+                <ImageBrush ImageSource="../Assets/Backgrounds/Camo.png" />
+            </Grid.Background>
 
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- Header Row -->
+            <Grid Grid.Row="0" VerticalAlignment="Top" Margin="10,0,10,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" VerticalAlignment="Center" Margin="0,0,20,0" Click="btnBack_Click" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
+                <TextBlock Grid.Column="1" Style="{StaticResource HeaderTextBlockStyle}" Text="Recruitment" />
+            </Grid>
+
+            <!-- Content Row -->
+            <Grid Grid.Row="1" Margin="10,10,10,10">
+                <Grid.Background>
+                    <SolidColorBrush Color="Black" Opacity="0.5" />
+                </Grid.Background>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Style="{StaticResource SubheaderTextBlockStyle}" Text="Team Member Status" />
+            </Grid>
+        </Grid>
     </Grid>
 </Page>
