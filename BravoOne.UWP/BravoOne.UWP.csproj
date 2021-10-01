@@ -125,7 +125,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Base\BaseViewModel.cs" />
     <Compile Include="ViewModels\GameViewModel.cs" />
+    <Compile Include="ViewModels\ManageTeamMemberViewModel.cs" />
     <Compile Include="ViewModels\RecruitmentViewModel.cs" />
+    <Compile Include="Views\ManageTeamMember.xaml.cs">
+      <DependentUpon>ManageTeamMember.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Recruitment.xaml.cs">
       <DependentUpon>Recruitment.xaml</DependentUpon>
     </Compile>
@@ -154,6 +158,10 @@
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ManageTeamMember.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Recruitment.xaml">
       <SubType>Designer</SubType>
