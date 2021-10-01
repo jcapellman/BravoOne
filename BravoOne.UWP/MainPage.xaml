@@ -70,6 +70,28 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Row="0" Style="{StaticResource SubheaderTextBlockStyle}" Text="Team Member Status" />
+                <ListView Grid.Row="1" ItemsSource="{Binding CurrentGame.TeamMembers}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,0,0,10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                
+                                <TextBlock Grid.Row="0" Text="{Binding Name}" />
+
+                                <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                    <TextBlock Text="Status" FontWeight="Bold" />
+                                    <TextBlock Text="{Binding Status}" Margin="5,0,0,0" />
+
+                                    <TextBlock Text="Health" FontWeight="Bold" Margin="5,0,0,0" />
+                                    <TextBlock Text="{Binding Health}" Margin="5,0,0,0" />
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </Grid>
 
             <!-- Contract Status -->
