@@ -65,7 +65,7 @@ namespace BravoOne.lib.Objects
             {
                 Health = 100,
                 MonthlySalary = 5000,
-                Name = "One",
+                Name = "Jason",
                 StartDate = DateTime.Now,
                 Status = 60
             });
@@ -74,7 +74,7 @@ namespace BravoOne.lib.Objects
             {
                 Health = 100,
                 MonthlySalary = 1000,
-                Name = "Two",
+                Name = "Spencer",
                 StartDate = DateTime.Now,
                 Status = 100
             });

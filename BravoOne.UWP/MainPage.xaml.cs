@@ -35,5 +35,10 @@ namespace BravoOne.UWP
         {
             _ = Frame.Navigate(typeof(Recruitment), ViewModel.CurrentGame);
         }
+
+        private void btnManageTeamMember_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            _ = Frame.Navigate(typeof(ManageTeamMember), ViewModel.CurrentGame);
+        }
     }
 }
