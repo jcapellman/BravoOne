@@ -1,13 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+
+using BravoOne.lib.Objects.Base;
 
 namespace BravoOne.lib.Objects
 {
-    public class Game : INotifyPropertyChanged
+    public class Game : BaseMVVM
     {
-        public List<TeamMember> TeamMembers { get; set; }
+        public List<TeamMember> _teamMembers { get; set; }
+
+        public List<TeamMember> TeamMembers
+        {
+            get => _teamMembers;
+
+            set
+            {
+                _teamMembers = value;
+
+                OnPropertyChanged();
+            }
+        }
 
         private DateTime _currentDate { get; set; }
 
@@ -48,6 +60,29 @@ namespace BravoOne.lib.Objects
             TeamMembers = new List<TeamMember>();
 
             Money = 10000000;
+
+            AddTeamMember(new TeamMember
+            {
+                Health = 100,
+                MonthlySalary = 5000,
+                Name = "One",
+                StartDate = DateTime.Now,
+                Status = 60
+            });
+
+            AddTeamMember(new TeamMember
+            {
+                Health = 100,
+                MonthlySalary = 1000,
+                Name = "Two",
+                StartDate = DateTime.Now,
+                Status = 100
+            });
+        }
+
+        public void AddTeamMember(TeamMember member)
+        {
+            TeamMembers.Add(member);
         }
 
         public void EndTurn()
@@ -58,13 +93,6 @@ namespace BravoOne.lib.Objects
             {
                 Money -= member.MonthlySalary;
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
