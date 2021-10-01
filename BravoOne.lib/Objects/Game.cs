@@ -1,13 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace BravoOne.lib.Objects
 {
-    public class Game
+    public class Game : INotifyPropertyChanged
     {
         public List<TeamMember> TeamMembers { get; set; }
 
-        public DateTime CurrentDate { get; set; }
+        private DateTime _currentDate { get; set; }
+
+        public DateTime CurrentDate
+        {
+            get => _currentDate;
+
+            set
+            {
+                _currentDate = value;
+
+                CurrentDateString = $"{CurrentDate:MMMM} {CurrentDate.Year}";
+
+                OnPropertyChanged();
+            }
+        }
+
+        private string _currentDateString;
+
+        public string CurrentDateString 
+        {
+            get => _currentDateString;
+
+            set
+            {
+                _currentDateString = value;
+
+                OnPropertyChanged();
+            }
+        }
 
         public ulong Money { get; set; }
 
@@ -28,6 +58,13 @@ namespace BravoOne.lib.Objects
             {
                 Money -= member.MonthlySalary;
             }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
