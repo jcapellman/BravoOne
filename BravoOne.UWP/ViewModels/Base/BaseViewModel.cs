@@ -1,11 +1,9 @@
 ﻿using BravoOne.lib.Objects;
-
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using BravoOne.lib.Objects.Base;
 
 namespace BravoOne.UWP.ViewModels.Base
 {
-    public class BaseViewModel : INotifyPropertyChanged
+    public class BaseViewModel : BaseMVVM
     {
         private Game _game;
 
@@ -24,13 +22,6 @@ namespace BravoOne.UWP.ViewModels.Base
         public void UpdateGame(Game game)
         {
             CurrentGame = game;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
