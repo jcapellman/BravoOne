@@ -71,23 +71,36 @@
 
                 <TextBlock Grid.Row="0" Style="{StaticResource SubheaderTextBlockStyle}" Text="Team Member Status" />
                 <ListView Grid.Row="1" ItemsSource="{Binding CurrentGame.TeamMembers}">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid Margin="0,0,0,10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
                                 
-                                <TextBlock Grid.Row="0" Text="{Binding Name}" />
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Name}" />
 
-                                <StackPanel Grid.Row="1" Orientation="Horizontal">
-                                    <TextBlock Text="Status" FontWeight="Bold" />
-                                    <TextBlock Text="{Binding Status}" Margin="5,0,0,0" />
+                                <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
+                                    <TextBlock Text="status" FontWeight="Bold" />
+                                    <TextBlock Text="{Binding Status}" Margin="2,0,0,0" />
 
-                                    <TextBlock Text="Health" FontWeight="Bold" Margin="5,0,0,0" />
-                                    <TextBlock Text="{Binding Health}" Margin="5,0,0,0" />
+                                    <TextBlock Text="health" FontWeight="Bold" Margin="5,0,0,0" />
+                                    <TextBlock Text="{Binding Health}" Margin="2,0,0,0" />
                                 </StackPanel>
+
+                                <Button Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" HorizontalContentAlignment="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Content="View" />
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
