@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 using BravoOne.lib.Objects.Base;
 
@@ -7,7 +9,7 @@ namespace BravoOne.lib.Objects
 {
     public class Game : BaseMVVM
     {
-        public List<TeamMember> _teamMembers { get; set; }
+        private List<TeamMember> _teamMembers { get; set; }
 
         public List<TeamMember> TeamMembers
         {
@@ -16,6 +18,20 @@ namespace BravoOne.lib.Objects
             set
             {
                 _teamMembers = value;
+
+                OnPropertyChanged();
+            }
+        }
+
+        private ObservableCollection<Contract> _contracts { get; set; }
+
+        public ObservableCollection<Contract> Contracts
+        {
+            get => _contracts;
+
+            set
+            {
+                _contracts = value;
 
                 OnPropertyChanged();
             }
@@ -57,6 +73,7 @@ namespace BravoOne.lib.Objects
         {
             CurrentDate = DateTime.Now;
 
+            Contracts = new ObservableCollection<Contract>();
             TeamMembers = new List<TeamMember>();
 
             Money = 10000000;
@@ -67,7 +84,9 @@ namespace BravoOne.lib.Objects
                 MonthlySalary = 5000,
                 Name = "Jason",
                 StartDate = DateTime.Now,
-                Status = 60
+                Status = 60,
+                Id = Guid.NewGuid(),
+                SkillPoints = 2
             });
 
             AddTeamMember(new TeamMember
@@ -76,13 +95,34 @@ namespace BravoOne.lib.Objects
                 MonthlySalary = 1000,
                 Name = "Spencer",
                 StartDate = DateTime.Now,
-                Status = 100
+                Status = 100,
+                SkillPoints = 1,
+                Id = Guid.NewGuid()
+            });
+
+            AddContract(new Contract
+            {
+                AssignedTeamMembers = TeamMembers.Select(a => a.Id).ToList(),
+                CompleteDate = DateTime.Now.AddMonths(4),
+                Income = 5000,
+                Id = Guid.NewGuid(),
+                Name = "Operation Laal Kekra",
+                SkillPointsRemaining = 10,
+                TeamMemberToll = 4,
+                Penalty = 50000,
+                CompletedDateString = $"{DateTime.Now.AddMonths(4):MMMM} {DateTime.Now.AddMonths(4).Year}",
+                Status = Enums.ContractStatus.InProgress
             });
         }
 
         public void AddTeamMember(TeamMember member)
         {
             TeamMembers.Add(member);
+        }
+
+        public void AddContract(Contract contract)
+        {
+            Contracts.Add(contract);
         }
 
         public void EndTurn()
@@ -93,6 +133,29 @@ namespace BravoOne.lib.Objects
             {
                 Money -= member.MonthlySalary;
             }
+
+            for (int x = 0; x < Contracts.Count; x++)
+            {
+                TeamMembers = Contracts[x].EndTurn(CurrentDate, TeamMembers.ToDictionary(a => a.Id));
+
+                switch (Contracts[x].Status)
+                {
+                    case Enums.ContractStatus.Completed:
+                        Money += Contracts[x].Income;
+                        break;
+                    case Enums.ContractStatus.Failed:
+                        Money -= Contracts[x].Penalty;
+                        break;
+                    case Enums.ContractStatus.NotStarted:
+                        break;
+                    case Enums.ContractStatus.InProgress:
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            Contracts = new ObservableCollection<Contract>(Contracts);
         }
     }
 }
