@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-
+using BravoOne.lib.DAL.Base;
 using BravoOne.lib.Objects.Base;
 
 namespace BravoOne.lib.Objects
 {
     public class Game : BaseMVVM
     {
+        public int Id { get; set; }
+
         private List<TeamMember> _teamMembers { get; set; }
 
         public List<TeamMember> TeamMembers
@@ -68,6 +70,11 @@ namespace BravoOne.lib.Objects
         }
 
         public ulong Money { get; set; }
+
+        public static Game LoadGame(BaseDAL dal, int id)
+        {
+            return dal.Get<Game>(a => a.Id == id);
+        }
 
         public Game()
         {
