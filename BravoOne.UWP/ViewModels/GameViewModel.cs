@@ -1,11 +1,12 @@
-﻿using BravoOne.lib.Objects;
+﻿using BravoOne.lib.DAL.Base;
+using BravoOne.lib.Objects;
 using BravoOne.UWP.ViewModels.Base;
 
 namespace BravoOne.UWP.ViewModels
 {
     public class GameViewModel : BaseViewModel
     {
-        public GameViewModel()
+        public GameViewModel(BaseDAL dal) : base(dal)
         {
             CurrentGame = new Game();
         }

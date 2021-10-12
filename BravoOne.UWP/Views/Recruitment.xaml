@@ -7,10 +7,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:viewmodels="using:BravoOne.UWP.ViewModels"
     mc:Ignorable="d">
 
-    <Page.DataContext>
-        <viewmodels:RecruitmentViewModel />
-    </Page.DataContext>
-
     <Grid>
         <Grid>
             <Grid.Background>

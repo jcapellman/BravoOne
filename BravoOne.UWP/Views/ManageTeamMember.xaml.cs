@@ -1,4 +1,5 @@
-﻿using BravoOne.lib.Objects;
+﻿using BravoOne.lib.DAL.Base;
+using BravoOne.lib.Objects;
 using BravoOne.UWP.ViewModels;
 
 using Windows.UI.Xaml.Controls;
@@ -10,11 +11,11 @@ namespace BravoOne.UWP.Views
     {
         private ManageTeamMemberViewModel ViewModel => (ManageTeamMemberViewModel)DataContext;
 
-        public ManageTeamMember()
+        public ManageTeamMember(BaseDAL dal)
         {
             InitializeComponent();
 
-            DataContext = new ManageTeamMemberViewModel();
+            DataContext = new ManageTeamMemberViewModel(dal);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

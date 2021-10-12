@@ -1,4 +1,5 @@
-﻿using BravoOne.lib.Objects;
+﻿using BravoOne.lib.DAL.Base;
+using BravoOne.lib.Objects;
 
 using BravoOne.UWP.ViewModels;
 
@@ -11,11 +12,11 @@ namespace BravoOne.UWP.Views
     {
         private RecruitmentViewModel ViewModel => (RecruitmentViewModel)DataContext;
 
-        public Recruitment()
+        public Recruitment(BaseDAL dal)
         {
             InitializeComponent();
 
-            DataContext = new RecruitmentViewModel();
+            DataContext = new RecruitmentViewModel(dal);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

@@ -3,9 +3,9 @@ using BravoOne.UWP.ViewModels.Base;
 
 namespace BravoOne.UWP.ViewModels
 {
-    public class RecruitmentViewModel : BaseViewModel
+    public class MainMenuViewModel : BaseViewModel
     {
-        public RecruitmentViewModel(BaseDAL dal) : base(dal)
+        public MainMenuViewModel(BaseDAL dal) : base(dal)
         {
         }
     }

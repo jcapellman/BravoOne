@@ -8,10 +8,6 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Page.DataContext>
-        <viewmodels:ManageTeamMemberViewModel />
-    </Page.DataContext>
-
     <Grid>
         <Grid>
             <Grid.Background>
