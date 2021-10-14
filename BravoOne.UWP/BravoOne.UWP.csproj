@@ -136,6 +136,7 @@
     <Compile Include="ViewModels\GameViewModel.cs" />
     <Compile Include="ViewModels\MainMenuViewModel.cs" />
     <Compile Include="ViewModels\ManageTeamMemberViewModel.cs" />
+    <Compile Include="ViewModels\NewGameViewModel.cs" />
     <Compile Include="ViewModels\RecruitmentViewModel.cs" />
     <Compile Include="Views\ManageTeamMember.xaml.cs">
       <DependentUpon>ManageTeamMember.xaml</DependentUpon>
