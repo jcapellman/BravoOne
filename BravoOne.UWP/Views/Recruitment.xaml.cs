@@ -1,5 +1,4 @@
-﻿using BravoOne.lib.DAL.Base;
-using BravoOne.lib.Objects;
+﻿using BravoOne.lib;
 
 using BravoOne.UWP.ViewModels;
 
@@ -12,23 +11,21 @@ namespace BravoOne.UWP.Views
     {
         private RecruitmentViewModel ViewModel => (RecruitmentViewModel)DataContext;
 
-        public Recruitment(BaseDAL dal)
+        public Recruitment()
         {
             InitializeComponent();
-
-            DataContext = new RecruitmentViewModel(dal);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            ViewModel.CurrentGame = (Game)e.Parameter;
-
+            DataContext = new RecruitmentViewModel((GameWrapper)e.Parameter);
+            
             base.OnNavigatedTo(e);
         }
 
         private void btnBack_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(MainPage), ViewModel.CurrentGame);
+            Frame.Navigate(typeof(MainPage), ViewModel.gWrapper);
         }
     }
 }

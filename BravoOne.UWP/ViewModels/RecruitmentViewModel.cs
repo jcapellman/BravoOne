@@ -1,11 +1,11 @@
-﻿using BravoOne.lib.DAL.Base;
+﻿using BravoOne.lib;
 using BravoOne.UWP.ViewModels.Base;
 
 namespace BravoOne.UWP.ViewModels
 {
     public class RecruitmentViewModel : BaseViewModel
     {
-        public RecruitmentViewModel(BaseDAL dal) : base(dal)
+        public RecruitmentViewModel(GameWrapper gWrapper) : base(gWrapper)
         {
         }
     }

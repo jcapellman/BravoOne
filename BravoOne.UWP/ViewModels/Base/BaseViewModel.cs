@@ -1,4 +1,4 @@
-﻿using BravoOne.lib.DAL.Base;
+﻿using BravoOne.lib;
 using BravoOne.lib.Objects;
 using BravoOne.lib.Objects.Base;
 
@@ -6,30 +6,28 @@ namespace BravoOne.UWP.ViewModels.Base
 {
     public class BaseViewModel : BaseMVVM
     {
-        private Game _game;
+        private GameWrapper _wrapper;
 
-        public Game CurrentGame
+        public GameWrapper gWrapper
         {
-            get => _game;
+            get => _wrapper;
 
             set
             {
-                _game = value;
+                _wrapper = value;
 
                 OnPropertyChanged();
             }
         }
 
-        protected BaseDAL baseDAL;
-
-        protected BaseViewModel(BaseDAL dal)
+        protected BaseViewModel(GameWrapper wrapper)
         {
-            baseDAL = dal;
+            gWrapper = wrapper;
         }
 
         public void UpdateGame(Game game)
         {
-            CurrentGame = game;
+            gWrapper.CurrentGame = game;
         }
     }
 }

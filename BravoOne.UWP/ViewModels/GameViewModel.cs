@@ -1,19 +1,18 @@
-﻿using BravoOne.lib.DAL.Base;
-using BravoOne.lib.Objects;
+﻿using BravoOne.lib;
+
 using BravoOne.UWP.ViewModels.Base;
 
 namespace BravoOne.UWP.ViewModels
 {
     public class GameViewModel : BaseViewModel
     {
-        public GameViewModel(BaseDAL dal) : base(dal)
+        public GameViewModel(GameWrapper gWrapper) : base(gWrapper)
         {
-            CurrentGame = new Game();
         }
 
         public void EndMonth()
         {
-            CurrentGame.EndTurn();
+            gWrapper.CurrentGame.EndTurn();
         }
     }
 }
