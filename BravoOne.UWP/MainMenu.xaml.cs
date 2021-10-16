@@ -1,7 +1,8 @@
-﻿using BravoOne.lib.DAL.Base;
+﻿using BravoOne.lib;
 using BravoOne.UWP.ViewModels;
 
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace BravoOne.UWP
 {
@@ -9,11 +10,26 @@ namespace BravoOne.UWP
     {
         private MainMenuViewModel viewModel => (MainMenuViewModel)DataContext;
 
-        public MainMenu(BaseDAL dal)
+        public MainMenu()
         {
             InitializeComponent();
+        }
 
-            DataContext = new MainMenuViewModel(dal);
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            DataContext = new MainMenuViewModel((GameWrapper)e.Parameter);
+
+            base.OnNavigatedTo(e);
+        }
+
+        private void btnNewGame_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            _ = Frame.Navigate(typeof(NewGame), viewModel.gWrapper);
+        }
+
+        private void btnLoadGame_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            _ = Frame.Navigate(typeof(LoadGame), viewModel.gWrapper);
         }
     }
 }
