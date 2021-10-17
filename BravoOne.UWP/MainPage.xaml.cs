@@ -1,4 +1,4 @@
-﻿using BravoOne.lib.Objects;
+﻿using BravoOne.lib;
 using BravoOne.UWP.ViewModels;
 using BravoOne.UWP.Views;
 
@@ -18,10 +18,7 @@ namespace BravoOne.UWP
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (e.Parameter != null && e.Parameter is Game game)
-            {
-                ViewModel.UpdateGame(game);
-            }
+            DataContext = new GameViewModel((GameWrapper)e.Parameter);
 
             base.OnNavigatedTo(e);
         }

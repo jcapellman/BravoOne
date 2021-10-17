@@ -29,5 +29,10 @@ namespace BravoOne.UWP.ViewModels.Base
         {
             gWrapper.CurrentGame = game;
         }
+
+        public void UpdateWrapper(GameWrapper gWrapper)
+        {
+            this.gWrapper = gWrapper;
+        }
     }
 }

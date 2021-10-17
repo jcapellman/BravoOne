@@ -1,6 +1,7 @@
 ﻿using BravoOne.lib;
 
 using BravoOne.UWP.ViewModels.Base;
+using System;
 
 namespace BravoOne.UWP.ViewModels
 {
