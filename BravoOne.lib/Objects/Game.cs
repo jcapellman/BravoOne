@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+
 using BravoOne.lib.DAL.Base;
 using BravoOne.lib.Objects.Base;
 
@@ -10,6 +11,10 @@ namespace BravoOne.lib.Objects
     public class Game : BaseMVVM
     {
         public int Id { get; set; }
+        
+        public string TeamLeaderName { get; set; }
+
+        public string TeamLogo { get; set; }
 
         private List<TeamMember> _teamMembers { get; set; }
 

@@ -1,8 +1,10 @@
 ﻿using BravoOne.lib;
+using BravoOne.lib.Objects;
 using BravoOne.UWP.ViewModels.Base;
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 using Windows.Storage;
@@ -39,9 +41,9 @@ namespace BravoOne.UWP.ViewModels
             }
         }
 
-        private List<string> _logos;
+        private ObservableCollection<string> _logos;
 
-        public List<string> Logos
+        public ObservableCollection<string> Logos
         {
             get => _logos;
 
@@ -72,7 +74,7 @@ namespace BravoOne.UWP.ViewModels
 
         private async void LoadImages()
         {
-            Logos = new List<string>();
+            Logos = new ObservableCollection<string>();
 
             StorageFolder installedLocation = Windows.ApplicationModel.Package.Current.InstalledLocation;
 
@@ -81,14 +83,10 @@ namespace BravoOne.UWP.ViewModels
 
             var logos = await subFolder.GetFilesAsync();
 
-            var tmpLogos = new List<string>();
-
             foreach (var logo in logos)
             {
-                tmpLogos.Add(logo.Path);
+                Logos.Add(logo.Path);
             }
-
-            Logos = tmpLogos;
 
             SelectedLogo = Logos.FirstOrDefault();
         }
@@ -97,8 +95,18 @@ namespace BravoOne.UWP.ViewModels
         {
             Name = string.Empty;
 
-
             LoadImages();
+        }
+
+        public void CreateGame()
+        {
+            var game = new Game
+            {
+                TeamLeaderName = Name,
+                TeamLogo = SelectedLogo
+            };
+
+            gWrapper.CurrentGame = game;
         }
     }
 }

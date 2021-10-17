@@ -29,7 +29,9 @@ namespace BravoOne.UWP
 
         private void btnStart_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
+            ViewModel.CreateGame();
 
+            _ = Frame.Navigate(typeof(MainPage), ViewModel.gWrapper);
         }
     }
 }
