@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:BravoOne.UWP"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:viewmodels="using:BravoOne.UWP.ViewModels"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -37,10 +37,26 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 
                 <TextBlock Grid.Row="0" Text="Your Name" Margin="0,0,0,10" />
-                <TextBox Grid.Row="1" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="400" />
+                <TextBox Grid.Row="1" HorizontalAlignment="Left" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="400" />
+
+                <TextBlock Grid.Row="2" Text="Team Logo" Margin="0,30,0,10" />
+                <GridView Grid.Row="3" SelectionMode="Single" ItemsSource="{Binding Logos, Mode=TwoWay}" SelectedItem="{Binding SelectedLogo}">
+                    <GridView.ItemTemplate>
+                        <DataTemplate>
+                            <Image Width="64" Height="64" Stretch="Uniform" MinHeight="64" MinWidth="64" MaxWidth="256" MaxHeight="256">
+                                <Image.Source>
+                                    <BitmapImage UriSource="{Binding}" />
+                                </Image.Source>
+                            </Image>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                </GridView>
             </Grid>
 
             <Grid Grid.Column="1" HorizontalAlignment="Right">
