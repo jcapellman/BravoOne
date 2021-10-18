@@ -9,11 +9,15 @@ namespace BravoOne.lib.DAL
 {
     public class LiteDBDAL : BaseDAL
     {
-        private const string FileName = "lite.db";
+        public LiteDBDAL(string rootFolderName) : base(rootFolderName)
+        {
+        }
+
+        protected override string FileName => "litedb.db";
 
         public override void Add<T>(T item)
         {
-            using (var db = new LiteDB.LiteDatabase(FileName))
+            using (var db = new LiteDB.LiteDatabase(ComputedFileName))
             {
                 var collection = db.GetCollection<T>();
 
@@ -23,7 +27,7 @@ namespace BravoOne.lib.DAL
 
         public override void Delete<T>(int id)
         {
-            using (var db = new LiteDB.LiteDatabase(FileName))
+            using (var db = new LiteDB.LiteDatabase(ComputedFileName))
             {
                 var collection = db.GetCollection<T>();
 
@@ -33,7 +37,7 @@ namespace BravoOne.lib.DAL
 
         public override void Delete<T>(Expression<Func<T, bool>> expression)
         {
-            using (var db = new LiteDB.LiteDatabase(FileName))
+            using (var db = new LiteDB.LiteDatabase(ComputedFileName))
             {
                 var collection = db.GetCollection<T>();
 
@@ -43,7 +47,7 @@ namespace BravoOne.lib.DAL
 
         public override T Get<T>(Expression<Func<T, bool>> expression)
         {
-            using (var db = new LiteDB.LiteDatabase(FileName))
+            using (var db = new LiteDB.LiteDatabase(ComputedFileName))
             {
                 var collection = db.GetCollection<T>();
 
@@ -53,7 +57,7 @@ namespace BravoOne.lib.DAL
 
         public override List<T> GetAll<T>(Expression<Func<T, bool>> expression)
         {
-            using (var db = new LiteDB.LiteDatabase(FileName))
+            using (var db = new LiteDB.LiteDatabase(ComputedFileName))
             {
                 var collection = db.GetCollection<T>();
 
@@ -63,7 +67,7 @@ namespace BravoOne.lib.DAL
 
         public override void Update<T>(T item)
         {
-            using (var db = new LiteDB.LiteDatabase(FileName))
+            using (var db = new LiteDB.LiteDatabase(ComputedFileName))
             {
                 db.GetCollection<T>().Update(item);
             }

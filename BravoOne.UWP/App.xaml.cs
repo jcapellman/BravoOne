@@ -34,7 +34,7 @@ namespace BravoOne.UWP
             {
                 if (rootFrame.Content == null)
                 {
-                    rootFrame.Navigate(typeof(MainMenu), new GameWrapper(new LiteDBDAL()));
+                    rootFrame.Navigate(typeof(MainMenu), new GameWrapper(new LiteDBDAL(Windows.Storage.ApplicationData.Current.LocalFolder.Path)));
                 }
 
                 Window.Current.Activate();

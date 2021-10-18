@@ -33,12 +33,34 @@ namespace BravoOne.UWP.ViewModels
                 _selectedGame = value;
 
                 OnPropertyChanged();
+
+                Validate();
             }
         }
 
-        protected LoadGameViewModel(GameWrapper wrapper) : base(wrapper)
+        private bool _enabled;
+
+        public bool Enabled
+        {
+            get => _enabled;
+
+            set
+            {
+                _enabled = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private void Validate()
+        {
+            Enabled = SelectedGame != null;
+        }
+
+        public LoadGameViewModel(GameWrapper wrapper) : base(wrapper)
         {
             Games = gWrapper.DAL.GetAll<Game>(a => a != null);
+
+            SelectedGame = null;
         }
 
         public void LoadGame()
