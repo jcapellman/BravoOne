@@ -196,6 +196,7 @@
                 <Button Style="{StaticResource AccentButtonStyle}" Content="Armory" Margin="0,0,20,0" />
                 <Button Style="{StaticResource AccentButtonStyle}" Content="Training" Margin="0,0,20,0" />
                 <Button Style="{StaticResource AccentButtonStyle}" Content="Contracts" Margin="0,0,20,0" />
+                <Button Style="{StaticResource AccentButtonStyle}" Content="Save Game" Margin="0,0,20,0" Click="btnSaveGame_Click" />
             </StackPanel>
             
             <Button Grid.Column="1" Content="End Month" Click="btnEndMonth_Click" Style="{StaticResource AccentButtonStyle}" />

@@ -1,7 +1,6 @@
 ﻿using BravoOne.lib;
 
 using BravoOne.UWP.ViewModels.Base;
-using System;
 
 namespace BravoOne.UWP.ViewModels
 {
@@ -9,6 +8,11 @@ namespace BravoOne.UWP.ViewModels
     {
         public GameViewModel(GameWrapper gWrapper) : base(gWrapper)
         {
+        }
+
+        public void SaveGame()
+        {
+            gWrapper.DAL.Add(gWrapper.CurrentGame);
         }
 
         public void EndMonth()
