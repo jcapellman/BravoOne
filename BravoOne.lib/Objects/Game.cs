@@ -11,10 +11,33 @@ namespace BravoOne.lib.Objects
     public class Game : BaseMVVM
     {
         public int Id { get; set; }
-        
-        public string TeamLeaderName { get; set; }
 
-        public string TeamLogo { get; set; }
+        private string _teamLeaderName;
+
+        public string TeamLeaderName {
+            get => _teamLeaderName;
+
+            set
+            {
+                _teamLeaderName = value;
+
+                OnPropertyChanged();
+            }
+        }
+
+        private string _teamLogo;
+
+        public string TeamLogo
+        {
+            get => _teamLogo;
+
+            set
+            {
+                _teamLogo = value;
+
+                OnPropertyChanged();
+            }
+        }
 
         private List<TeamMember> _teamMembers { get; set; }
 

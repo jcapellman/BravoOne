@@ -3,7 +3,6 @@ using BravoOne.lib.Objects;
 using BravoOne.UWP.ViewModels.Base;
 
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
