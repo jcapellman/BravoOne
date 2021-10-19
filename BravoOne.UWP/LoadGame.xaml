@@ -52,11 +52,22 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Grid.Column="0" Text="{Binding CurrentDateString}" />
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
 
-                                <TextBlock Grid.Column="1" Text="{Binding TeamLeaderName}" />
+                                <TextBlock Grid.Column="0" Grid.Row="0" Text="game date" />
+                                <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding CurrentDateString}" Style="{StaticResource SubtitleTextBlockStyle}" />
+
+                                <TextBlock Grid.Column="1" Grid.Row="0" Margin="20,0,0,0" Text="team leader name" />
+                                <TextBlock Grid.Column="1" Grid.Row="1" Margin="20,0,0,0" Text="{Binding TeamLeaderName}" Style="{StaticResource SubtitleTextBlockStyle}" />
+
+                                <TextBlock Grid.Column="2" Grid.Row="0" Margin="20,0,0,0" Text="money" />
+                                <TextBlock Grid.Column="2" Grid.Row="1" Margin="20,0,0,0" Text="{Binding Money}" Style="{StaticResource SubtitleTextBlockStyle}" />
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
