@@ -9,24 +9,30 @@
 
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="Assets/Backgrounds/Camo.png" />
+            <ImageBrush ImageSource="Assets/Backgrounds/MainMenu.png" />
         </Grid.Background>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
 
-            <RowDefinition Height="*" />
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
 
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+                <RowDefinition Height="*" />
 
-        <TextBlock Grid.Row="0" Text="Bravo One" HorizontalAlignment="Center" Style="{StaticResource HeaderTextBlockStyle}" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="1" Orientation="Vertical" Margin="0,30,0,0" HorizontalAlignment="Center">
-            <Button Content="New Game" FontSize="40" HorizontalAlignment="Center" Click="btnNewGame_Click" />
-            <Button Content="Load Game" FontSize="40" HorizontalAlignment="Center" Margin="0,30,0,0" Click="btnLoadGame_Click" />
-        </StackPanel>
+            <TextBlock Grid.Row="0" Text="Bravo One" HorizontalAlignment="Center" FontSize="90" Style="{StaticResource HeaderTextBlockStyle}" />
 
-        <TextBlock Grid.Row="2" Text="Version 0.1 (Build 1)" HorizontalAlignment="Center" Margin="0,0,0,20" />
+            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="30,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                <Button Content="New Game" FontSize="40" HorizontalAlignment="Center" Click="btnNewGame_Click" CornerRadius="10" />
+                <Button Content="Load Game" FontSize="40" HorizontalAlignment="Center" Margin="30,0,0,0" Click="btnLoadGame_Click" CornerRadius="10" />
+            </StackPanel>
+
+            <TextBlock Grid.Row="2" Text="Version 0.1 (Build 1)" HorizontalAlignment="Center" Margin="0,0,0,20" />
+        </Grid>
     </Grid>
 </Page>

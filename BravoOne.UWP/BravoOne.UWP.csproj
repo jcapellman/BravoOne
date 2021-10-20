@@ -153,6 +153,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Backgrounds\Camo.png" />
+    <Content Include="Assets\Backgrounds\MainMenu.png" />
     <Content Include="Assets\Icons\E2.png" />
     <Content Include="Assets\Icons\E3.png" />
     <Content Include="Assets\Icons\E4.png" />
@@ -172,6 +173,7 @@
     <Content Include="Assets\Icons\O7.png" />
     <Content Include="Assets\Icons\O8.png" />
     <Content Include="Assets\Icons\O9.png" />
+    <Content Include="Assets\SidePanels\Fighter.png" />
     <Content Include="Assets\SidePanels\Helicopter.png" />
     <Content Include="Assets\SidePanels\WinterShack.png" />
     <Content Include="Properties\Default.rd.xml" />
