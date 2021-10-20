@@ -49,5 +49,10 @@ namespace BravoOne.UWP
 
             await dialog.ShowAsync();
         }
+
+        private void btnExitGame_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            _ = Frame.Navigate(typeof(MainMenu), ViewModel.gWrapper);
+        }
     }
 }
