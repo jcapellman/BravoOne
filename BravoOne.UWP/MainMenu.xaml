@@ -25,7 +25,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" Text="Bravo One" HorizontalAlignment="Center" FontSize="90" Style="{StaticResource HeaderTextBlockStyle}" />
+            <Image Grid.Row="0" HorizontalAlignment="Center" MaxWidth="720" Source="Assets/Logo.png" />
 
             <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="30,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Bottom">
                 <Button Content="New Game" FontSize="40" HorizontalAlignment="Center" Click="btnNewGame_Click" CornerRadius="10" />

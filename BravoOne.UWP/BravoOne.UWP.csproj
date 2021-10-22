@@ -173,6 +173,7 @@
     <Content Include="Assets\Icons\O7.png" />
     <Content Include="Assets\Icons\O8.png" />
     <Content Include="Assets\Icons\O9.png" />
+    <Content Include="Assets\Logo.png" />
     <Content Include="Assets\SidePanels\Fighter.png" />
     <Content Include="Assets\SidePanels\Helicopter.png" />
     <Content Include="Assets\SidePanels\WinterShack.png" />
