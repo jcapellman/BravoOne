@@ -89,8 +89,8 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Content="Back to Main Menu" FontSize="30" Click="btnBack_Click" CornerRadius="10" />
-            <Button Grid.Column="1" HorizontalAlignment="Right" Content="Load Game" FontSize="30" IsEnabled="{Binding Enabled, Mode=TwoWay}" Click="btnLoadGame_Click" CornerRadius="10" />
+            <Button Grid.Column="0" Content="Back to Main Menu" Click="btnBack_Click" Style="{ThemeResource MainButton}" />
+            <Button Grid.Column="1" HorizontalAlignment="Right" Content="Load Game" Style="{ThemeResource MainButton}" IsEnabled="{Binding Enabled, Mode=TwoWay}" Click="btnLoadGame_Click" />
         </Grid>
     </Grid>
 </Page>

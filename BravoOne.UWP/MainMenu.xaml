@@ -28,8 +28,9 @@
             <Image Grid.Row="0" HorizontalAlignment="Center" MaxWidth="720" Source="Assets/Logo.png" />
 
             <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="30,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-                <Button Content="New Game" FontSize="40" HorizontalAlignment="Center" Click="btnNewGame_Click" CornerRadius="10" />
-                <Button Content="Load Game" FontSize="40" HorizontalAlignment="Center" Margin="30,0,0,0" Click="btnLoadGame_Click" CornerRadius="10" />
+                <Button Content="New Game" HorizontalAlignment="Center" Click="btnNewGame_Click" Style="{ThemeResource MainButton}" />
+                <Button Content="Load Game" HorizontalAlignment="Center" Margin="30,0,0,0" Click="btnLoadGame_Click" Style="{ThemeResource MainButton}" />
+                <Button Content="Options" HorizontalAlignment="Center" Margin="30,0,0,0" Style="{ThemeResource MainButton}" />
             </StackPanel>
 
             <TextBlock Grid.Row="2" Text="Version 0.1 (Build 1)" HorizontalAlignment="Center" Margin="0,0,0,20" />
