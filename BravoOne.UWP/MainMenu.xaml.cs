@@ -8,7 +8,7 @@ namespace BravoOne.UWP
 {
     public sealed partial class MainMenu : Page
     {
-        private MainMenuViewModel viewModel => (MainMenuViewModel)DataContext;
+        private MainMenuViewModel ViewModel => (MainMenuViewModel)DataContext;
 
         public MainMenu()
         {
@@ -24,12 +24,17 @@ namespace BravoOne.UWP
 
         private void btnNewGame_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            _ = Frame.Navigate(typeof(NewGame), viewModel.gWrapper);
+            _ = Frame.Navigate(typeof(NewGame), ViewModel.gWrapper);
         }
 
         private void btnLoadGame_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            _ = Frame.Navigate(typeof(LoadGame), viewModel.gWrapper);
+            _ = Frame.Navigate(typeof(LoadGame), ViewModel.gWrapper);
+        }
+
+        private void btnOptions_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            _ = Frame.Navigate(typeof(Options), ViewModel.gWrapper);
         }
     }
 }
