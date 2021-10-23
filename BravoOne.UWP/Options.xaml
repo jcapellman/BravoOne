@@ -35,7 +35,7 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Row="0" Style="{StaticResource FieldHeader}" Text="Auto Save after each month" />
-                <ToggleButton Grid.Row="1" IsChecked="{Binding Option.AutoSave, Mode=TwoWay}"  />
+                <ToggleSwitch Grid.Row="1" IsOn="{Binding Option.AutoSave, Mode=TwoWay}"  />
             </Grid>
 
             <Grid Grid.Column="1" HorizontalAlignment="Right" CornerRadius="15">
