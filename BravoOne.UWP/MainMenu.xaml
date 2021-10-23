@@ -27,13 +27,14 @@
 
             <Image Grid.Row="0" HorizontalAlignment="Center" MaxWidth="720" Source="Assets/Logo.png" />
 
-            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="30,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="30,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Bottom">
                 <Button Content="New Game" HorizontalAlignment="Center" Click="btnNewGame_Click" Style="{ThemeResource MainButton}" />
                 <Button Content="Load Game" HorizontalAlignment="Center" Margin="30,0,0,0" Click="btnLoadGame_Click" Style="{ThemeResource MainButton}" />
                 <Button Content="Options" HorizontalAlignment="Center" Margin="30,0,0,0" Click="btnOptions_Click" Style="{ThemeResource MainButton}" />
+                <Button Content="Credits" HorizontalAlignment="Center" Margin="30,0,0,0" Click="btnCredits_Click" Style="{ThemeResource MainButton}" />
             </StackPanel>
 
-            <TextBlock Grid.Row="2" Text="Version 0.1 (Build 1)" HorizontalAlignment="Center" Margin="0,0,0,20" />
+            <TextBlock Grid.Row="2" Text="Version 0.1 (Build 1)" HorizontalAlignment="Center" Margin="0,10,0,20" />
         </Grid>
     </Grid>
 </Page>
