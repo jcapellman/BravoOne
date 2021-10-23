@@ -21,7 +21,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Margin="10,0,0,0" Text="New Game" HorizontalAlignment="Left" Style="{StaticResource HeaderTextBlockStyle}" />
+        <TextBlock Grid.Row="0" Margin="10,0,0,0" Text="New Game" HorizontalAlignment="Left" Style="{ThemeResource Header}" />
 
         <Grid Grid.Row="1" Margin="10,30,10,30">
             <Grid.ColumnDefinitions>
@@ -42,10 +42,10 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 
-                <TextBlock Grid.Row="0" Text="Your Name" Margin="0,0,0,10" />
+                <TextBlock Grid.Row="0" Text="Your Name" Style="{ThemeResource FieldHeader}" Margin="0,0,0,10" />
                 <TextBox Grid.Row="1" HorizontalAlignment="Left" CornerRadius="10" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="400" />
 
-                <TextBlock Grid.Row="2" Text="Team Logo" Margin="0,30,0,10" />
+                <TextBlock Grid.Row="2" Text="Team Logo" Style="{ThemeResource FieldHeader}" Margin="0,30,0,10" />
                 <GridView Grid.Row="3" SelectionMode="Single" ItemsSource="{Binding Logos, Mode=TwoWay}" SelectedItem="{Binding SelectedLogo, Mode=TwoWay}">
                     <GridView.ItemTemplate>
                         <DataTemplate>

@@ -20,7 +20,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Margin="10,0,0,0" Text="Load Game" HorizontalAlignment="Left" Style="{StaticResource HeaderTextBlockStyle}" />
+        <TextBlock Grid.Row="0" Margin="10,0,0,0" Text="Load Game" HorizontalAlignment="Left" Style="{ThemeResource Header}" />
 
         <Grid Grid.Row="1" Margin="10,30,10,30">
             <Grid.ColumnDefinitions>
@@ -29,7 +29,7 @@
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="0" Margin="0,0,20,0" Visibility="{Binding NoGamesListingVisibility, Mode=TwoWay}">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="No save games exist to load" Style="{StaticResource SubheaderTextBlockStyle}" />
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="No save games exist to load" Style="{ThemeResource SubHeader}" />
             </Grid>
             
             <Grid Grid.Column="0" Margin="0,0,20,0" Visibility="{Binding GamesListingVisibility, Mode=TwoWay}">
@@ -42,7 +42,7 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Text="Select a game from the list" Margin="0,30,0,10" />
+                <TextBlock Grid.Row="0" Text="Select a game from the list" Style="{ThemeResource FieldHeader}" Margin="0,30,0,10" />
                 <ListView Grid.Row="1" SelectionMode="Single" ItemsSource="{Binding Games, Mode=TwoWay}" SelectedItem="{Binding SelectedGame, Mode=TwoWay}">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">

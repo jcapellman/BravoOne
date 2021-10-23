@@ -48,16 +48,16 @@
                     </Image.Source>
                 </Image>
 
-                <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource HeaderTextBlockStyle}" Text="Bravo Team Sitrep" />
-                <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource SubheaderTextBlockStyle}" Text="{Binding gWrapper.CurrentGame.TeamLeaderName}" />
+                <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource Header}" Text="Bravo Team Sitrep" />
+                <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource SubHeader}" Text="{Binding gWrapper.CurrentGame.TeamLeaderName}" />
             </Grid>
 
-            <TextBlock Grid.Column="1" Grid.Row="0" Style="{StaticResource HeaderTextBlockStyle}" HorizontalAlignment="Right" Text="{Binding gWrapper.CurrentGame.CurrentDateString}" />
+            <TextBlock Grid.Column="1" Grid.Row="0" Style="{StaticResource Header}" HorizontalAlignment="Right" Text="{Binding gWrapper.CurrentGame.CurrentDateString}" />
 
             <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right">
-                <TextBlock Style="{StaticResource SubheaderTextBlockStyle}" FontWeight="Bold" Text="Bank Account Balance" />
-                <TextBlock Margin="20,0,0,0" Style="{StaticResource SubheaderTextBlockStyle}" Text="$" />
-                <TextBlock Style="{StaticResource SubheaderTextBlockStyle}" Text="{Binding gWrapper.CurrentGame.Money}" />
+                <TextBlock Style="{StaticResource SubHeader}" FontWeight="Bold" Text="Bank Account Balance" />
+                <TextBlock Margin="20,0,0,0" Style="{StaticResource SubHeader}" Text="$" />
+                <TextBlock Style="{StaticResource SubHeader}" Text="{Binding gWrapper.CurrentGame.Money}" />
             </StackPanel>
         </Grid>
 
@@ -84,7 +84,7 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Style="{StaticResource SubheaderTextBlockStyle}" Text="Team Member Status" />
+                <TextBlock Grid.Row="0" Style="{StaticResource SubHeader}" Text="Team Member Status" />
                 <ListView Grid.Row="1" ItemsSource="{Binding CurrentGame.TeamMembers}">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
@@ -133,7 +133,7 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Style="{StaticResource SubheaderTextBlockStyle}" Text="Contract Status" />
+                <TextBlock Grid.Row="0" Style="{StaticResource SubHeader}" Text="Contract Status" />
                 <ListView Grid.Row="1" ItemsSource="{Binding CurrentGame.Contracts, Mode=TwoWay}">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
@@ -180,7 +180,7 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Style="{StaticResource SubheaderTextBlockStyle}" Text="World Status" />
+                <TextBlock Grid.Row="0" Style="{StaticResource SubHeader}" Text="World Status" />
             </Grid>
         </Grid>
         

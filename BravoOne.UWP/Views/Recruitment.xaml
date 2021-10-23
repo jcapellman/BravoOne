@@ -16,16 +16,12 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <!-- Header Row -->
             <Grid Grid.Row="0" VerticalAlignment="Top" Margin="10,0,10,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" VerticalAlignment="Center" Margin="0,0,20,0" Click="btnBack_Click" Style="{StaticResource NavigationBackButtonNormalStyle}"/>
-                <TextBlock Grid.Column="1" Style="{StaticResource HeaderTextBlockStyle}" Text="Recruitment" />
+               <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="Recruitment" />
             </Grid>
 
             <!-- Content Row -->
@@ -39,8 +35,13 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <TextBlock Style="{StaticResource SubheaderTextBlockStyle}" Text="Team Member Status" />
+                <TextBlock Grid.Row="0" Style="{StaticResource SubheaderTextBlockStyle}" Text="Available Recruits" />
+                <ListView Grid.Row="1">
+                    
+                </ListView>
             </Grid>
+
+            <Button Grid.Row="2" Style="{ThemeResource MainButton}" Content="Return to Main Screen" Click="btnBack_Click" />
         </Grid>
     </Grid>
 </Page>
