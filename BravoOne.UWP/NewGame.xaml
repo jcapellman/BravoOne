@@ -43,7 +43,7 @@
                 </Grid.RowDefinitions>
                 
                 <TextBlock Grid.Row="0" Text="Your Name" Style="{ThemeResource FieldHeader}" Margin="0,0,0,10" />
-                <TextBox Grid.Row="1" HorizontalAlignment="Left" CornerRadius="10" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="400" />
+                <TextBox Grid.Row="1" HorizontalAlignment="Left" MaxLength="40" CornerRadius="10" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="400" />
 
                 <TextBlock Grid.Row="2" Text="Team Logo" Style="{ThemeResource FieldHeader}" Margin="0,30,0,10" />
                 <GridView Grid.Row="3" SelectionMode="Single" ItemsSource="{Binding Logos, Mode=TwoWay}" SelectedItem="{Binding SelectedLogo, Mode=TwoWay}">
