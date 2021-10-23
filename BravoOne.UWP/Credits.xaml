@@ -1,0 +1,57 @@
+﻿<Page
+    x:Class="BravoOne.UWP.Credits"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BravoOne.UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="Assets/Backgrounds/Camo.png" />
+        </Grid.Background>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+
+            <RowDefinition Height="*" />
+
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Margin="10,0,0,0" Text="Credits" HorizontalAlignment="Left" Style="{ThemeResource Header}" />
+
+        <Grid Grid.Row="1" Margin="10,30,10,30">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" Margin="0,0,20,0" HorizontalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                
+                <TextBlock Grid.Row="0" HorizontalAlignment="Center" Text="Programming and Design" Style="{ThemeResource SubHeader}" />
+                <TextBlock Grid.Row="1" HorizontalAlignment="Center" Text="Jarred Capellman" Style="{ThemeResource Header}" />
+
+                <TextBlock Grid.Row="2" Margin="0,40,0,0" HorizontalAlignment="Center" Text="Quality Assurance" Style="{ThemeResource SubHeader}" />
+                <TextBlock Grid.Row="3" HorizontalAlignment="Center" Text="Nophil Anwer" Style="{ThemeResource Header}" />
+            </Grid>
+
+            <Grid Grid.Column="1" HorizontalAlignment="Right" CornerRadius="15">
+                <Image Source="Assets/SidePanels/Satellite.png" />
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="2" Margin="10,10,10,10">
+            <Button Grid.Column="0" Content="Back to Main Menu" Click="btnBack_Click" Style="{ThemeResource MainButton}" />
+        </Grid>
+    </Grid>
+</Page>
