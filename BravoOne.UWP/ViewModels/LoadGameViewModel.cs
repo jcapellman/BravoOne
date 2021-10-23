@@ -4,6 +4,7 @@ using System.Linq;
 using BravoOne.lib;
 using BravoOne.lib.Objects;
 using BravoOne.UWP.ViewModels.Base;
+using Windows.UI.Xaml;
 
 namespace BravoOne.UWP.ViewModels
 {
@@ -52,9 +53,39 @@ namespace BravoOne.UWP.ViewModels
             }
         }
 
+        private Visibility _gamesListingVisibility;
+
+        public Visibility GamesListingVisibility
+        {
+            get => _gamesListingVisibility;
+
+            set
+            {
+                _gamesListingVisibility = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private Visibility _noGamesListingVisibility;
+
+        public Visibility NoGamesListingVisibility
+        {
+            get => _noGamesListingVisibility;
+
+            set
+            {
+                _noGamesListingVisibility = value;
+                OnPropertyChanged();
+            }
+        }
+
         private void Validate()
         {
             Enabled = SelectedGame != null;
+
+            GamesListingVisibility = Games.Any() ? Visibility.Visible : Visibility.Collapsed;
+
+            NoGamesListingVisibility = !Games.Any() ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public LoadGameViewModel(GameWrapper wrapper) : base(wrapper)
