@@ -48,7 +48,7 @@
                     
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Grid>
+                            <Grid Margin="0,0,0,20">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
@@ -86,7 +86,7 @@
             </Grid.ColumnDefinitions>
 
             <Button Grid.Column="0" Content="Back to Main Menu" FontSize="30" Click="btnBack_Click" />
-            <Button Grid.Column="1" HorizontalAlignment="Right" Content="Load" FontSize="30" IsEnabled="{Binding Enabled, Mode=TwoWay}" Click="btnLoadGame_Click" />
+            <Button Grid.Column="1" HorizontalAlignment="Right" Content="Load Game" FontSize="30" IsEnabled="{Binding Enabled, Mode=TwoWay}" Click="btnLoadGame_Click" />
         </Grid>
     </Grid>
 </Page>

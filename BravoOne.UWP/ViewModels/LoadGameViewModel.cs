@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 using BravoOne.lib;
 using BravoOne.lib.Objects;
@@ -60,7 +61,7 @@ namespace BravoOne.UWP.ViewModels
         {
             Games = gWrapper.DAL.GetAll<Game>(a => a != null);
 
-            SelectedGame = null;
+            SelectedGame = Games.FirstOrDefault();
         }
 
         public void LoadGame()
