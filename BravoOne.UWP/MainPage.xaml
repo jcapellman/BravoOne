@@ -192,15 +192,15 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel Orientation="Horizontal" Grid.Column="0">
-                <Button Style="{StaticResource AccentButtonStyle}" Content="Recruitment" Margin="0,0,20,0" Click="btnRecruitment_Click" />
-                <Button Style="{StaticResource AccentButtonStyle}" Content="Armory" Margin="0,0,20,0" />
-                <Button Style="{StaticResource AccentButtonStyle}" Content="Training" Margin="0,0,20,0" />
-                <Button Style="{StaticResource AccentButtonStyle}" Content="Contracts" Margin="0,0,20,0" />
-                <Button Style="{StaticResource AccentButtonStyle}" Content="Save Game" Margin="0,0,20,0" Click="btnSaveGame_Click" />
-                <Button Style="{StaticResource AccentButtonStyle}" Content="Exit Game" Margin="0,0,20,0" Click="btnExitGame_Click" />
+                <Button Style="{ThemeResource MainButton}" Content="Recruitment" Margin="0,0,20,0" Click="btnRecruitment_Click" />
+                <Button Style="{ThemeResource MainButton}" Content="Armory" Margin="0,0,20,0" />
+                <Button Style="{ThemeResource MainButton}" Content="Training" Margin="0,0,20,0" />
+                <Button Style="{ThemeResource MainButton}" Content="Contracts" Margin="0,0,20,0" />
+                <Button Style="{ThemeResource MainButton}" Content="Save Game" Margin="0,0,20,0" Click="btnSaveGame_Click" />
+                <Button Style="{ThemeResource MainButton}" Content="Exit Game" Margin="0,0,20,0" Click="btnExitGame_Click" />
             </StackPanel>
-            
-            <Button Grid.Column="1" Content="End Month" Click="btnEndMonth_Click" Style="{StaticResource AccentButtonStyle}" />
+
+            <Button Grid.Column="1" Content="End Month" Click="btnEndMonth_Click" Style="{ThemeResource MainButton}" />
         </Grid>
     </Grid>
 </Page>
