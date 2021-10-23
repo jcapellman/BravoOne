@@ -18,6 +18,11 @@ namespace BravoOne.UWP.ViewModels
         public void EndMonth()
         {
             gWrapper.CurrentGame.EndTurn();
+            
+            if (gWrapper.Option.AutoSave)
+            {
+                SaveGame();
+            }
         }
     }
 }
