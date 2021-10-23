@@ -9,6 +9,28 @@ namespace BravoOne.lib
 
         public Game CurrentGame { get; set; }
 
+        private Options _option;
+
+        public Options Option
+        {
+            get
+            {
+                if (_option == null)
+                {
+                    _option = DAL.Get<Options>(a => a != null);
+                }
+
+                return _option ?? new Options();
+            }
+
+            set
+            {
+                _option = value;
+
+                DAL.Update<Options>(value);
+            }
+        }
+
         public GameWrapper(BaseDAL dal, Game aGame = null)
         {
             DAL = dal;
