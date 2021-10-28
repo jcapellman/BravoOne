@@ -29,7 +29,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Grid Grid.Column="0" Margin="0,0,20,0" HorizontalAlignment="Center">
+            <Grid Grid.Column="0" x:Name="gCredits" Margin="0,800,20,0" HorizontalAlignment="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
