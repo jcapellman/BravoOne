@@ -5,6 +5,7 @@ using System;
 
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -39,6 +40,8 @@ namespace BravoOne.UWP
 
                 Window.Current.Activate();
             }
+
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
         }
 
         void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
