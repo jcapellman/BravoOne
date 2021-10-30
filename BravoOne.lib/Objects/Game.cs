@@ -25,6 +25,19 @@ namespace BravoOne.lib.Objects
             }
         }
 
+        private int _teamLevel;
+
+        public int TeamLevel { 
+            get => _teamLevel;
+        
+            set
+            {
+                _teamLevel = value;
+
+                OnPropertyChanged();
+            }
+        }
+
         private string _teamLogo;
 
         public string TeamLogo
@@ -140,6 +153,8 @@ namespace BravoOne.lib.Objects
 
             Contracts = new ObservableCollection<Contract>();
             TeamMembers = new List<TeamMember>();
+
+            TeamLevel = 1;
 
             Money = 100000;
 
