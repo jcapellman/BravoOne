@@ -24,7 +24,7 @@ namespace BravoOne.lib.Objects
 
         public int TeamMemberToll { get; set; }
 
-        public int SkillPointsRemaining { get; set; }
+        public uint SkillPointsRemaining { get; set; }
 
         public List<Guid> AssignedTeamMembers { get; set; }
 

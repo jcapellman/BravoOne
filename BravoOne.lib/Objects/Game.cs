@@ -104,6 +104,36 @@ namespace BravoOne.lib.Objects
             return dal.Get<Game>(a => a.Id == id);
         }
 
+        private void PopulateRecruitment()
+        {
+            var randomFirst = new Random((int)DateTime.Now.Ticks);
+            var randomLast = new Random((int)DateTime.Now.Ticks+1);
+            var randomSkill = new Random((int)DateTime.Now.Ticks);
+
+            for (var x = 0; x < 50; x++)
+            {
+                var member = new TeamMember
+                {
+                    OnTeam = false,
+                    Health = 100,
+                    Status = 100,
+                    Id = Guid.NewGuid()
+                };
+
+                do {
+                    var firstName = Common.Constants.FIRST_NAMES[randomFirst.Next(0, Common.Constants.FIRST_NAMES.Length - 1)];
+                    var lastName = Common.Constants.LAST_NAMES[randomLast.Next(0, Common.Constants.LAST_NAMES.Length - 1)];
+
+                    member.Name = $"{firstName} {lastName}";
+                } while (TeamMembers.Any(a => a.Name == member.Name));
+
+                member.SkillPoints = (uint)randomSkill.Next(1, 50);
+
+                member.MonthlySalary = 10000 * member.SkillPoints;
+
+                AddTeamMember(member);
+            }
+        }
         public Game()
         {
             CurrentDate = DateTime.Now;
@@ -111,29 +141,9 @@ namespace BravoOne.lib.Objects
             Contracts = new ObservableCollection<Contract>();
             TeamMembers = new List<TeamMember>();
 
-            Money = 10000000;
+            Money = 100000;
 
-            AddTeamMember(new TeamMember
-            {
-                Health = 100,
-                MonthlySalary = 5000,
-                Name = "Jason",
-                StartDate = DateTime.Now,
-                Status = 60,
-                Id = Guid.NewGuid(),
-                SkillPoints = 2
-            });
-
-            AddTeamMember(new TeamMember
-            {
-                Health = 100,
-                MonthlySalary = 1000,
-                Name = "Spencer",
-                StartDate = DateTime.Now,
-                Status = 100,
-                SkillPoints = 1,
-                Id = Guid.NewGuid()
-            });
+            PopulateRecruitment();
 
             AddContract(new Contract
             {
