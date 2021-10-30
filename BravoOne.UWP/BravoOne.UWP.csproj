@@ -186,6 +186,7 @@
     <Content Include="Assets\SidePanels\Fighter.png" />
     <Content Include="Assets\SidePanels\Helicopter.png" />
     <Content Include="Assets\SidePanels\Satellite.png" />
+    <Content Include="Assets\SidePanels\Tank.png" />
     <Content Include="Assets\SidePanels\WinterShack.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
