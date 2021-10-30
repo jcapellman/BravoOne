@@ -40,6 +40,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 
                 <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Width="64" Height="64" VerticalAlignment="Center" Stretch="Uniform" MinHeight="64" MinWidth="64" MaxWidth="256" MaxHeight="256" Margin="10,10,10,0">
@@ -50,6 +51,9 @@
 
                 <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource Header}" Text="Bravo Team Sitrep" />
                 <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource SubHeader}" Text="{Binding gWrapper.CurrentGame.TeamLeaderName}" />
+
+                <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource SubHeader}" Text="Bravo Team Level" />
+                <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource SubHeader}" Text="{Binding gWrapper.CurrentGame.TeamLevel}" />
             </Grid>
 
             <TextBlock Grid.Column="1" Grid.Row="0" Style="{StaticResource Header}" HorizontalAlignment="Right" Text="{Binding gWrapper.CurrentGame.CurrentDateString}" />
