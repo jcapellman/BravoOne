@@ -6,6 +6,8 @@ namespace BravoOne.lib.Objects
     {
         public Guid Id { get; set; }
 
+        public bool OnTeam { get; set; }
+
         public string Name { get; set; }
 
         public uint MonthlySalary { get; set; }
@@ -16,6 +18,6 @@ namespace BravoOne.lib.Objects
 
         public int Status { get; set; }
 
-        public int SkillPoints { get; set; }
+        public uint SkillPoints { get; set; }
     }
 }
