@@ -1,5 +1,5 @@
 ﻿using BravoOne.lib;
-
+using BravoOne.lib.Objects;
 using BravoOne.UWP.ViewModels;
 
 using Windows.UI.Xaml.Controls;
@@ -26,6 +26,13 @@ namespace BravoOne.UWP.Views
         private void btnBack_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             Frame.Navigate(typeof(MainPage), ViewModel.gWrapper);
+        }
+
+        private void btnRecruit_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            var btn = (Button)sender;
+
+            ViewModel.AddTeamMember((TeamMember)btn.DataContext);
         }
     }
 }
