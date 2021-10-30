@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 
 using BravoOne.lib.DAL.Base;
+using BravoOne.lib.Enums;
 using BravoOne.lib.Objects.Base;
 
 namespace BravoOne.lib.Objects
@@ -122,6 +123,9 @@ namespace BravoOne.lib.Objects
             var randomFirst = new Random((int)DateTime.Now.Ticks);
             var randomLast = new Random((int)DateTime.Now.Ticks+1);
             var randomSkill = new Random((int)DateTime.Now.Ticks);
+            var randomSpecialty = new Random((int)DateTime.Now.Ticks);
+
+            var specialties = Enum.GetNames(typeof(Specialties));
 
             for (var x = 0; x < 50; x++)
             {
@@ -143,6 +147,8 @@ namespace BravoOne.lib.Objects
                 member.SkillPoints = (uint)randomSkill.Next(1, 50);
 
                 member.MonthlySalary = 10000 * member.SkillPoints;
+
+                member.Specialty = specialties[randomSpecialty.Next(0, specialties.Length - 1)];
 
                 AddTeamMember(member);
             }
