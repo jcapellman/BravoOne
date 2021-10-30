@@ -85,7 +85,7 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Row="0" Style="{StaticResource SubHeader}" Text="Team Member Status" />
-                <ListView Grid.Row="1" ItemsSource="{Binding CurrentGame.TeamMembers}">
+                <ListView Grid.Row="1" ItemsSource="{Binding TeamMembers}">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
