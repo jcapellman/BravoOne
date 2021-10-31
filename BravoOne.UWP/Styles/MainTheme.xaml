@@ -20,6 +20,11 @@
         <Setter Property="FontSize" Value="20" />
     </Style>
 
+    <Style TargetType="TextBlock" x:Name="ListViewHeader">
+        <Setter Property="FontFamily" Value="Fonts/MainFont.ttf#Tudor Victors" />
+        <Setter Property="FontSize" Value="30" />
+    </Style>
+
     <Style TargetType="TextBlock" x:Name="FieldHeader">
         <Setter Property="FontFamily" Value="Fonts/MainFont.ttf#Tudor Victors" />
         <Setter Property="FontSize" Value="16" />

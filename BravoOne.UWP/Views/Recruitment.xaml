@@ -31,11 +31,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <Grid Grid.Column="0" Margin="0,0,10,0" CornerRadius="15">
-                    <Grid.Background>
-                        <SolidColorBrush Color="Black" Opacity="0.5" />
-                    </Grid.Background>
-
+                <Grid Grid.Column="0" Margin="0,0,10,0">
                     <ListView SelectionMode="None" ItemsSource="{Binding Recruits}">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
@@ -45,7 +41,11 @@
 
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="0,0,0,30">
+                                <Grid Margin="0,0,0,10" CornerRadius="15">
+                                    <Grid.Background>
+                                        <SolidColorBrush Color="Black" Opacity="0.5" />
+                                    </Grid.Background>
+
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="Auto" />
@@ -63,7 +63,7 @@
                                         </Image.Source>
                                     </Image>
 
-                                    <TextBlock Grid.Row="0" Margin="10,0,0,0" Grid.Column="1" Text="{Binding Name}" Style="{StaticResource SubHeader}" />
+                                    <TextBlock Grid.Row="0" Margin="10,20,0,0" Grid.Column="1" Text="{Binding Name}" Style="{StaticResource ListViewHeader}" />
 
                                     <Grid Grid.Row="1" Grid.Column="1" Margin="10,0,0,0">
                                         <Grid.ColumnDefinitions>
