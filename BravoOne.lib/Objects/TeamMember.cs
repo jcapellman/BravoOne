@@ -23,5 +23,7 @@ namespace BravoOne.lib.Objects
         public string Specialty { get; set; }
 
         public string Comments { get; set; }
+
+        public string AvatarImagePath { get; set; }
     }
 }
