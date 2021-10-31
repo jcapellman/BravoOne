@@ -1,6 +1,6 @@
 ﻿using BravoOne.lib;
 using BravoOne.lib.DAL;
-
+using BravoOne.UWP.PlatformImplementations;
 using System;
 
 using Windows.ApplicationModel;
@@ -20,7 +20,7 @@ namespace BravoOne.UWP
             this.Suspending += OnSuspending;
         }
 
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
             if (!(Window.Current.Content is Frame rootFrame))
             {
@@ -35,7 +35,7 @@ namespace BravoOne.UWP
             {
                 if (rootFrame.Content == null)
                 {
-                    rootFrame.Navigate(typeof(MainMenu), new GameWrapper(new LiteDBDAL(Windows.Storage.ApplicationData.Current.LocalFolder.Path)));
+                    rootFrame.Navigate(typeof(MainMenu), new GameWrapper(new LiteDBDAL(Windows.Storage.ApplicationData.Current.LocalFolder.Path), new UWPStorage(), null));
                 }
 
                 Window.Current.Activate();
