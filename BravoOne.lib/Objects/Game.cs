@@ -6,6 +6,7 @@ using System.Linq;
 using BravoOne.lib.DAL.Base;
 using BravoOne.lib.Enums;
 using BravoOne.lib.Objects.Base;
+using BravoOne.lib.PlatformAbstractions;
 
 namespace BravoOne.lib.Objects
 {
@@ -118,14 +119,17 @@ namespace BravoOne.lib.Objects
             return dal.Get<Game>(a => a.Id == id);
         }
 
-        private void PopulateRecruitment()
+        public async void InitializeTeamMembers(IStorage storage)
         {
             var randomFirst = new Random((int)DateTime.Now.Ticks);
             var randomLast = new Random((int)DateTime.Now.Ticks+1);
             var randomSkill = new Random((int)DateTime.Now.Ticks);
             var randomSpecialty = new Random((int)DateTime.Now.Ticks);
 
+            var randomAvatar = new Random((int)DateTime.Now.Ticks+5);
+
             var specialties = Enum.GetNames(typeof(Specialties));
+            var avatarImages = await storage.GetAvatarImagesAsync();
 
             for (var x = 0; x < 50; x++)
             {
@@ -149,10 +153,12 @@ namespace BravoOne.lib.Objects
                 member.MonthlySalary = 10000 * member.SkillPoints;
 
                 member.Specialty = specialties[randomSpecialty.Next(0, specialties.Length - 1)];
+                member.AvatarImagePath = avatarImages[randomAvatar.Next(0, avatarImages.Count() - 1)];
 
                 AddTeamMember(member);
             }
         }
+
         public Game()
         {
             CurrentDate = DateTime.Now;
@@ -163,22 +169,6 @@ namespace BravoOne.lib.Objects
             TeamLevel = 1;
 
             Money = 100000;
-
-            PopulateRecruitment();
-
-            AddContract(new Contract
-            {
-                AssignedTeamMembers = TeamMembers.Select(a => a.Id).ToList(),
-                CompleteDate = DateTime.Now.AddMonths(4),
-                Income = 5000,
-                Id = Guid.NewGuid(),
-                Name = "Operation Laal Kekra",
-                SkillPointsRemaining = 10,
-                TeamMemberToll = 4,
-                Penalty = 50000,
-                CompletedDateString = $"{DateTime.Now.AddMonths(4):MMMM} {DateTime.Now.AddMonths(4).Year}",
-                Status = Enums.ContractStatus.InProgress
-            });
         }
 
         public void AddTeamMember(TeamMember member)

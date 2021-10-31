@@ -105,6 +105,8 @@ namespace BravoOne.UWP.ViewModels
                 TeamLogo = SelectedLogo
             };
 
+            game.InitializeTeamMembers(gWrapper.Storage);
+
             gWrapper.CurrentGame = game;
         }
     }
