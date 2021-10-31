@@ -1,11 +1,14 @@
 ﻿using BravoOne.lib.DAL.Base;
 using BravoOne.lib.Objects;
+using BravoOne.lib.PlatformAbstractions;
 
 namespace BravoOne.lib
 {
     public class GameWrapper
     {
         public BaseDAL DAL { get; private set; }
+
+        public IStorage Storage { get; private set; }
 
         public Game CurrentGame { get; set; }
 
@@ -31,7 +34,7 @@ namespace BravoOne.lib
             }
         }
 
-        public GameWrapper(BaseDAL dal, Game aGame = null)
+        public GameWrapper(BaseDAL dal, IStorage storage, Game aGame = null)
         {
             DAL = dal;
 
@@ -39,6 +42,8 @@ namespace BravoOne.lib
             {
                 CurrentGame = aGame;
             }
+
+            Storage = storage;
         }
      }
 }
