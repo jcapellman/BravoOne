@@ -112,7 +112,19 @@ namespace BravoOne.lib.Objects
             }
         }
 
-        public ulong Money { get; set; }
+        private ulong _money;
+
+        public ulong Money
+        {
+            get => _money;
+
+            set
+            {
+                _money = value;
+
+                OnPropertyChanged();
+            }
+        }
 
         public static Game LoadGame(BaseDAL dal, int id)
         {
@@ -185,7 +197,7 @@ namespace BravoOne.lib.Objects
         {
             CurrentDate = CurrentDate.AddMonths(1);
 
-            foreach (TeamMember member in TeamMembers)
+            foreach (TeamMember member in TeamMembers.Where(a => a.OnTeam))
             {
                 Money -= member.MonthlySalary;
             }
