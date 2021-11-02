@@ -33,14 +33,21 @@ namespace BravoOne.UWP.ViewModels
             gWrapper.DAL.Add(gWrapper.CurrentGame);
         }
 
-        public void EndMonth()
+        public bool EndMonth()
         {
-            gWrapper.CurrentGame.EndTurn();
+            var endofGame = gWrapper.CurrentGame.EndTurn();
             
+            if (!endofGame)
+            {
+                return false;
+            }
+
             if (gWrapper.Option.AutoSave)
             {
                 SaveGame();
             }
+
+            return true;
         }
     }
 }
