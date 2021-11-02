@@ -14,6 +14,10 @@ namespace BravoOne.lib.Objects
     {
         public int Id { get; set; }
 
+        public int gsMonths { get; private set; }
+
+        public int gsContracts { get; private set; }
+
         private string _teamLeaderName;
 
         public string TeamLeaderName {
@@ -180,6 +184,9 @@ namespace BravoOne.lib.Objects
 
             TeamLevel = 1;
 
+            gsMonths = 0;
+            gsContracts = 0;
+
             Money = 100000;
         }
 
@@ -193,12 +200,17 @@ namespace BravoOne.lib.Objects
             Contracts.Add(contract);
         }
 
-        public void EndTurn()
+        public bool EndTurn()
         {
             CurrentDate = CurrentDate.AddMonths(1);
 
             foreach (TeamMember member in TeamMembers.Where(a => a.OnTeam))
             {
+                if (member.MonthlySalary > Money)
+                {
+                    return false;
+                }
+
                 Money -= member.MonthlySalary;
             }
 
@@ -224,6 +236,10 @@ namespace BravoOne.lib.Objects
             }
 
             Contracts = new ObservableCollection<Contract>(Contracts);
+
+            gsMonths++;
+
+            return true;
         }
     }
 }
