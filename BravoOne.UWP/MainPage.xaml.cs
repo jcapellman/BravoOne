@@ -28,7 +28,14 @@ namespace BravoOne.UWP
 
         private void btnEndMonth_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            ViewModel.EndMonth();
+            var result = ViewModel.EndMonth();
+
+            if (result)
+            {
+                return;
+            }
+
+            _ = Frame.Navigate(typeof(EndGame), ViewModel.gWrapper);
         }
 
         private void btnRecruitment_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
