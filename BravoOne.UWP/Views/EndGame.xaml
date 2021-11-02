@@ -1,0 +1,45 @@
+﻿<Page
+    x:Class="BravoOne.UWP.Views.EndGame"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BravoOne.UWP.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="../Assets/Backgrounds/Camo.png" />
+        </Grid.Background>
+
+        <Grid HorizontalAlignment="Center" Padding="20,0,20,20" CornerRadius="15" VerticalAlignment="Center">
+            <Grid.Background>
+                <SolidColorBrush Color="Black" Opacity="0.5" />
+            </Grid.Background>
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="Game Over" HorizontalAlignment="Center" Style="{StaticResource Header}" />
+
+            <StackPanel Orientation="Vertical" Grid.Row="1">
+                <TextBlock Style="{StaticResource FieldHeader}" Text="Months of Operation" />
+                <TextBlock Style="{StaticResource FieldValue}" Text="{Binding gWrapper.CurrentGame.gsMonths}" />
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" Margin="0,20,0,0" Grid.Row="2">
+                <TextBlock Style="{StaticResource FieldHeader}" Text="Number of Completed Contracts" />
+                <TextBlock Style="{StaticResource FieldValue}" Text="{Binding gWrapper.CurrentGame.gsContracts}" />
+            </StackPanel>
+
+            <Button Grid.Row="3" Margin="0,50,0,0" Content="Return to Main Menu" Style="{StaticResource MainButton}" Click="btnEndGame_Click" />
+        </Grid>
+    </Grid>
+</Page>
