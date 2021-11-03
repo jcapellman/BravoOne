@@ -18,6 +18,8 @@ namespace BravoOne.lib.Objects
 
         public int gsContracts { get; private set; }
 
+        public int gsXP { get; private set; }
+
         private string _teamLeaderName;
 
         public string TeamLeaderName {
@@ -186,6 +188,7 @@ namespace BravoOne.lib.Objects
 
             gsMonths = 0;
             gsContracts = 0;
+            gsXP = 0;
 
             Money = 100000;
         }

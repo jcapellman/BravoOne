@@ -23,7 +23,8 @@
 
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                
+                <RowDefinition Height="Auto" />
+
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
@@ -39,7 +40,12 @@
                 <TextBlock Style="{StaticResource FieldValue}" Text="{Binding gWrapper.CurrentGame.gsContracts}" />
             </StackPanel>
 
-            <Button Grid.Row="3" Margin="0,50,0,0" Content="Return to Main Menu" Style="{StaticResource MainButton}" Click="btnEndGame_Click" />
+            <StackPanel Orientation="Vertical" Margin="0,20,0,0" Grid.Row="3">
+                <TextBlock Style="{StaticResource FieldHeader}" Text="Total XP Generated" />
+                <TextBlock Style="{StaticResource FieldValue}" Text="{Binding gWrapper.CurrentGame.gsXP}" />
+            </StackPanel>
+
+            <Button Grid.Row="4" Margin="0,50,0,0" Content="Return to Main Menu" Style="{StaticResource MainButton}" Click="btnEndGame_Click" />
         </Grid>
     </Grid>
 </Page>
