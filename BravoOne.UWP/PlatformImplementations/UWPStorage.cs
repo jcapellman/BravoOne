@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using Newtonsoft.Json;
+
 using Windows.Storage;
 
 namespace BravoOne.UWP.PlatformImplementations
@@ -43,13 +45,9 @@ namespace BravoOne.UWP.PlatformImplementations
 
             var equipmentFile = await subFolder.GetFileAsync("Equipment.json");
 
-            var json = await equipmentFile.OpenReadAsync();
+            var jsonText = await Windows.Storage.FileIO.ReadTextAsync(equipmentFile);
 
-            var equipmentList = new List<Equipment>();
-
-
-
-            return equipmentList;
+            return JsonConvert.DeserializeObject<List<Equipment>>(jsonText);
         }
     }
 }
