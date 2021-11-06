@@ -139,7 +139,7 @@ namespace BravoOne.lib.Objects
 
         public async void InitializeTeamMembers(IStorage storage)
         {
-            TeamMembers = TeamMembers.Where(a => a.OnTeam).ToList();
+            TeamMembers = TeamMembers.Where(a => a.Status != TeamMemberStatus.Available).ToList();
 
             var randomFirst = new Random((int)DateTime.Now.Ticks);
             var randomLast = new Random((int)DateTime.Now.Ticks+1);
@@ -155,9 +155,8 @@ namespace BravoOne.lib.Objects
             {
                 var member = new TeamMember
                 {
-                    OnTeam = false,
                     Health = 100,
-                    Status = 100,
+                    Status = TeamMemberStatus.Available,
                     Id = Guid.NewGuid()
                 };
 
@@ -171,11 +170,11 @@ namespace BravoOne.lib.Objects
                 member.SkillPoints = (uint)randomSkill.Next(1, TeamLevel + 5);
 
                 member.MonthlySalary = 10000 * member.SkillPoints;
-
+                
                 member.Specialty = specialties[randomSpecialty.Next(0, specialties.Length - 1)];
                 member.AvatarImagePath = avatarImages[randomAvatar.Next(0, avatarImages.Count() - 1)];
 
-                AddTeamMember(member);
+                TeamMembers.Add(member);
             }
         }
 
@@ -197,7 +196,11 @@ namespace BravoOne.lib.Objects
 
         public void AddTeamMember(TeamMember member)
         {
-            TeamMembers.Add(member);
+            member.Status = TeamMemberStatus.OnTeam;
+
+            var index = TeamMembers.FindIndex(a => a.Id == member.Id);
+
+            TeamMembers[index] = member;
         }
 
         public void AddContract(Contract contract)
@@ -209,7 +212,7 @@ namespace BravoOne.lib.Objects
         {
             CurrentDate = CurrentDate.AddMonths(1);
 
-            foreach (TeamMember member in TeamMembers.Where(a => a.OnTeam))
+            foreach (TeamMember member in TeamMembers.Where(a => a.Status == TeamMemberStatus.OnTeam))
             {
                 if (member.MonthlySalary > Money)
                 {
