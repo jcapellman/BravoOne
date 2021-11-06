@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using BravoOne.lib.Enums;
 
@@ -27,5 +28,7 @@ namespace BravoOne.lib.Objects
         public string AvatarImagePath { get; set; }
 
         public bool Available { get; set; }
+
+        public List<TeamEquipment> Equipment { get; set; }
     }
 }
