@@ -139,6 +139,8 @@ namespace BravoOne.lib.Objects
 
         public async void InitializeTeamMembers(IStorage storage)
         {
+            TeamMembers = TeamMembers.Where(a => a.OnTeam).ToList();
+
             var randomFirst = new Random((int)DateTime.Now.Ticks);
             var randomLast = new Random((int)DateTime.Now.Ticks+1);
             var randomSkill = new Random((int)DateTime.Now.Ticks);
@@ -165,8 +167,8 @@ namespace BravoOne.lib.Objects
 
                     member.Name = $"{firstName} {lastName}";
                 } while (TeamMembers.Any(a => a.Name == member.Name));
-
-                member.SkillPoints = (uint)randomSkill.Next(1, 50);
+                
+                member.SkillPoints = (uint)randomSkill.Next(1, TeamLevel + 5);
 
                 member.MonthlySalary = 10000 * member.SkillPoints;
 
@@ -203,7 +205,7 @@ namespace BravoOne.lib.Objects
             Contracts.Add(contract);
         }
 
-        public bool EndTurn()
+        public bool EndTurn(IStorage storage)
         {
             CurrentDate = CurrentDate.AddMonths(1);
 
@@ -241,6 +243,8 @@ namespace BravoOne.lib.Objects
             Contracts = new ObservableCollection<Contract>(Contracts);
 
             gsMonths++;
+
+            InitializeTeamMembers(storage);
 
             return true;
         }
