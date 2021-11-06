@@ -41,5 +41,10 @@ namespace BravoOne.UWP
         {
             _ = Frame.Navigate(typeof(Credits), ViewModel.gWrapper);
         }
+
+        private void btnAchievements_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            _ = Frame.Navigate(typeof(Achievements), ViewModel.gWrapper);
+        }
     }
 }

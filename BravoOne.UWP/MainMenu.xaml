@@ -31,6 +31,7 @@
                 <Button Content="New Game" HorizontalAlignment="Center" Click="btnNewGame_Click" Style="{ThemeResource MainButton}" />
                 <Button Content="Load Game" HorizontalAlignment="Center" Margin="30,0,0,0" Click="btnLoadGame_Click" Style="{ThemeResource MainButton}" />
                 <Button Content="Options" HorizontalAlignment="Center" Margin="30,0,0,0" Click="btnOptions_Click" Style="{ThemeResource MainButton}" />
+                <Button Content="Achievements" HorizontalAlignment="Center" Margin="30,0,0,0" Click="btnAchievements_Click" Style="{ThemeResource MainButton}" />
                 <Button Content="Credits" HorizontalAlignment="Center" Margin="30,0,0,0" Click="btnCredits_Click" Style="{ThemeResource MainButton}" />
             </StackPanel>
 
