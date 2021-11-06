@@ -1,6 +1,4 @@
-﻿using System;
-
-using BravoOne.lib.Enums;
+﻿using BravoOne.lib.Enums;
 
 namespace BravoOne.lib.Objects
 {
