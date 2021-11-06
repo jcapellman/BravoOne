@@ -8,6 +8,6 @@ namespace BravoOne.lib.Objects
 
         public int Status { get; set; }
 
-        public Guid EquipmentId { get; set; }
+        public int EquipmentId { get; set; }
     }
 }
