@@ -35,7 +35,7 @@ namespace BravoOne.UWP.ViewModels
 
         public bool EndMonth()
         {
-            var endofGame = gWrapper.CurrentGame.EndTurn();
+            var endofGame = gWrapper.CurrentGame.EndTurn(gWrapper.Storage);
             
             if (!endofGame)
             {
