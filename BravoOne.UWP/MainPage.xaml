@@ -197,7 +197,7 @@
 
             <StackPanel Orientation="Horizontal" Grid.Column="0">
                 <Button Style="{ThemeResource MainButton}" Content="Recruitment" Margin="0,0,20,0" Click="btnRecruitment_Click" />
-                <Button Style="{ThemeResource MainButton}" Content="Armory" Margin="0,0,20,0" />
+                <Button Style="{ThemeResource MainButton}" Content="Equipment" Margin="0,0,20,0" Click="btnEquipment_Click" />
                 <Button Style="{ThemeResource MainButton}" Content="Training" Margin="0,0,20,0" />
                 <Button Style="{ThemeResource MainButton}" Content="Contracts" Margin="0,0,20,0" />
                 <Button Style="{ThemeResource MainButton}" Content="Save Game" Margin="0,0,20,0" Click="btnSaveGame_Click" />
