@@ -17,5 +17,9 @@ namespace BravoOne.lib.Objects
         public int Reliability { get; set; }
 
         public int Damage { get; set; }
+
+        public bool Available { get; set; }
+
+        public string Comments { get; set; }
     }
 }
