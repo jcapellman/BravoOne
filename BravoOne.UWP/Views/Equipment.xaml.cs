@@ -26,5 +26,12 @@ namespace BravoOne.UWP.Views
         {
             Frame.Navigate(typeof(MainPage), ViewModel.gWrapper);
         }
+
+        private void btnPurchase_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            var btn = (Button)sender;
+
+            ViewModel.AddEquipment((lib.Objects.Equipment)btn.DataContext);
+        }
     }
 }
