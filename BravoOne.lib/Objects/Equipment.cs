@@ -6,7 +6,7 @@ namespace BravoOne.lib.Objects
 {
     public class Equipment
     {
-        public Guid id { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 
