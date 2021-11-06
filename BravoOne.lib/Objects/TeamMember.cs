@@ -1,12 +1,12 @@
 ﻿using System;
 
+using BravoOne.lib.Enums;
+
 namespace BravoOne.lib.Objects
 {
     public class TeamMember
     {
         public Guid Id { get; set; }
-
-        public bool OnTeam { get; set; }
 
         public string Name { get; set; }
 
@@ -16,7 +16,7 @@ namespace BravoOne.lib.Objects
 
         public int Health { get; set; }
 
-        public int Status { get; set; }
+        public TeamMemberStatus Status { get; set; }
 
         public uint SkillPoints { get; set; }
 
@@ -25,5 +25,7 @@ namespace BravoOne.lib.Objects
         public string Comments { get; set; }
 
         public string AvatarImagePath { get; set; }
+
+        public bool Available { get; set; }
     }
 }
