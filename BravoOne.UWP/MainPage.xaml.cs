@@ -66,5 +66,10 @@ namespace BravoOne.UWP
         {
             _ = Frame.Navigate(typeof(Equipment), ViewModel.gWrapper);
         }
+
+        private void btnContracts_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            _ = Frame.Navigate(typeof(Contracts), ViewModel.gWrapper);
+        }
     }
 }
