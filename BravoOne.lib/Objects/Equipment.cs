@@ -10,7 +10,7 @@ namespace BravoOne.lib.Objects
 
         public int RequiredLevel { get; set; }
 
-        public int Cost { get; set; }
+        public ulong Cost { get; set; }
 
         public EquipmentType EType { get; set; }
 
@@ -21,5 +21,7 @@ namespace BravoOne.lib.Objects
         public bool Available { get; set; }
 
         public string Comments { get; set; }
+
+        public string ImagePath { get; set; }
     }
 }
