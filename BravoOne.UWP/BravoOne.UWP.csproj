@@ -196,6 +196,8 @@
     <Content Include="Assets\Avatars\9.png" />
     <Content Include="Assets\Backgrounds\Camo.png" />
     <Content Include="Assets\Backgrounds\MainMenu.png" />
+    <Content Include="Assets\Equipment\1911.png" />
+    <Content Include="Assets\Equipment\MP5.png" />
     <Content Include="Assets\Icons\E2.png" />
     <Content Include="Assets\Icons\E3.png" />
     <Content Include="Assets\Icons\E4.png" />
@@ -300,7 +302,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <None Include="Assets\Data\Equipment.json" />
+    <Content Include="Assets\Data\Equipment.json" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
