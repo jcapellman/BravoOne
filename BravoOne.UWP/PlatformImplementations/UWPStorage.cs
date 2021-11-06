@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 using Windows.Storage;
+using System.IO;
 
 namespace BravoOne.UWP.PlatformImplementations
 {
@@ -47,7 +48,16 @@ namespace BravoOne.UWP.PlatformImplementations
 
             var jsonText = await Windows.Storage.FileIO.ReadTextAsync(equipmentFile);
 
-            return JsonConvert.DeserializeObject<List<Equipment>>(jsonText);
+            var equipmentSubFolder = await rootFolder.GetFolderAsync("Equipment");
+
+            var equipment = JsonConvert.DeserializeObject<List<Equipment>>(jsonText);
+
+            foreach (var item in equipment)
+            {
+                item.ImagePath = Path.Combine(installedLocation.Path, equipmentSubFolder.Path, $"{item.Name}.png");
+            }
+
+            return equipment;
         }
     }
 }
