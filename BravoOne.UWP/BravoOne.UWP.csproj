@@ -140,6 +140,7 @@
     <Compile Include="PlatformImplementations\UWPStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Base\BaseViewModel.cs" />
+    <Compile Include="ViewModels\ContractsViewModel.cs" />
     <Compile Include="ViewModels\CreditsViewModel.cs" />
     <Compile Include="ViewModels\EndGameViewModel.cs" />
     <Compile Include="ViewModels\EquipmentViewModel.cs" />
@@ -150,6 +151,9 @@
     <Compile Include="ViewModels\NewGameViewModel.cs" />
     <Compile Include="ViewModels\OptionsViewModel.cs" />
     <Compile Include="ViewModels\RecruitmentViewModel.cs" />
+    <Compile Include="Views\Contracts.xaml.cs">
+      <DependentUpon>Contracts.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EndGame.xaml.cs">
       <DependentUpon>EndGame.xaml</DependentUpon>
     </Compile>
@@ -263,6 +267,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\MainTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Contracts.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
