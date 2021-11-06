@@ -30,24 +30,25 @@ namespace BravoOne.UWP.ViewModels
 
         private void LoadRecruits()
         {
-            var availableMembers = gWrapper.CurrentGame.TeamMembers.Where(a => !a.OnTeam).OrderByDescending(b => b.MonthlySalary).ToList();
+            var availableMembers = gWrapper.CurrentGame.TeamMembers.Where(a => a.Status == lib.Enums.TeamMemberStatus.Available).OrderByDescending(b => b.MonthlySalary).ToList();
 
             Recruits = new List<TeamMember>();
 
             foreach (var recruit in availableMembers)
             {
-                recruit.OnTeam = true;
+                recruit.Available = true;
+
                 recruit.Comments = "Available for your team";
 
                 if (recruit.SkillPoints > gWrapper.CurrentGame.TeamLevel)
                 {
                     recruit.Comments = "Recruit is too experienced for your team";
-                    recruit.OnTeam = false;
+                    recruit.Available = false;
                 }
                 else if (recruit.MonthlySalary > gWrapper.CurrentGame.Money)
                 {
                     recruit.Comments = "Recruit is too expensive for your team";
-                    recruit.OnTeam = false;
+                    recruit.Available = false;
                 }
 
                 Recruits.Add(recruit);
@@ -56,11 +57,7 @@ namespace BravoOne.UWP.ViewModels
 
         public void AddTeamMember(TeamMember recruit)
         {
-            var index = gWrapper.CurrentGame.TeamMembers.IndexOf(recruit);
-
-            recruit.OnTeam = true;
-
-            gWrapper.CurrentGame.TeamMembers[index] = recruit;
+            gWrapper.CurrentGame.AddTeamMember(recruit);
 
             LoadRecruits();
         }
