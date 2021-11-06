@@ -1,4 +1,5 @@
-﻿using BravoOne.lib.PlatformAbstractions;
+﻿using BravoOne.lib.Objects;
+using BravoOne.lib.PlatformAbstractions;
 
 using System;
 using System.Collections.Generic;
@@ -10,14 +11,17 @@ namespace BravoOne.UWP.PlatformImplementations
 {
     public class UWPStorage : IStorage
     {
-        private async Task<List<string>> GetFileNamesAsync(string subfolder, string rootFolder = "Assets")
+        private StorageFolder installedLocation = Windows.ApplicationModel.Package.Current.InstalledLocation;
+
+        private const string RootFolder = "Assets";
+
+        private async Task<List<string>> GetFileNamesAsync(string subFolderName, string rootFolderName = RootFolder)
         {
             var filenames = new List<string>();
 
-            StorageFolder installedLocation = Windows.ApplicationModel.Package.Current.InstalledLocation;
+            StorageFolder rootFolder = await installedLocation.GetFolderAsync(rootFolderName);
 
-            StorageFolder subFolder = await installedLocation.GetFolderAsync(rootFolder);
-            subFolder = await subFolder.GetFolderAsync(subfolder);
+            var subFolder = await rootFolder.GetFolderAsync(subFolderName);
 
             var files = await subFolder.GetFilesAsync();
 
@@ -30,5 +34,22 @@ namespace BravoOne.UWP.PlatformImplementations
         }
 
         public async Task<List<string>> GetAvatarImagesAsync() => await GetFileNamesAsync("Avatars");
+
+        public async Task<List<Equipment>> GetEquipmentListAsync()
+        {
+            StorageFolder rootFolder = await installedLocation.GetFolderAsync(RootFolder);
+
+            var subFolder = await rootFolder.GetFolderAsync("Data");
+
+            var equipmentFile = await subFolder.GetFileAsync("Equipment.json");
+
+            var json = await equipmentFile.OpenReadAsync();
+
+            var equipmentList = new List<Equipment>();
+
+
+
+            return equipmentList;
+        }
     }
 }
