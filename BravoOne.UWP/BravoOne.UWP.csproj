@@ -11,7 +11,7 @@
     <AssemblyName>BravoOne.UWP</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.20348.0</TargetPlatformVersion>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.19041.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -142,6 +142,7 @@
     <Compile Include="ViewModels\Base\BaseViewModel.cs" />
     <Compile Include="ViewModels\CreditsViewModel.cs" />
     <Compile Include="ViewModels\EndGameViewModel.cs" />
+    <Compile Include="ViewModels\EquipmentViewModel.cs" />
     <Compile Include="ViewModels\GameViewModel.cs" />
     <Compile Include="ViewModels\LoadGameViewModel.cs" />
     <Compile Include="ViewModels\MainMenuViewModel.cs" />
@@ -151,6 +152,9 @@
     <Compile Include="ViewModels\RecruitmentViewModel.cs" />
     <Compile Include="Views\EndGame.xaml.cs">
       <DependentUpon>EndGame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Equipment.xaml.cs">
+      <DependentUpon>Equipment.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ManageTeamMember.xaml.cs">
       <DependentUpon>ManageTeamMember.xaml</DependentUpon>
@@ -264,6 +268,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Equipment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ManageTeamMember.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -277,6 +285,9 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.13</Version>
     </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>13.0.1</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BravoOne.lib\BravoOne.lib.csproj">
@@ -286,6 +297,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Fonts\MainFont.ttf" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="Assets\Data\Equipment.json" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
