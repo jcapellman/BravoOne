@@ -20,5 +20,60 @@
     "Damage": 3,
     "Available": false,
     "Comments": ""
+  },
+  {
+    "Id": 3,
+    "Name": "416",
+    "RequiredLevel": 5,
+    "Cost": 10000,
+    "EType": 3,
+    "Reliability": 9,
+    "Damage": 5,
+    "Available": false,
+    "Comments": ""
+  },
+  {
+    "Id": 4,
+    "Name": "417",
+    "RequiredLevel": 15,
+    "Cost": 20000,
+    "EType": 6,
+    "Reliability": 9,
+    "Damage": 6,
+    "Available": false,
+    "Comments": ""
+  },
+  {
+    "Id": 5,
+    "Name": "M4",
+    "RequiredLevel": 8,
+    "Cost": 20000,
+    "EType": 4,
+    "Reliability": 5,
+    "Damage": 10,
+    "Available": false,
+    "Comments": ""
+  },
+  {
+    "Id": 6,
+    "Name": "MPX",
+    "RequiredLevel": 5,
+    "Cost": 25000,
+    "EType": 1,
+    "Reliability": 6,
+    "Damage": 2,
+    "Available": false,
+    "Comments": ""
+  },
+  {
+    "Id": 7,
+    "Name": "MK 23",
+    "RequiredLevel": 10,
+    "Cost": 5000,
+    "EType": 2,
+    "Reliability": 10,
+    "Damage": 2,
+    "Available": false,
+    "Comments": ""
   }
- ]
+]
