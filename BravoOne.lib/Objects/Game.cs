@@ -60,6 +60,20 @@ namespace BravoOne.lib.Objects
             }
         }
 
+        private List<Equipment> _availableEquipment;
+
+        public List<Equipment> AvailableEquipment
+        {
+            get => _availableEquipment;
+
+            set
+            {
+                _availableEquipment = value;
+
+                OnPropertyChanged();
+            }
+        }
+
         private List<TeamMember> _teamMembers { get; set; }
 
         public List<TeamMember> TeamMembers
@@ -192,6 +206,11 @@ namespace BravoOne.lib.Objects
             gsXP = 0;
 
             Money = 100000;
+        }
+
+        public async void InitializeEquipment(IStorage storage)
+        {
+            AvailableEquipment = await storage.GetEquipmentListAsync();
         }
 
         public void AddTeamMember(TeamMember member)
