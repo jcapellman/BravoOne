@@ -75,5 +75,27 @@
     "Damage": 2,
     "Available": false,
     "Comments": ""
+  },
+  {
+    "Id": 8,
+    "Name": "M17",
+    "RequiredLevel": 1,
+    "Cost": 500,
+    "EType": 2,
+    "Reliability": 3,
+    "Damage": 1,
+    "Available": false,
+    "Comments": ""
+  },
+  {
+    "Id": 9,
+    "Name": "M18",
+    "RequiredLevel": 2,
+    "Cost": 750,
+    "EType": 2,
+    "Reliability": 4,
+    "Damage": 1,
+    "Available": false,
+    "Comments": ""
   }
 ]
