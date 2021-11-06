@@ -60,6 +60,11 @@ namespace BravoOne.lib.Objects
             }
         }
 
+        public void AddEquipment(Equipment equipment)
+        {
+            TeamEquipment.Add(equipment);
+        }
+
         private List<Equipment> _availableEquipment;
 
         public List<Equipment> AvailableEquipment
@@ -69,6 +74,20 @@ namespace BravoOne.lib.Objects
             set
             {
                 _availableEquipment = value;
+
+                OnPropertyChanged();
+            }
+        }
+
+        private List<Equipment> _teamEquipment;
+
+        public List<Equipment> TeamEquipment
+        {
+            get => _teamEquipment;
+
+            set
+            {
+                _teamEquipment = value;
 
                 OnPropertyChanged();
             }
@@ -198,6 +217,7 @@ namespace BravoOne.lib.Objects
 
             Contracts = new ObservableCollection<Contract>();
             TeamMembers = new List<TeamMember>();
+            TeamEquipment = new List<Equipment>();
 
             TeamLevel = 1;
 
@@ -210,7 +230,7 @@ namespace BravoOne.lib.Objects
 
         public async void InitializeEquipment(IStorage storage)
         {
-            AvailableEquipment = await storage.GetEquipmentListAsync();
+            AvailableEquipment = (await storage.GetEquipmentListAsync()).OrderByDescending(a => a.Cost).ThenBy(b => b.Name).ToList();
         }
 
         public void AddTeamMember(TeamMember member)
