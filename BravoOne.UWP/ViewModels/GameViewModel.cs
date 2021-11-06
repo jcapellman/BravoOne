@@ -25,7 +25,7 @@ namespace BravoOne.UWP.ViewModels
 
         public GameViewModel(GameWrapper gWrapper) : base(gWrapper)
         {
-            TeamMembers = gWrapper.CurrentGame.TeamMembers.Where(a => a.OnTeam).OrderBy(b => b.Name).ToList();
+            TeamMembers = gWrapper.CurrentGame.TeamMembers.Where(a => a.Status == lib.Enums.TeamMemberStatus.OnTeam).OrderBy(b => b.Name).ToList();
         }
 
         public void SaveGame()

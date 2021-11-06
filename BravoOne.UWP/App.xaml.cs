@@ -20,7 +20,7 @@ namespace BravoOne.UWP
             this.Suspending += OnSuspending;
         }
 
-        protected override async void OnLaunched(LaunchActivatedEventArgs e)
+        protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             if (!(Window.Current.Content is Frame rootFrame))
             {
