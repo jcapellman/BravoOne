@@ -10,23 +10,25 @@ namespace BravoOne.UWP.PlatformImplementations
 {
     public class UWPStorage : IStorage
     {
-        public async Task<List<string>> GetAvatarImagesAsync()
+        private async Task<List<string>> GetFileNamesAsync(string subfolder, string rootFolder = "Assets")
         {
-            var avatars = new List<string>();
+            var filenames = new List<string>();
 
             StorageFolder installedLocation = Windows.ApplicationModel.Package.Current.InstalledLocation;
 
-            StorageFolder subFolder = await installedLocation.GetFolderAsync("Assets");
-            subFolder = await subFolder.GetFolderAsync("Avatars");
+            StorageFolder subFolder = await installedLocation.GetFolderAsync(rootFolder);
+            subFolder = await subFolder.GetFolderAsync(subfolder);
 
-            var images = await subFolder.GetFilesAsync();
+            var files = await subFolder.GetFilesAsync();
 
-            foreach (var image in images)
+            foreach (var file in files)
             {
-                avatars.Add(image.Path);
+                filenames.Add(file.Path);
             }
 
-            return avatars;
+            return filenames;
         }
+
+        public async Task<List<string>> GetAvatarImagesAsync() => await GetFileNamesAsync("Avatars");
     }
 }
