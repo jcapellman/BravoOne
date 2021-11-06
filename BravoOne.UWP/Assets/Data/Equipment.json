@@ -6,6 +6,8 @@
       "Cost": 5000,
       "EType": 1,
       "Reliability": 10,
-      "Damage": -2
+      "Damage": -2,
+      "Available": false,
+      "Comments": ""
     }
  ]
