@@ -1,13 +1,24 @@
 ﻿[
-    {
-      "Id": 1,
-      "Name": "MP5",
-      "RequiredLevel": 10,
-      "Cost": 5000,
-      "EType": 1,
-      "Reliability": 10,
-      "Damage": -2,
-      "Available": false,
-      "Comments": ""
-    }
+  {
+    "Id": 1,
+    "Name": "MP5",
+    "RequiredLevel": 10,
+    "Cost": 50000,
+    "EType": 1,
+    "Reliability": 10,
+    "Damage": 2,
+    "Available": false,
+    "Comments": ""
+  },
+  {
+    "Id": 2,
+    "Name": "1911",
+    "RequiredLevel": 2,
+    "Cost": 1000,
+    "EType": 2,
+    "Reliability": 2,
+    "Damage": 3,
+    "Available": false,
+    "Comments": ""
+  }
  ]
