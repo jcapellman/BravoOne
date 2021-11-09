@@ -234,6 +234,7 @@
     <Content Include="Assets\Icons\O9.png" />
     <Content Include="Assets\Logo.png" />
     <Content Include="Assets\Misc\IndescriptRecruit.png" />
+    <Content Include="Assets\SidePanels\Armory.png" />
     <Content Include="Assets\SidePanels\Fighter.png" />
     <Content Include="Assets\SidePanels\Helicopter.png" />
     <Content Include="Assets\SidePanels\Satellite.png" />
