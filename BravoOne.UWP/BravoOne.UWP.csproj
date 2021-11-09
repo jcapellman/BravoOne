@@ -205,7 +205,14 @@
     <Content Include="Assets\Backgrounds\Camo.png" />
     <Content Include="Assets\Backgrounds\MainMenu.png" />
     <Content Include="Assets\Equipment\1911.png" />
+    <Content Include="Assets\Equipment\416.png" />
+    <Content Include="Assets\Equipment\417.png" />
+    <Content Include="Assets\Equipment\M17.png" />
+    <Content Include="Assets\Equipment\M18.png" />
+    <Content Include="Assets\Equipment\M4.png" />
+    <Content Include="Assets\Equipment\MK23.png" />
     <Content Include="Assets\Equipment\MP5.png" />
+    <Content Include="Assets\Equipment\MPX.png" />
     <Content Include="Assets\Icons\E2.png" />
     <Content Include="Assets\Icons\E3.png" />
     <Content Include="Assets\Icons\E4.png" />
