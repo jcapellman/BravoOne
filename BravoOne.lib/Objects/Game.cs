@@ -121,6 +121,20 @@ namespace BravoOne.lib.Objects
             }
         }
 
+        private ObservableCollection<ActivityLog> _activities;
+
+        public ObservableCollection<ActivityLog> Activities
+        {
+            get => _activities;
+
+            set
+            {
+                _activities = value;
+
+                OnPropertyChanged();
+            }
+        } 
+
         private DateTime _currentDate { get; set; }
 
         public DateTime CurrentDate
@@ -218,6 +232,7 @@ namespace BravoOne.lib.Objects
             Contracts = new ObservableCollection<Contract>();
             TeamMembers = new List<TeamMember>();
             TeamEquipment = new List<Equipment>();
+            Activities = new ObservableCollection<ActivityLog>();
 
             TeamLevel = 1;
 
@@ -240,11 +255,26 @@ namespace BravoOne.lib.Objects
             var index = TeamMembers.FindIndex(a => a.Id == member.Id);
 
             TeamMembers[index] = member;
+
+            AddActivityLog(ActivityType.TEAM_MEMBER_HIRED, "New Team Member Hired", $"{member.Specialty} {member.Name} has been hired");
         }
 
         public void AddContract(Contract contract)
         {
             Contracts.Add(contract);
+        }
+
+        public void AddActivityLog(ActivityType type, string title, string detail)
+        {
+            var activity = new ActivityLog
+            {
+                TimeStamp = CurrentDate,
+                ActivityLogType = type,
+                Detail = detail,
+                Title = title
+            };
+
+            Activities.Add(activity);
         }
 
         public bool EndTurn(IStorage storage)

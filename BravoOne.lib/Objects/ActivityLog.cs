@@ -12,6 +12,8 @@ namespace BravoOne.lib.Objects
 
         public ActivityType ActivityLogType { get; set; }
 
+        public string IconImagePath { get; set; }
+
         public string Title { get; set; }
 
         public string Detail { get; set; }
