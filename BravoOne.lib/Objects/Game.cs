@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-
+using System.Threading.Tasks;
 using BravoOne.lib.DAL.Base;
 using BravoOne.lib.Enums;
 using BravoOne.lib.Objects.Base;
@@ -92,6 +92,8 @@ namespace BravoOne.lib.Objects
                 OnPropertyChanged();
             }
         }
+
+        private Dictionary<string, string> ActivityTypeImages;
 
         private List<TeamMember> _teamMembers { get; set; }
 
@@ -243,7 +245,33 @@ namespace BravoOne.lib.Objects
             Money = 100000;
         }
 
-        public async void InitializeEquipment(IStorage storage)
+        public static Game InitializeGame(string teamLeaderName, string selectedLogo, IStorage storage)
+        {
+            var game = new Game
+            {
+                TeamLeaderName = teamLeaderName,
+                TeamLogo = selectedLogo
+            };
+
+            game.InitializeEquipment(storage);
+            game.InitializeTeamMembers(storage);
+            game.InitializeActivityTypes(storage);
+
+            return game;
+        }
+
+        private async void InitializeActivityTypes(IStorage storage)
+        {
+            var values = Enum.GetNames(typeof(ActivityType));
+            var images = await storage.GetActivityTypesImagesAsync();
+
+            foreach (var enumValue in values)
+            {
+                ActivityTypeImages.Add(enumValue, images.FirstOrDefault(a => a.ToLower().Contains(enumValue.ToLower())));
+            }
+        }
+
+        private async void InitializeEquipment(IStorage storage)
         {
             AvailableEquipment = (await storage.GetEquipmentListAsync()).OrderByDescending(a => a.Cost).ThenBy(b => b.Name).ToList();
         }
@@ -271,7 +299,8 @@ namespace BravoOne.lib.Objects
                 TimeStamp = CurrentDate,
                 ActivityLogType = type,
                 Detail = detail,
-                Title = title
+                Title = title,
+                IconImagePath = ActivityTypeImages[type.ToString()]
             };
 
             Activities.Add(activity);
