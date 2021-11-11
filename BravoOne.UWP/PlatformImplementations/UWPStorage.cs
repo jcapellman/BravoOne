@@ -59,5 +59,7 @@ namespace BravoOne.UWP.PlatformImplementations
 
             return equipment;
         }
+
+        public async Task<List<string>> GetActivityTypesImagesAsync() => await GetFileNamesAsync("ActivityTypes");
     }
 }
