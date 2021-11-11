@@ -10,5 +10,7 @@ namespace BravoOne.lib.PlatformAbstractions
         Task<List<string>> GetAvatarImagesAsync();
 
         Task<List<Equipment>> GetEquipmentListAsync();
+
+        Task<List<string>> GetActivityTypesImagesAsync();
     }
 }
