@@ -99,16 +99,7 @@ namespace BravoOne.UWP.ViewModels
 
         public void CreateGame()
         {
-            var game = new Game
-            {
-                TeamLeaderName = Name,
-                TeamLogo = SelectedLogo
-            };
-
-            game.InitializeEquipment(gWrapper.Storage);
-            game.InitializeTeamMembers(gWrapper.Storage);
-
-            gWrapper.CurrentGame = game;
+            gWrapper.CurrentGame = Game.InitializeGame(Name, SelectedLogo, gWrapper.Storage);
         }
     }
 }
