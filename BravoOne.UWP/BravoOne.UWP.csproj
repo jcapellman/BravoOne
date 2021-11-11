@@ -177,7 +177,7 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\ActivityTypes\TeamMember.png" />
+    <Content Include="Assets\ActivityTypes\TEAM_MEMBER_HIRED.png" />
     <Content Include="Assets\Avatars\1.png" />
     <Content Include="Assets\Avatars\10.png" />
     <Content Include="Assets\Avatars\11.png" />
