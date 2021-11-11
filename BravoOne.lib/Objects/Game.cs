@@ -262,6 +262,8 @@ namespace BravoOne.lib.Objects
 
         private async void InitializeActivityTypes(IStorage storage)
         {
+            ActivityTypeImages = new Dictionary<string, string>();
+
             var values = Enum.GetNames(typeof(ActivityType));
             var images = await storage.GetActivityTypesImagesAsync();
 
