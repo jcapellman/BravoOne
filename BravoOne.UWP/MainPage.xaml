@@ -197,7 +197,7 @@
                             <Grid Margin="0,0,0,10">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
                                 <Grid.RowDefinitions>
@@ -205,15 +205,23 @@
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
 
-                                <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Title}" />
+                                <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" MaxHeight="128" MaxWidth="128">
+                                    <Image.Source>
+                                        <BitmapImage UriSource="{Binding IconImagePath}" />
+                                    </Image.Source>
+                                </Image>
 
-                                <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
-                                    <TextBlock Text="type" FontWeight="Bold" />
-                                    <TextBlock Text="{Binding ActivityLogType}" Margin="2,0,0,0" />
+                                <TextBlock Grid.Row="0" Grid.Column="1" Margin="10,20,0,0" Style="{StaticResource ListViewHeader}" Text="{Binding Title}" />
 
-                                    <TextBlock Text="detail" FontWeight="Bold" Margin="5,0,0,0" />
-                                    <TextBlock Text="{Binding Detail}" Margin="2,0,0,0" />
-                                </StackPanel>
+                                <Grid Grid.Row="1" Grid.Column="1" Margin="10,0,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Column="0" Text="detail" Style="{StaticResource FieldHeader}" />
+                                    <TextBlock Grid.Column="1" Margin="5,0,0,0" Text="{Binding Detail}" Style="{StaticResource FieldValue}" />
+                                </Grid>
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
