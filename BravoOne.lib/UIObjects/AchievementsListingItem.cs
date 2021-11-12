@@ -11,5 +11,7 @@ namespace BravoOne.lib.UIObjects
         public bool Unlocked { get; set; }
 
         public DateTime? TimeStamp { get; set; }
+
+        public string ButtonLabel { get; set; }
     }
 }
