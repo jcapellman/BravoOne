@@ -61,7 +61,12 @@ namespace BravoOne.lib.DAL
             {
                 var collection = db.GetCollection<T>();
 
-                return collection.Find(expression).ToList();
+                if (expression != null)
+                {
+                    return collection.Find(expression).ToList();
+                }
+
+                return collection.FindAll().ToList();
             }
         }
 
