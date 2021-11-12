@@ -55,7 +55,7 @@ namespace BravoOne.lib.DAL
             }
         }
 
-        public override List<T> GetAll<T>(Expression<Func<T, bool>> expression)
+        public override List<T> GetAll<T>(Expression<Func<T, bool>> expression = null)
         {
             using (var db = new LiteDB.LiteDatabase(ComputedFileName))
             {
