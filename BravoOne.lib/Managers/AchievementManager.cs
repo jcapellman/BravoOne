@@ -3,6 +3,7 @@ using BravoOne.lib.DAL.Base;
 using BravoOne.lib.Managers.Base;
 using BravoOne.lib.Objects;
 using BravoOne.lib.PlatformAbstractions;
+using BravoOne.lib.UIObjects;
 
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,30 @@ namespace BravoOne.lib.Managers
                 a == typeof(BaseAchievement)).Select(b => (BaseAchievement)Activator.CreateInstance(b)).ToList();
         }
 
+        public List<AchievementsListingItem> GetAchievementListing()
+        {
+            var listing = new List<AchievementsListingItem>();
+
+            var obtainedAchievements = DAL.GetAll<Objects.Achievements>();
+
+            foreach (var achievement in achievements)
+            {
+                var unlocked = obtainedAchievements.FirstOrDefault(a => a.AchievementType == achievement.GetType());
+
+                var listingItem = new AchievementsListingItem
+                {
+                    Description = achievement.Description,
+                    Unlocked = unlocked != null,
+                    Title = achievement.Title,
+                    TimeStamp = unlocked?.TimeStamp
+                };
+
+                listing.Add(listingItem);
+            }
+
+            return listing.OrderBy(a => a.Unlocked).ThenBy(a => a.TimeStamp).ToList();
+        }
+        
         public void CheckAchievements(Game currentGame)
         {
             var obtainedAchievements = DAL.GetAll<Objects.Achievements>();
