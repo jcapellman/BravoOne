@@ -1,4 +1,5 @@
-﻿using BravoOne.lib.PlatformAbstractions;
+﻿using BravoOne.lib.DAL.Base;
+using BravoOne.lib.PlatformAbstractions;
 
 namespace BravoOne.lib.Managers.Base
 {
@@ -6,9 +7,12 @@ namespace BravoOne.lib.Managers.Base
     {
         protected IStorage Storage;
 
-        protected BaseManager(IStorage storage)
+        protected BaseDAL DAL;
+
+        protected BaseManager(IStorage storage, BaseDAL dal)
         {
             Storage = storage;
+            DAL = dal;
         }
     }
 }
