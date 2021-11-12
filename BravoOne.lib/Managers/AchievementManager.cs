@@ -18,7 +18,7 @@ namespace BravoOne.lib.Managers
         public AchievementManager(IStorage storage, BaseDAL dal) : base(storage, dal)
         {
             achievements = typeof(AchievementManager).Assembly.GetTypes().Where(a => 
-                a == typeof(BaseAchievement)).Select(b => (BaseAchievement)Activator.CreateInstance(b)).ToList();
+                a.BaseType == typeof(BaseAchievement) && !a.IsAbstract).Select(b => (BaseAchievement)Activator.CreateInstance(b)).ToList();
         }
 
         public List<AchievementsListingItem> GetAchievementListing()
@@ -36,7 +36,8 @@ namespace BravoOne.lib.Managers
                     Description = achievement.Description,
                     Unlocked = unlocked != null,
                     Title = achievement.Title,
-                    TimeStamp = unlocked?.TimeStamp
+                    TimeStamp = unlocked?.TimeStamp,
+                    ButtonLabel = unlocked?.TimeStamp == null ? "Locked" : $"Unlocked on {unlocked?.TimeStamp.Date}"
                 };
 
                 listing.Add(listingItem);
