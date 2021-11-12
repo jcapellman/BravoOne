@@ -4,8 +4,6 @@ namespace BravoOne.lib.Achievements.Base
 {
     public abstract class BaseAchievement
     {
-        public abstract int Id { get; }
-
         public abstract string Title { get; }
 
         public abstract string Description { get; }
