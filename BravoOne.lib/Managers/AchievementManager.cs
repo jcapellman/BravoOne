@@ -15,7 +15,7 @@ namespace BravoOne.lib.Managers
     {
         private readonly List<BaseAchievement> achievements;
 
-        protected AchievementManager(IStorage storage, BaseDAL dal) : base(storage, dal)
+        public AchievementManager(IStorage storage, BaseDAL dal) : base(storage, dal)
         {
             achievements = typeof(AchievementManager).Assembly.GetTypes().Where(a => 
                 a == typeof(BaseAchievement)).Select(b => (BaseAchievement)Activator.CreateInstance(b)).ToList();
