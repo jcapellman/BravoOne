@@ -28,6 +28,6 @@ namespace BravoOne.lib.DAL.Base
 
         public abstract T Get<T>(Expression<Func<T, bool>> expression);
 
-        public abstract List<T> GetAll<T>(Expression<Func<T, bool>> expression);
+        public abstract List<T> GetAll<T>(Expression<Func<T, bool>> expression = null);
     }
 }
