@@ -8,6 +8,6 @@ namespace BravoOne.lib.Objects
 
         public DateTime TimeStamp { get; set; }
         
-        public int AchievementId { get; set;  }
+        public Type AchievementType { get; set;  }
     }
 }
