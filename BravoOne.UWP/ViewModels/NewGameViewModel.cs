@@ -99,7 +99,7 @@ namespace BravoOne.UWP.ViewModels
 
         public void CreateGame()
         {
-            gWrapper.CurrentGame = Game.InitializeGame(Name, SelectedLogo, gWrapper.Storage);
+            gWrapper.StartGame(Name, SelectedLogo);
         }
     }
 }
