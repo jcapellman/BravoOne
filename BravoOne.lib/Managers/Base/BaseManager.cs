@@ -1,9 +1,10 @@
 ﻿using BravoOne.lib.DAL.Base;
+using BravoOne.lib.Objects;
 using BravoOne.lib.PlatformAbstractions;
 
 namespace BravoOne.lib.Managers.Base
 {
-    public class BaseManager
+    public abstract class BaseManager
     {
         protected IStorage Storage;
 
@@ -14,5 +15,7 @@ namespace BravoOne.lib.Managers.Base
             Storage = storage;
             DAL = dal;
         }
+
+        public abstract void ProcessTurn(Game currentGame);
     }
 }
