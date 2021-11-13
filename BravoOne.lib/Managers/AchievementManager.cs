@@ -1,5 +1,6 @@
 ﻿using BravoOne.lib.Achievements.Base;
 using BravoOne.lib.DAL.Base;
+using BravoOne.lib.Enums;
 using BravoOne.lib.Managers.Base;
 using BravoOne.lib.Objects;
 using BravoOne.lib.PlatformAbstractions;
@@ -42,7 +43,7 @@ namespace BravoOne.lib.Managers
                     Title = achievement.Title,
                     TimeStamp = unlocked?.TimeStamp,
                     ImagePath = Path.Combine(achievementRootPath, $"{achievement.GetType().Name}.png"),
-                    ButtonLabel = unlocked?.TimeStamp == null ? "Locked" : $"Unlocked on {unlocked?.TimeStamp.Date}"
+                    ButtonLabel = unlocked?.TimeStamp == null ? "Locked" : $"Unlocked on {unlocked?.TimeStamp.Date.ToShortDateString()}"
                 };
 
                 listing.Add(listingItem);
@@ -51,7 +52,7 @@ namespace BravoOne.lib.Managers
             return listing.OrderBy(a => a.Unlocked).ThenBy(a => a.TimeStamp).ToList();
         }
         
-        public override void ProcessTurn(Game currentGame)
+        public override (TurnStatus Status, Game CurrentGame) ProcessTurn(Game currentGame)
         {
             var obtainedAchievements = DAL.GetAll<Objects.Achievements>();
 
@@ -77,6 +78,8 @@ namespace BravoOne.lib.Managers
 
                 DAL.Add(unlockedAchievement);
             }
+
+            return (TurnStatus.OK, currentGame);
         }
     }
 }
