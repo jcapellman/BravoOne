@@ -8,6 +8,8 @@ namespace BravoOne.UWP
 {
     public sealed partial class Achievements : Page
     {
+        private AchievementsViewModel ViewModel => (AchievementsViewModel)DataContext;
+
         public Achievements()
         {
             this.InitializeComponent();
@@ -16,6 +18,8 @@ namespace BravoOne.UWP
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             DataContext = new AchievementsViewModel((GameWrapper)e.Parameter);
+
+            ViewModel.LoadListing();
 
             base.OnNavigatedTo(e);
         }
