@@ -93,7 +93,7 @@ namespace BravoOne.lib.Objects
             }
         }
 
-        private Dictionary<string, string> ActivityTypeImages;
+        internal Dictionary<string, string> ActivityTypeImages;
 
         private List<TeamMember> _teamMembers { get; set; }
 
@@ -186,47 +186,6 @@ namespace BravoOne.lib.Objects
             return dal.Get<Game>(a => a.Id == id);
         }
 
-        public async void InitializeTeamMembers(IStorage storage)
-        {
-            TeamMembers = TeamMembers.Where(a => a.Status != TeamMemberStatus.Available).ToList();
-
-            var randomFirst = new Random((int)DateTime.Now.Ticks);
-            var randomLast = new Random((int)DateTime.Now.Ticks+1);
-            var randomSkill = new Random((int)DateTime.Now.Ticks);
-            var randomSpecialty = new Random((int)DateTime.Now.Ticks);
-
-            var randomAvatar = new Random((int)DateTime.Now.Ticks+5);
-
-            var specialties = Enum.GetNames(typeof(Specialties));
-            var avatarImages = await storage.GetAvatarImagesAsync();
-
-            for (var x = 0; x < 50; x++)
-            {
-                var member = new TeamMember
-                {
-                    Health = 100,
-                    Status = TeamMemberStatus.Available,
-                    Id = Guid.NewGuid()
-                };
-
-                do {
-                    var firstName = Common.Constants.FIRST_NAMES[randomFirst.Next(0, Common.Constants.FIRST_NAMES.Length - 1)];
-                    var lastName = Common.Constants.LAST_NAMES[randomLast.Next(0, Common.Constants.LAST_NAMES.Length - 1)];
-
-                    member.Name = $"{firstName} {lastName}";
-                } while (TeamMembers.Any(a => a.Name == member.Name));
-                
-                member.SkillPoints = (uint)randomSkill.Next(1, TeamLevel + 5);
-
-                member.MonthlySalary = 10000 * member.SkillPoints;
-                
-                member.Specialty = specialties[randomSpecialty.Next(0, specialties.Length - 1)];
-                member.AvatarImagePath = avatarImages[randomAvatar.Next(0, avatarImages.Count() - 1)];
-
-                TeamMembers.Add(member);
-            }
-        }
-
         public Game()
         {
             CurrentDate = DateTime.Now;
@@ -243,39 +202,6 @@ namespace BravoOne.lib.Objects
             gsXP = 0;
 
             Money = 100000;
-        }
-
-        public static Game InitializeGame(string teamLeaderName, string selectedLogo, IStorage storage)
-        {
-            var game = new Game
-            {
-                TeamLeaderName = teamLeaderName,
-                TeamLogo = selectedLogo
-            };
-
-            game.InitializeEquipment(storage);
-            game.InitializeTeamMembers(storage);
-            game.InitializeActivityTypes(storage);
-
-            return game;
-        }
-
-        private async void InitializeActivityTypes(IStorage storage)
-        {
-            ActivityTypeImages = new Dictionary<string, string>();
-
-            var values = Enum.GetNames(typeof(ActivityType));
-            var images = await storage.GetActivityTypesImagesAsync();
-
-            foreach (var enumValue in values)
-            {
-                ActivityTypeImages.Add(enumValue, images.FirstOrDefault(a => a.ToLower().Contains(enumValue.ToLower())));
-            }
-        }
-
-        private async void InitializeEquipment(IStorage storage)
-        {
-            AvailableEquipment = (await storage.GetEquipmentListAsync()).OrderByDescending(a => a.Cost).ThenBy(b => b.Name).ToList();
         }
 
         public void AddTeamMember(TeamMember member)
@@ -308,15 +234,11 @@ namespace BravoOne.lib.Objects
             Activities.Add(activity);
         }
 
-        public bool EndTurn(IStorage storage)
+        public void EndTurn()
         {
             CurrentDate = CurrentDate.AddMonths(1);
 
             gsMonths++;
-
-            InitializeTeamMembers(storage);
-
-            return true;
         }
     }
 }
