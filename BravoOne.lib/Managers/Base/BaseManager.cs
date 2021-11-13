@@ -1,4 +1,5 @@
 ﻿using BravoOne.lib.DAL.Base;
+using BravoOne.lib.Enums;
 using BravoOne.lib.Objects;
 using BravoOne.lib.PlatformAbstractions;
 
@@ -16,6 +17,6 @@ namespace BravoOne.lib.Managers.Base
             DAL = dal;
         }
 
-        public abstract void ProcessTurn(Game currentGame);
+        public abstract (TurnStatus Status, Game CurrentGame) ProcessTurn(Game currentGame);
     }
 }
