@@ -24,8 +24,12 @@ namespace BravoOne.UWP.ViewModels
         }
 
         public AchievementsViewModel(GameWrapper wrapper) : base(wrapper)
+        {  
+        }
+
+        public async void LoadListing()
         {
-            AchievementListing = new AchievementManager(wrapper.Storage, wrapper.DAL).GetAchievementListing();
+            AchievementListing = await (new AchievementManager(gWrapper.Storage, gWrapper.DAL).GetAchievementListingAsync());
         }
     }
 }
