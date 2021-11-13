@@ -5,9 +5,7 @@ using BravoOne.lib.PlatformAbstractions;
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace BravoOne.lib
 {
@@ -60,14 +58,23 @@ namespace BravoOne.lib
 
         public T GetManager<T>() where T : BaseManager => (T)_managers.FirstOrDefault(a => a.GetType() == typeof(T));
 
+        public async void StartGame(string teamLeaderName, string selectedLogo)
+        {
+            CurrentGame = new Game
+            {
+                TeamLeaderName = teamLeaderName,
+                TeamLogo = selectedLogo
+            };
+
+            foreach (var manager in _managers)
+            {
+                CurrentGame = await manager.InitializeAsync(CurrentGame);
+            }
+        }
+
         public bool EndTurn()
         {
-            var result = CurrentGame.EndTurn(Storage);
-
-            if (!result)
-            {
-                return false;
-            }
+            CurrentGame.EndTurn();
 
             foreach (var manager in _managers)
             {
