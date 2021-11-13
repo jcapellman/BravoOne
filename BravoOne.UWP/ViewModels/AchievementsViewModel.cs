@@ -29,7 +29,7 @@ namespace BravoOne.UWP.ViewModels
 
         public async void LoadListing()
         {
-            AchievementListing = await (new AchievementManager(gWrapper.Storage, gWrapper.DAL).GetAchievementListingAsync());
+            AchievementListing = await gWrapper.GetManager<AchievementManager>().GetAchievementListingAsync();
         }
     }
 }
