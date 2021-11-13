@@ -51,7 +51,12 @@ namespace BravoOne.lib.Managers
 
             return listing.OrderBy(a => a.Unlocked).ThenBy(a => a.TimeStamp).ToList();
         }
-        
+
+        public override async Task<Game> InitializeAsync(Game currentGame)
+        {
+            return currentGame;
+        }
+
         public override (TurnStatus Status, Game CurrentGame) ProcessTurn(Game currentGame)
         {
             var obtainedAchievements = DAL.GetAll<Objects.Achievements>();
