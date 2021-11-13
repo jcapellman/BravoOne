@@ -12,5 +12,7 @@ namespace BravoOne.lib.PlatformAbstractions
         Task<List<Equipment>> GetEquipmentListAsync();
 
         Task<List<string>> GetActivityTypesImagesAsync();
+
+        Task<string> GetFullPathAsync(string subFolderName);
     }
 }
