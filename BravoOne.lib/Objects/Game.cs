@@ -312,31 +312,6 @@ namespace BravoOne.lib.Objects
         {
             CurrentDate = CurrentDate.AddMonths(1);
 
-            
-
-            for (int x = 0; x < Contracts.Count; x++)
-            {
-                TeamMembers = Contracts[x].EndTurn(CurrentDate, TeamMembers.ToDictionary(a => a.Id));
-
-                switch (Contracts[x].Status)
-                {
-                    case Enums.ContractStatus.Completed:
-                        Money += Contracts[x].Income;
-                        break;
-                    case Enums.ContractStatus.Failed:
-                        Money -= Contracts[x].Penalty;
-                        break;
-                    case Enums.ContractStatus.NotStarted:
-                        break;
-                    case Enums.ContractStatus.InProgress:
-                        break;
-                    default:
-                        break;
-                }
-            }
-
-            Contracts = new ObservableCollection<Contract>(Contracts);
-
             gsMonths++;
 
             InitializeTeamMembers(storage);
