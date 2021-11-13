@@ -6,6 +6,7 @@ using BravoOne.lib.PlatformAbstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BravoOne.lib
 {
@@ -72,13 +73,13 @@ namespace BravoOne.lib
             }
         }
 
-        public bool EndTurn()
+        public async Task<bool> EndTurn()
         {
             CurrentGame.EndTurn();
 
             foreach (var manager in _managers)
             {
-                var turnResult = manager.ProcessTurn(CurrentGame);
+                var turnResult = await manager.ProcessTurnAsync(CurrentGame);
 
                 CurrentGame = turnResult.CurrentGame;
 

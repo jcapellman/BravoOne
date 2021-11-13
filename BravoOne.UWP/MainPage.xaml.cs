@@ -26,9 +26,9 @@ namespace BravoOne.UWP
             base.OnNavigatedTo(e);
         }
 
-        private void btnEndMonth_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private async void btnEndMonth_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            var result = ViewModel.EndMonth();
+            var result = await ViewModel.EndMonthAsync();
 
             if (result)
             {

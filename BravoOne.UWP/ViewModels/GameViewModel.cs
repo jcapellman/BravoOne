@@ -4,6 +4,7 @@ using BravoOne.UWP.ViewModels.Base;
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BravoOne.UWP.ViewModels
 {
@@ -33,9 +34,9 @@ namespace BravoOne.UWP.ViewModels
             gWrapper.DAL.Add(gWrapper.CurrentGame);
         }
 
-        public bool EndMonth()
+        public async Task<bool> EndMonthAsync()
         {
-            var endofGame = gWrapper.EndTurn();
+            var endofGame = await gWrapper.EndTurn();
             
             if (!endofGame)
             {

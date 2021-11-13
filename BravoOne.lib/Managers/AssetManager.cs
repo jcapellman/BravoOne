@@ -48,7 +48,7 @@ namespace BravoOne.lib.Managers
             return currentGame;
         }
 
-        public override (TurnStatus Status, Game CurrentGame) ProcessTurn(Game currentGame)
+        public override async Task<(TurnStatus Status, Game CurrentGame)> ProcessTurnAsync(Game currentGame)
         {
             return (TurnStatus.OK, currentGame);
         }

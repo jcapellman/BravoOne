@@ -21,6 +21,6 @@ namespace BravoOne.lib.Managers.Base
 
         public abstract Task<Game> InitializeAsync(Game currentGame);
 
-        public abstract (TurnStatus Status, Game CurrentGame) ProcessTurn(Game currentGame);
+        public abstract Task<(TurnStatus Status, Game CurrentGame)> ProcessTurnAsync(Game currentGame);
     }
 }
