@@ -312,15 +312,7 @@ namespace BravoOne.lib.Objects
         {
             CurrentDate = CurrentDate.AddMonths(1);
 
-            foreach (TeamMember member in TeamMembers.Where(a => a.Status == TeamMemberStatus.OnTeam))
-            {
-                if (member.MonthlySalary > Money)
-                {
-                    return false;
-                }
-
-                Money -= member.MonthlySalary;
-            }
+            
 
             for (int x = 0; x < Contracts.Count; x++)
             {
