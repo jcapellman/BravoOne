@@ -5,6 +5,7 @@ using BravoOne.lib.Objects;
 using BravoOne.lib.PlatformAbstractions;
 
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BravoOne.lib.Managers
 {
@@ -12,6 +13,18 @@ namespace BravoOne.lib.Managers
     {
         public ContractManager(IStorage storage, BaseDAL dal) : base(storage, dal)
         {
+        }
+
+        public override async Task<Game> InitializeAsync(Game currentGame)
+        {
+            if (currentGame.Contracts != null)
+            {
+                return currentGame;
+            }
+
+            currentGame.Contracts = new System.Collections.ObjectModel.ObservableCollection<Contract>();
+
+            return currentGame;
         }
 
         public override (TurnStatus Status, Game CurrentGame) ProcessTurn(Game currentGame)
