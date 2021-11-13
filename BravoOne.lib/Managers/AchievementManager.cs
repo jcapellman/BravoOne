@@ -7,7 +7,9 @@ using BravoOne.lib.UIObjects;
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BravoOne.lib.Managers
 {
@@ -21,11 +23,13 @@ namespace BravoOne.lib.Managers
                 a.BaseType == typeof(BaseAchievement) && !a.IsAbstract).Select(b => (BaseAchievement)Activator.CreateInstance(b)).ToList();
         }
 
-        public List<AchievementsListingItem> GetAchievementListing()
+        public async Task<List<AchievementsListingItem>> GetAchievementListingAsync()
         {
             var listing = new List<AchievementsListingItem>();
 
             var obtainedAchievements = DAL.GetAll<Objects.Achievements>();
+
+            var achievementRootPath = await Storage.GetFullPathAsync("Achievements");
 
             foreach (var achievement in achievements)
             {
@@ -37,6 +41,7 @@ namespace BravoOne.lib.Managers
                     Unlocked = unlocked != null,
                     Title = achievement.Title,
                     TimeStamp = unlocked?.TimeStamp,
+                    ImagePath = Path.Combine(achievementRootPath, $"{achievement.GetType().Name}.png"),
                     ButtonLabel = unlocked?.TimeStamp == null ? "Locked" : $"Unlocked on {unlocked?.TimeStamp.Date}"
                 };
 
