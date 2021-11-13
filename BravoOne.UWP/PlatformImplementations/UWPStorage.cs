@@ -61,5 +61,14 @@ namespace BravoOne.UWP.PlatformImplementations
         }
 
         public async Task<List<string>> GetActivityTypesImagesAsync() => await GetFileNamesAsync("ActivityTypes");
+
+        public async Task<string> GetFullPathAsync(string subFolderName)
+        {
+            StorageFolder rootFolder = await installedLocation.GetFolderAsync(RootFolder);
+
+            var subFolder = await rootFolder.GetFolderAsync(subFolderName);
+
+            return subFolder.Path;
+        }
     }
 }
