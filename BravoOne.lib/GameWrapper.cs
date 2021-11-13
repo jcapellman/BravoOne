@@ -71,7 +71,22 @@ namespace BravoOne.lib
 
             foreach (var manager in _managers)
             {
-                manager.ProcessTurn(CurrentGame);
+                var turnResult = manager.ProcessTurn(CurrentGame);
+
+                CurrentGame = turnResult.CurrentGame;
+
+                if (turnResult.Status == Enums.TurnStatus.OK)
+                {
+                    continue;
+                }
+
+                switch (turnResult.Status)
+                {
+                    case Enums.TurnStatus.OUT_OF_MONEY:
+                        return false;
+                    default:
+                        return true;
+                }
             }
 
             return true;
