@@ -33,7 +33,7 @@ namespace BravoOne.lib.Managers
 
             foreach (var achievement in achievements)
             {
-                var unlocked = obtainedAchievements.FirstOrDefault(a => a.AchievementType == achievement.GetType());
+                var unlocked = obtainedAchievements.FirstOrDefault(a => a.AchievementTypeName == achievement.GetType().Name);
 
                 var listingItem = new AchievementsListingItem
                 {
@@ -51,13 +51,13 @@ namespace BravoOne.lib.Managers
             return listing.OrderBy(a => a.Unlocked).ThenBy(a => a.TimeStamp).ToList();
         }
         
-        public void CheckAchievements(Game currentGame)
+        public override void ProcessTurn(Game currentGame)
         {
             var obtainedAchievements = DAL.GetAll<Objects.Achievements>();
 
             foreach (var achievement in achievements)
             {
-                if (obtainedAchievements.Any(a => a.AchievementType == achievement.GetType()))
+                if (obtainedAchievements.Any(a => a.AchievementTypeName == achievement.GetType().Name))
                 {
                     continue;
                 }
@@ -71,7 +71,7 @@ namespace BravoOne.lib.Managers
 
                 var unlockedAchievement = new Objects.Achievements
                 {
-                    AchievementType = achievement.GetType(),
+                    AchievementTypeName = achievement.GetType().Name,
                     TimeStamp = DateTime.Now
                 };
 
