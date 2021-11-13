@@ -3,6 +3,8 @@ using BravoOne.lib.Enums;
 using BravoOne.lib.Objects;
 using BravoOne.lib.PlatformAbstractions;
 
+using System.Threading.Tasks;
+
 namespace BravoOne.lib.Managers.Base
 {
     public abstract class BaseManager
@@ -16,6 +18,8 @@ namespace BravoOne.lib.Managers.Base
             Storage = storage;
             DAL = dal;
         }
+
+        public abstract Task<Game> InitializeAsync(Game currentGame);
 
         public abstract (TurnStatus Status, Game CurrentGame) ProcessTurn(Game currentGame);
     }
