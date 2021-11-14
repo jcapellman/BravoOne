@@ -4,6 +4,7 @@ using BravoOne.lib.Managers.Base;
 using BravoOne.lib.Objects;
 using BravoOne.lib.PlatformAbstractions;
 
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BravoOne.lib.Managers
@@ -20,7 +21,7 @@ namespace BravoOne.lib.Managers
 
         public override async Task<(TurnStatus Status, Game CurrentGame)> ProcessTurnAsync(Game currentGame)
         {
-            foreach (var teamMember in currentGame.TeamMembers)
+            foreach (var teamMember in currentGame.TeamMembers.Where(a => a.Status == TeamMemberStatus.OnTeam))
             {
                 if (teamMember.Equipment.Any())
                 {
