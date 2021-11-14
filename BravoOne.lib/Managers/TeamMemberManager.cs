@@ -26,6 +26,9 @@ namespace BravoOne.lib.Managers
                 }
 
                 currentGame.Money -= member.MonthlySalary;
+
+                member.Status -= currentGame.Contracts.Where(a => a.Status == ContractStatus.InProgress && 
+                    a.AssignedTeamMembers.Contains(member.Id)).Sum(c => c.TeamMemberToll);
             }
 
             currentGame = await InitializeAsync(currentGame);

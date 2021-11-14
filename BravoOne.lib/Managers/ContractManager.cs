@@ -4,6 +4,7 @@ using BravoOne.lib.Managers.Base;
 using BravoOne.lib.Objects;
 using BravoOne.lib.PlatformAbstractions;
 
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -31,7 +32,26 @@ namespace BravoOne.lib.Managers
         {
             for (int x = 0; x < currentGame.Contracts.Count; x++)
             {
-                currentGame.TeamMembers = currentGame.Contracts[x].EndTurn(currentGame.CurrentDate, currentGame.TeamMembers.ToDictionary(a => a.Id));
+                if (currentGame.Contracts[x].Status != ContractStatus.InProgress)
+                {
+                    continue;
+                }
+
+                foreach (Guid guid in currentGame.Contracts[x].AssignedTeamMembers)
+                {
+                    var teamMember = currentGame.TeamMembers.FirstOrDefault(a => a.Id == guid);
+
+                    currentGame.Contracts[x].SkillPointsRemaining -= teamMember.SkillPoints;
+                }
+
+                if (currentGame.Contracts[x].SkillPointsRemaining <= 0)
+                {
+                    currentGame.Contracts[x].Status = ContractStatus.Completed;
+                }
+                else if (currentGame.CurrentDate > currentGame.Contracts[x].CompleteDate)
+                {
+                    currentGame.Contracts[x].Status = ContractStatus.Failed;
+                }
 
                 switch (currentGame.Contracts[x].Status)
                 {
