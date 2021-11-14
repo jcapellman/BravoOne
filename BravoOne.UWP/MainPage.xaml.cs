@@ -57,9 +57,22 @@ namespace BravoOne.UWP
             await dialog.ShowAsync();
         }
 
-        private void btnExitGame_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private async void btnExitGame_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            _ = Frame.Navigate(typeof(MainMenu), ViewModel.gWrapper);
+            ContentDialog confirmExit = new ContentDialog
+            {
+                Title = "Exit game?",
+                Content = "Are you sure you want to exit?",
+                PrimaryButtonText = "Yes",
+                CloseButtonText = "No"
+            };
+
+            ContentDialogResult result = await confirmExit.ShowAsync();
+
+            if (result == ContentDialogResult.Primary)
+            {
+                _ = Frame.Navigate(typeof(MainMenu), ViewModel.gWrapper);
+            }
         }
 
         private void btnEquipment_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
