@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-using BravoOne.lib.DAL.Base;
+
 using BravoOne.lib.Enums;
 using BravoOne.lib.Objects.Base;
-using BravoOne.lib.PlatformAbstractions;
 
 namespace BravoOne.lib.Objects
 {
@@ -179,11 +176,6 @@ namespace BravoOne.lib.Objects
 
                 OnPropertyChanged();
             }
-        }
-
-        public static Game LoadGame(BaseDAL dal, int id)
-        {
-            return dal.Get<Game>(a => a.Id == id);
         }
 
         public Game()

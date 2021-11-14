@@ -4,6 +4,7 @@ using System.Linq;
 using BravoOne.lib;
 using BravoOne.lib.Objects;
 using BravoOne.UWP.ViewModels.Base;
+
 using Windows.UI.Xaml;
 
 namespace BravoOne.UWP.ViewModels
