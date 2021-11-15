@@ -91,6 +91,11 @@ namespace BravoOne.UWP.ViewModels
 
         public LoadGameViewModel(GameWrapper wrapper) : base(wrapper)
         {
+            InitializeListing();    
+        }
+
+        private void InitializeListing()
+        {
             Games = gWrapper.DAL.GetAll<Game>(a => a != null);
 
             SelectedGame = Games.FirstOrDefault();
@@ -99,6 +104,13 @@ namespace BravoOne.UWP.ViewModels
         public void LoadGame()
         {
             gWrapper.CurrentGame = SelectedGame;
+        }
+
+        public void DeleteGame()
+        {
+            gWrapper.DAL.Delete<Game>(a => a.Id == SelectedGame.Id);
+
+            InitializeListing();
         }
     }
 }
