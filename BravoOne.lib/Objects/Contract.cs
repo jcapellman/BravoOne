@@ -27,6 +27,8 @@ namespace BravoOne.lib.Objects
 
         public uint SkillPointsRemaining { get; set; }
 
+        public Dictionary<Specialties, int> SpecialtiesRequired { get; set; }
+
         public List<Guid> AssignedTeamMembers { get; set; }
     }
 }
