@@ -47,5 +47,40 @@
             "HILL",
             "SCOTT"
         };
+
+        public static string[] MISSION_NAMES = new string[]
+        {
+            "OVERLORD",
+            "ROLLING THUNDER",
+            "RED DAWN",
+            "VITTLES",
+            "URGENT FURY",
+            "DESERT STORM",
+            "WRATH OF GOD",
+            "BARBAROSSA",
+            "MAGIC CARPET",
+            "DYNAMO",
+            "DESERT SHIELD",
+            "DESERT STRIKE",
+            "DESERT THUNDER",
+            "DESERT FOX",
+            "DESERT LION",
+            "DAWN BLITZ",
+            "DESTINED GLORY",
+            "EAGLE CLAW",
+            "EAGLE EYE",
+            "DRAGOON RIDE",
+            "FREEDOM FALCON",
+            "FREEDOM EAGLE",
+            "FREEDOM DEAL",
+            "FREEDOM SENTINEL",
+            "FREEDOM BANNER",
+            "IVY BELLS",
+            "IVORY COAST",
+            "JOINT VENTURE",
+            "LOOKING GLASS",
+            "MOUNT HOPE",
+            "NOBLE EAGLE"
+        };
     }
 }
