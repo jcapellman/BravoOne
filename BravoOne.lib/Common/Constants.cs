@@ -80,7 +80,22 @@
             "JOINT VENTURE",
             "LOOKING GLASS",
             "MOUNT HOPE",
-            "NOBLE EAGLE"
+            "NOBLE EAGLE",
+            "BLACKJACK",
+            "CHOPSTICK",
+            "CORKSCREW",
+            "DIADEM",
+            "DOVETAIL",
+            "FELIX",
+            "MARKET GARDEN",
+            "ICEBURG",
+            "PATRIOT",
+            "ROOSTER",
+            "SAND FLEA",
+            "SWORD",
+            "TRIDENT",
+            "TYPHOON",
+            "VIPER"
         };
     }
 }
