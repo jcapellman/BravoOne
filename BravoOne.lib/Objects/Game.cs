@@ -120,6 +120,20 @@ namespace BravoOne.lib.Objects
             }
         }
 
+        private ObservableCollection<Contract> _availableContracts { get; set; }
+
+        public ObservableCollection<Contract> AvailableContracts
+        {
+            get => _availableContracts;
+
+            set
+            {
+                _availableContracts = value;
+
+                OnPropertyChanged();
+            }
+        }
+
         private ObservableCollection<ActivityLog> _activities;
 
         public ObservableCollection<ActivityLog> Activities
