@@ -22,6 +22,8 @@ namespace BravoOne.lib.Managers
 
             var randomName = new Random((int)DateTime.Now.Ticks);
             var randomPrefix = new Random((int)DateTime.Now.Ticks+1);
+            var randomSkillLevel = new Random((int)DateTime.Now.Ticks + 1);
+            var randomType = new Random((int)DateTime.Now.Ticks + 1);
 
             for (var x = 0; x < 10; x++)
             {
@@ -40,6 +42,9 @@ namespace BravoOne.lib.Managers
                     contract.Name = $"{prefix} {name}";
                 } while (currentGame.AvailableContracts.Any(a => a.Name == contract.Name) || 
                     currentGame.Contracts.Any(a => a.Name == contract.Name));
+
+
+                contract.CType = (ContractType)randomType.Next(0, Enum.GetValues(typeof(ContractType)).Length - 1);
 
                 currentGame.AvailableContracts.Add(contract);
             }
