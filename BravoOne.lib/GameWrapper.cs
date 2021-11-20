@@ -40,7 +40,7 @@ namespace BravoOne.lib
             }
         }
 
-        private List<BaseManager> _managers;
+        private readonly List<BaseManager> _managers;
 
         public GameWrapper(BaseDAL dal, IStorage storage, Game aGame = null)
         {
