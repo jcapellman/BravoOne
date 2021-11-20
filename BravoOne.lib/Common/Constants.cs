@@ -97,5 +97,13 @@
             "TYPHOON",
             "VIPER"
         };
+
+        public static string[] MISSION_PREFIX = new string[]
+        {
+            "OPERATION",
+            "MISSION",
+            "EXERCISE",
+            "JOINT TASK"
+        };
     }
 }
