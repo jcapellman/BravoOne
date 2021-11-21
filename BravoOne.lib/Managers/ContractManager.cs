@@ -24,6 +24,9 @@ namespace BravoOne.lib.Managers
             var randomPrefix = new Random((int)DateTime.Now.Ticks+1);
             var randomSkillLevel = new Random((int)DateTime.Now.Ticks + 1);
             var randomType = new Random((int)DateTime.Now.Ticks + 1);
+            var randomSkillPoints = new Random((int)DateTime.Now.Ticks + 1);
+            var randomIncome = new Random((int)DateTime.Now.Ticks + 1);
+            var randomPenalty = new Random((int)DateTime.Now.Ticks + 1);
 
             for (var x = 0; x < 10; x++)
             {
@@ -31,6 +34,7 @@ namespace BravoOne.lib.Managers
                 {
                     Id = Guid.NewGuid(),
                     Status = ContractStatus.NotStarted,
+                    SpecialtiesRequired = new System.Collections.Generic.Dictionary<Specialties, int>(),
                     AssignedTeamMembers = new System.Collections.Generic.List<Guid>()
                 };
 
@@ -43,8 +47,34 @@ namespace BravoOne.lib.Managers
                 } while (currentGame.AvailableContracts.Any(a => a.Name == contract.Name) || 
                     currentGame.Contracts.Any(a => a.Name == contract.Name));
 
-
                 contract.CType = (ContractType)randomType.Next(0, Enum.GetValues(typeof(ContractType)).Length - 1);
+                contract.SkillPointsRemaining = (uint)randomSkillPoints.Next(currentGame.TeamLevel, currentGame.TeamLevel * currentGame.TeamMembers.Count);
+                contract.Income = (ulong)randomIncome.Next((int)(contract.SkillPointsRemaining * 10), (int)(contract.SkillPointsRemaining * 25));
+                contract.TeamMemberToll = 10;
+                contract.Penalty = (ulong)randomPenalty.Next((int)contract.Income / 2, (int)(contract.Income * 2));
+
+                switch (contract.CType)
+                {
+                    case ContractType.DEMOLITION:
+                        contract.SpecialtiesRequired.Add(Specialties.DEMOLITION, 1);
+                        contract.SpecialtiesRequired.Add(Specialties.RECON, 1);
+                        break;
+                    case ContractType.INFILTRATION:
+                        contract.SpecialtiesRequired.Add(Specialties.ASSAULT, 1);
+                        contract.SpecialtiesRequired.Add(Specialties.DEMOLITION, 1);
+                        contract.SpecialtiesRequired.Add(Specialties.RECON, 1);
+                        contract.SpecialtiesRequired.Add(Specialties.SNIPER, 1);
+                        break;
+                    case ContractType.RESCUE:
+                        contract.SpecialtiesRequired.Add(Specialties.ASSAULT, 1);
+                        contract.SpecialtiesRequired.Add(Specialties.SNIPER, 1);
+                        contract.SpecialtiesRequired.Add(Specialties.RECON, 1);
+                        break;
+                    case ContractType.RECON:
+                        contract.SpecialtiesRequired.Add(Specialties.RECON, 1);
+                        contract.SpecialtiesRequired.Add(Specialties.SNIPER, 1);
+                        break;
+                }
 
                 currentGame.AvailableContracts.Add(contract);
             }
