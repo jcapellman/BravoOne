@@ -27,7 +27,8 @@ namespace BravoOne.lib.Managers
             var randomSkillPoints = new Random((int)DateTime.Now.Ticks + 1);
             var randomIncome = new Random((int)DateTime.Now.Ticks + 1);
             var randomPenalty = new Random((int)DateTime.Now.Ticks + 1);
-
+            var randomToll = new Random((int)DateTime.Now.Ticks + 1);
+            .
             for (var x = 0; x < 10; x++)
             {
                 var contract = new Contract
@@ -50,7 +51,7 @@ namespace BravoOne.lib.Managers
                 contract.CType = (ContractType)randomType.Next(0, Enum.GetValues(typeof(ContractType)).Length - 1);
                 contract.SkillPointsRemaining = (uint)randomSkillPoints.Next(currentGame.TeamLevel, currentGame.TeamLevel * currentGame.TeamMembers.Count);
                 contract.Income = (ulong)randomIncome.Next((int)(contract.SkillPointsRemaining * 10), (int)(contract.SkillPointsRemaining * 25));
-                contract.TeamMemberToll = 10;
+                contract.TeamMemberToll = randomToll.Next(5, 20);
                 contract.Penalty = (ulong)randomPenalty.Next((int)contract.Income / 2, (int)(contract.Income * 2));
 
                 switch (contract.CType)
