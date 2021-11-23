@@ -30,5 +30,10 @@ namespace BravoOne.lib.Objects
         public bool Available { get; set; }
 
         public List<TeamEquipment> Equipment { get; set; }
+
+        public TeamMember()
+        {
+            Equipment = new List<TeamEquipment>();
+        }
     }
 }
