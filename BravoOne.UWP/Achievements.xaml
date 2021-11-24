@@ -19,7 +19,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Margin="10,0,0,0" Text="Achievements" HorizontalAlignment="Left" Style="{ThemeResource Header}" />
+        <TextBlock Grid.Row="0" Margin="10,20,0,0" Text="Achievements" HorizontalAlignment="Left" Style="{ThemeResource Header}" />
 
         <Grid Grid.Row="1" Margin="10,30,10,30">
             <Grid.ColumnDefinitions>
@@ -59,7 +59,7 @@
                                 <TextBlock Grid.Row="0" Margin="20,20,0,0" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Title}" Style="{StaticResource ListViewHeader}" />
 
                                 <TextBlock Grid.Column="1" Grid.Row="1" Margin="20,0,0,0"  Text="description" Style="{StaticResource FieldHeader}" />
-                                <TextBlock Grid.Column="2" Grid.Row="1" Text="{Binding Description}" Style="{StaticResource FieldValue}" />
+                                <TextBlock Grid.Column="2" Grid.Row="1" Margin="10,0,0,0" Text="{Binding Description}" Style="{StaticResource FieldValue}" />
 
                                 <Button Grid.Column="3" Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,20,0,0" IsEnabled="{Binding Unlocked}" Content="{Binding ButtonLabel}" Style="{StaticResource MainButton}" />
                             </Grid>
