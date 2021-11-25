@@ -179,6 +179,7 @@
   <ItemGroup>
     <Content Include="Assets\Achievements\BuyEquipment.png" />
     <Content Include="Assets\Achievements\HireTeamMember.png" />
+    <Content Include="Assets\Achievements\HireTenTeamMembers.png" />
     <Content Include="Assets\ActivityTypes\TEAM_MEMBER_HIRED.png" />
     <Content Include="Assets\Avatars\1.png" />
     <Content Include="Assets\Avatars\10.png" />
