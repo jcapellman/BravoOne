@@ -23,7 +23,7 @@ namespace BravoOne.lib.Managers
         {
             foreach (var teamMember in currentGame.TeamMembers.Where(a => a.Status == TeamMemberStatus.OnTeam))
             {
-                if (teamMember.Equipment.Any())
+                if (!teamMember.Equipment.Any())
                 {
                     continue;
                 }
