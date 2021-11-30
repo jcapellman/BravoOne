@@ -180,6 +180,7 @@
     <Content Include="Assets\Achievements\BuyEquipment.png" />
     <Content Include="Assets\Achievements\BuyTenEquipment.png" />
     <Content Include="Assets\Achievements\CompleteContract.png" />
+    <Content Include="Assets\Achievements\CompleteTenContracts.png" />
     <Content Include="Assets\Achievements\HireTeamMember.png" />
     <Content Include="Assets\Achievements\HireTenTeamMembers.png" />
     <Content Include="Assets\ActivityTypes\TEAM_MEMBER_HIRED.png" />
