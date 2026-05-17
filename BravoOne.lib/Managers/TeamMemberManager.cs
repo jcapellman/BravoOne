@@ -40,12 +40,12 @@ namespace BravoOne.lib.Managers
         {
             currentGame.TeamMembers = currentGame.TeamMembers.Where(a => a.Status != TeamMemberStatus.Available).ToList();
 
-            var randomFirst = new Random((int)DateTime.Now.Ticks);
-            var randomLast = new Random((int)DateTime.Now.Ticks + 1);
-            var randomSkill = new Random((int)DateTime.Now.Ticks);
-            var randomSpecialty = new Random((int)DateTime.Now.Ticks);
-
-            var randomAvatar = new Random((int)DateTime.Now.Ticks + 5);
+            var rng = new Random();
+            var randomFirst = rng;
+            var randomLast = rng;
+            var randomSkill = rng;
+            var randomSpecialty = rng;
+            var randomAvatar = rng;
 
             var specialties = Enum.GetNames(typeof(Specialties));
             var avatarImages = await Storage.GetAvatarImagesAsync();

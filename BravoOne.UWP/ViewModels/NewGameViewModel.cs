@@ -97,9 +97,9 @@ namespace BravoOne.UWP.ViewModels
             LoadImages();
         }
 
-        public void CreateGame()
+        public async void CreateGame()
         {
-            gWrapper.StartGame(Name, SelectedLogo);
+            await gWrapper.StartGame(Name, SelectedLogo);
         }
     }
 }

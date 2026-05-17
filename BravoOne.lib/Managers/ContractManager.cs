@@ -16,18 +16,18 @@ namespace BravoOne.lib.Managers
         {
         }
 
-        public override async Task<Game> InitializeAsync(Game currentGame)
+        public override Task<Game> InitializeAsync(Game currentGame)
         {
             currentGame.AvailableContracts = new System.Collections.ObjectModel.ObservableCollection<Contract>();
 
-            var randomName = new Random((int)DateTime.Now.Ticks);
-            var randomPrefix = new Random((int)DateTime.Now.Ticks+1);
-            var randomSkillLevel = new Random((int)DateTime.Now.Ticks + 1);
-            var randomType = new Random((int)DateTime.Now.Ticks + 1);
-            var randomSkillPoints = new Random((int)DateTime.Now.Ticks + 1);
-            var randomIncome = new Random((int)DateTime.Now.Ticks + 1);
-            var randomPenalty = new Random((int)DateTime.Now.Ticks + 1);
-            var randomToll = new Random((int)DateTime.Now.Ticks + 1);
+            var rng = new Random();
+            var randomName = rng;
+            var randomPrefix = rng;
+            var randomType = rng;
+            var randomSkillPoints = rng;
+            var randomIncome = rng;
+            var randomPenalty = rng;
+            var randomToll = rng;
             
             for (var x = 0; x < 10; x++)
             {
@@ -80,7 +80,7 @@ namespace BravoOne.lib.Managers
                 currentGame.AvailableContracts.Add(contract);
             }
 
-            return currentGame;
+            return Task.FromResult(currentGame);
         }
 
         public override async Task<(TurnStatus Status, Game CurrentGame)> ProcessTurnAsync(Game currentGame)
@@ -95,6 +95,11 @@ namespace BravoOne.lib.Managers
                 foreach (Guid guid in currentGame.Contracts[x].AssignedTeamMembers)
                 {
                     var teamMember = currentGame.TeamMembers.FirstOrDefault(a => a.Id == guid);
+
+                    if (teamMember == null)
+                    {
+                        continue;
+                    }
 
                     currentGame.Contracts[x].SkillPointsRemaining -= teamMember.SkillPoints;
                 }

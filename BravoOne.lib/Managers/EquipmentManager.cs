@@ -17,9 +17,9 @@ namespace BravoOne.lib.Managers
         {
         }
 
-        public override async Task<Game> InitializeAsync(Game currentGame) => currentGame;
+        public override Task<Game> InitializeAsync(Game currentGame) => Task.FromResult(currentGame);
 
-        public override async Task<(TurnStatus Status, Game CurrentGame)> ProcessTurnAsync(Game currentGame)
+        public override Task<(TurnStatus Status, Game CurrentGame)> ProcessTurnAsync(Game currentGame)
         {
             foreach (var teamMember in currentGame.TeamMembers.Where(a => a.Status == TeamMemberStatus.OnTeam))
             {
@@ -39,7 +39,7 @@ namespace BravoOne.lib.Managers
                 }
             }
 
-            return (TurnStatus.OK, currentGame);
+            return Task.FromResult((TurnStatus.OK, currentGame));
         }
     }
 }

@@ -59,7 +59,7 @@ namespace BravoOne.lib
 
         public T GetManager<T>() where T : BaseManager => (T)_managers.FirstOrDefault(a => a.GetType() == typeof(T));
 
-        public async void StartGame(string teamLeaderName, string selectedLogo)
+        public async Task StartGame(string teamLeaderName, string selectedLogo)
         {
             CurrentGame = new Game
             {

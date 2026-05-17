@@ -9,14 +9,6 @@ namespace BravoOne.lib.Achievements
 
         public override string Description => "Lasted 10 years";
 
-        public override bool VerifyAchievement(Game currentGame)
-        {
-            if (currentGame.gsMonths == 120)
-            {
-                return true;
-            }
-
-            return false;
-        }
+        public override bool VerifyAchievement(Game currentGame) => currentGame.gsMonths == 120;
     }
 }

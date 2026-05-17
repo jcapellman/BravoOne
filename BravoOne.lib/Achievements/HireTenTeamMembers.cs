@@ -10,14 +10,6 @@ namespace BravoOne.lib.Achievements
 
         public override string Description => "Hired 10 team members";
 
-        public override bool VerifyAchievement(Game currentGame)
-        {
-            if (currentGame.TeamMembers.Count > 10)
-            {
-                return true;
-            }
-
-            return false;
-        }
+        public override bool VerifyAchievement(Game currentGame) => currentGame.TeamMembers.Count > 10;
     }
 }

@@ -52,9 +52,9 @@ namespace BravoOne.lib.Managers
             return listing.OrderBy(a => a.Unlocked).ThenBy(a => a.TimeStamp).ToList();
         }
 
-        public override async Task<Game> InitializeAsync(Game currentGame) => currentGame;
+        public override Task<Game> InitializeAsync(Game currentGame) => Task.FromResult(currentGame);
 
-        public override async Task<(TurnStatus Status, Game CurrentGame)> ProcessTurnAsync(Game currentGame)
+        public override Task<(TurnStatus Status, Game CurrentGame)> ProcessTurnAsync(Game currentGame)
         {
             var obtainedAchievements = DAL.GetAll<Objects.Achievements>();
 
@@ -81,7 +81,7 @@ namespace BravoOne.lib.Managers
                 DAL.Add(unlockedAchievement);
             }
 
-            return (TurnStatus.OK, currentGame);
+            return Task.FromResult((TurnStatus.OK, currentGame));
         }
     }
 }

@@ -9,14 +9,6 @@ namespace BravoOne.lib.Achievements
 
         public override string Description => "Bought your first equipment";
 
-        public override bool VerifyAchievement(Game currentGame)
-        {
-            if (currentGame.TeamEquipment.Count > 0)
-            {
-                return true;
-            }
-
-            return false;
-        }
+        public override bool VerifyAchievement(Game currentGame) => currentGame.TeamEquipment.Count > 0;
     }
 }

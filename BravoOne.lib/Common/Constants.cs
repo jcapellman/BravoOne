@@ -2,7 +2,7 @@
 {
     public class Constants
     {
-        public static string[] FIRST_NAMES = new string[]
+        public static readonly string[] FIRST_NAMES = new string[]
         {
             "JOHN",
             "JAMES",
@@ -26,7 +26,7 @@
             "WIL"
         };
 
-        public static string[] LAST_NAMES = new string[]
+        public static readonly string[] LAST_NAMES = new string[]
         {
             "ANDERSON",
             "RAMBO",
@@ -48,7 +48,7 @@
             "SCOTT"
         };
 
-        public static string[] MISSION_NAMES = new string[]
+        public static readonly string[] MISSION_NAMES = new string[]
         {
             "OVERLORD",
             "ROLLING THUNDER",
@@ -98,7 +98,7 @@
             "VIPER"
         };
 
-        public static string[] MISSION_PREFIX = new string[]
+        public static readonly string[] MISSION_PREFIX = new string[]
         {
             "OPERATION",
             "MISSION",

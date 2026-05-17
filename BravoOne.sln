@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BravoOne.UWP", "BravoOne.UW
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BravoOne.lib", "BravoOne.lib\BravoOne.lib.csproj", "{66C14331-81CF-4F55-8E17-0241DBB1F612}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BravoOne.Tests", "BravoOne.Tests\BravoOne.Tests.csproj", "{55CBAED4-EC39-411C-B1CD-45D5D9564422}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,26 @@ Global
 		{66C14331-81CF-4F55-8E17-0241DBB1F612}.Release|x64.Build.0 = Release|Any CPU
 		{66C14331-81CF-4F55-8E17-0241DBB1F612}.Release|x86.ActiveCfg = Release|Any CPU
 		{66C14331-81CF-4F55-8E17-0241DBB1F612}.Release|x86.Build.0 = Release|Any CPU
+		{55CBAED4-EC39-411C-B1CD-45D5D9564422}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55CBAED4-EC39-411C-B1CD-45D5D9564422}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55CBAED4-EC39-411C-B1CD-45D5D9564422}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{55CBAED4-EC39-411C-B1CD-45D5D9564422}.Debug|ARM.Build.0 = Debug|Any CPU
+		{55CBAED4-EC39-411C-B1CD-45D5D9564422}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{55CBAED4-EC39-411C-B1CD-45D5D9564422}.Debug|arm64.Build.0 = Debug|Any CPU
+		{55CBAED4-EC39-411C-B1CD-45D5D9564422}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{55CBAED4-EC39-411C-B1CD-45D5D9564422}.Debug|x64.Build.0 = Debug|Any CPU
+		{55CBAED4-EC39-411C-B1CD-45D5D9564422}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{55CBAED4-EC39-411C-B1CD-45D5D9564422}.Debug|x86.Build.0 = Debug|Any CPU
+		{55CBAED4-EC39-411C-B1CD-45D5D9564422}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55CBAED4-EC39-411C-B1CD-45D5D9564422}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55CBAED4-EC39-411C-B1CD-45D5D9564422}.Release|ARM.ActiveCfg = Release|Any CPU
+		{55CBAED4-EC39-411C-B1CD-45D5D9564422}.Release|ARM.Build.0 = Release|Any CPU
+		{55CBAED4-EC39-411C-B1CD-45D5D9564422}.Release|arm64.ActiveCfg = Release|Any CPU
+		{55CBAED4-EC39-411C-B1CD-45D5D9564422}.Release|arm64.Build.0 = Release|Any CPU
+		{55CBAED4-EC39-411C-B1CD-45D5D9564422}.Release|x64.ActiveCfg = Release|Any CPU
+		{55CBAED4-EC39-411C-B1CD-45D5D9564422}.Release|x64.Build.0 = Release|Any CPU
+		{55CBAED4-EC39-411C-B1CD-45D5D9564422}.Release|x86.ActiveCfg = Release|Any CPU
+		{55CBAED4-EC39-411C-B1CD-45D5D9564422}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
