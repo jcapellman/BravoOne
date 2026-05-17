@@ -250,7 +250,7 @@ namespace BravoOne.lib.Objects
         public void AddContract(Contract contract)
         {
             contract.Status = ContractStatus.InProgress;
-            contract.CompleteDate = CurrentDate.AddMonths(3);
+            contract.CompleteDate = CurrentDate.AddMonths(Math.Max(1, contract.DeadlineMonths));
 
             AvailableContracts.Remove(contract);
 

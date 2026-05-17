@@ -30,6 +30,12 @@ namespace BravoOne.lib.Objects
         // Set once at creation; used for XP calculation so harder contracts reward more.
         public uint SkillPointsTotal { get; set; }
 
+        // Flavor text shown to the player when browsing available contracts.
+        public string Briefing { get; set; }
+
+        // Set at generation; used when the contract is accepted to calculate CompleteDate.
+        public int DeadlineMonths { get; set; }
+
         public Dictionary<Specialties, int> SpecialtiesRequired { get; set; }
 
         public List<Guid> AssignedTeamMembers { get; set; }
