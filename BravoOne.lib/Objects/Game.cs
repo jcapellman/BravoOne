@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 using BravoOne.lib.Enums;
 using BravoOne.lib.Objects.Base;
@@ -213,12 +214,37 @@ namespace BravoOne.lib.Objects
         public void AddTeamMember(TeamMember member)
         {
             member.Status = TeamMemberStatus.OnTeam;
+            member.StartDate = CurrentDate;
 
             var index = TeamMembers.FindIndex(a => a.Id == member.Id);
 
             TeamMembers[index] = member;
 
             AddActivityLog(ActivityType.TEAM_MEMBER_HIRED, "New Team Member Hired", $"{member.Specialty} {member.Name} has been hired");
+        }
+
+        public void FireTeamMember(TeamMember member)
+        {
+            member.Status = TeamMemberStatus.Available;
+
+            AddActivityLog(ActivityType.TEAM_MEMBER_FIRED, "Team Member Fired", $"{member.Name} has been let go");
+        }
+
+        public bool CanAcceptContract(Contract contract)
+        {
+            var onTeam = TeamMembers.Where(a => a.Status == TeamMemberStatus.OnTeam).ToList();
+
+            foreach (var required in contract.SpecialtiesRequired)
+            {
+                var count = onTeam.Count(m => m.Specialty == required.Key);
+
+                if (count < required.Value)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         public void AddContract(Contract contract)
@@ -249,10 +275,16 @@ namespace BravoOne.lib.Objects
         {
             contract.Status = ContractStatus.Completed;
             Money += contract.Income;
-            gsContracts++;
-            gsXP += (int)contract.SkillPointsRemaining + 1;
-            CheckTeamLevelUp();
+            RecordContractCompleted((int)contract.SkillPointsTotal + 1);
             AddActivityLog(ActivityType.CONTRACT_COMPLETED, "Contract Completed", $"Contract {contract.Name} completed successfully");
+        }
+
+        // Called by CompleteContract and directly in tests.
+        public void RecordContractCompleted(int xpAwarded = 1)
+        {
+            gsContracts++;
+            gsXP += xpAwarded;
+            CheckTeamLevelUp();
         }
 
         public void FailContract(Contract contract)
@@ -262,9 +294,32 @@ namespace BravoOne.lib.Objects
             AddActivityLog(ActivityType.CONTRACT_FAILED, "Contract Failed", $"Contract {contract.Name} has failed");
         }
 
+        public void ApplyHealthChanges(List<TeamMember> membersToCheck)
+        {
+            foreach (var member in membersToCheck)
+            {
+                if (member.Health <= 0)
+                {
+                    member.Status = TeamMemberStatus.Deceased;
+                    AddActivityLog(ActivityType.TEAM_MEMBER_DIED, "Team Member KIA", $"{member.Name} has been killed in action");
+                }
+                else if (member.Health <= 20)
+                {
+                    member.Status = TeamMemberStatus.Injured;
+                    AddActivityLog(ActivityType.TEAM_MEMBER_RETIRED, "Team Member Injured", $"{member.Name} is critically injured and cannot work");
+                }
+
+                if (member.Age >= member.RetirementAge && member.Status == TeamMemberStatus.OnTeam)
+                {
+                    member.Status = TeamMemberStatus.Retired;
+                    AddActivityLog(ActivityType.TEAM_MEMBER_RETIRED, "Team Member Retired", $"{member.Name} has reached retirement age and left the team");
+                }
+            }
+        }
+
         private void CheckTeamLevelUp()
         {
-            var xpThreshold = TeamLevel * 1000;
+            var xpThreshold = TeamLevel * TeamLevel * 500;
 
             if (gsXP >= xpThreshold)
             {

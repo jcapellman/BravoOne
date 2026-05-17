@@ -50,6 +50,7 @@ namespace BravoOne.lib.Managers
 
                 contract.CType = (ContractType)randomType.Next(0, Enum.GetValues(typeof(ContractType)).Length);
                 contract.SkillPointsRemaining = (uint)randomSkillPoints.Next(currentGame.TeamLevel, currentGame.TeamLevel * (currentGame.TeamMembers.Count + 1) * 5);
+                contract.SkillPointsTotal = contract.SkillPointsRemaining;
                 contract.Income = (ulong)randomIncome.Next((int)(contract.SkillPointsRemaining * 10), (int)(contract.SkillPointsRemaining * 25));
                 contract.TeamMemberToll = randomToll.Next(5, 20);
                 contract.Penalty = (ulong)randomPenalty.Next((int)contract.Income / 2, (int)(contract.Income * 2));
@@ -92,6 +93,8 @@ namespace BravoOne.lib.Managers
                     continue;
                 }
 
+                var affectedMembers = new System.Collections.Generic.List<TeamMember>();
+
                 foreach (Guid guid in currentGame.Contracts[x].AssignedTeamMembers)
                 {
                     var teamMember = currentGame.TeamMembers.FirstOrDefault(a => a.Id == guid);
@@ -101,15 +104,54 @@ namespace BravoOne.lib.Managers
                         continue;
                     }
 
-                    if (currentGame.Contracts[x].SkillPointsRemaining > teamMember.SkillPoints)
+                    // Broken equipment increases health toll on the member during this contract turn
+                    var brokenEquipmentPenalty = teamMember.Equipment
+                        .Where(te => te.Status == 0)
+                        .Join(currentGame.TeamEquipment, te => te.EquipmentId, e => e.Id, (te, e) => e.Reliability)
+                        .DefaultIfEmpty(0)
+                        .Sum();
+
+                    teamMember.Health -= brokenEquipmentPenalty / 10;
+
+                    var effective = teamMember.EffectiveSkillPoints(currentGame.TeamEquipment);
+
+                    if (currentGame.Contracts[x].SkillPointsRemaining > effective)
                     {
-                        currentGame.Contracts[x].SkillPointsRemaining -= teamMember.SkillPoints;
+                        currentGame.Contracts[x].SkillPointsRemaining -= effective;
                     }
                     else
                     {
                         currentGame.Contracts[x].SkillPointsRemaining = 0;
                     }
+
+                    affectedMembers.Add(teamMember);
                 }
+
+                // Medics on the contract heal all affected members
+                foreach (Guid guid in currentGame.Contracts[x].AssignedTeamMembers)
+                {
+                    var medic = currentGame.TeamMembers.FirstOrDefault(a => a.Id == guid &&
+                        a.Specialty == Specialties.MEDIC);
+
+                    if (medic == null)
+                    {
+                        continue;
+                    }
+
+                    var healing = medic.HealingValue();
+
+                    foreach (var member in affectedMembers)
+                    {
+                        if (member.Id == medic.Id)
+                        {
+                            continue;
+                        }
+
+                        member.Health = Math.Min(100, member.Health + healing);
+                    }
+                }
+
+                currentGame.ApplyHealthChanges(affectedMembers);
 
                 if (currentGame.Contracts[x].SkillPointsRemaining == 0)
                 {
@@ -153,6 +195,7 @@ namespace BravoOne.lib.Managers
 
                 contract.CType = (ContractType)rng.Next(0, Enum.GetValues(typeof(ContractType)).Length);
                 contract.SkillPointsRemaining = (uint)rng.Next(currentGame.TeamLevel, currentGame.TeamLevel * (currentGame.TeamMembers.Count + 1) * 5);
+                contract.SkillPointsTotal = contract.SkillPointsRemaining;
                 contract.Income = (ulong)rng.Next((int)(contract.SkillPointsRemaining * 10), (int)(contract.SkillPointsRemaining * 25));
                 contract.TeamMemberToll = rng.Next(5, 20);
                 contract.Penalty = (ulong)rng.Next((int)contract.Income / 2, (int)(contract.Income * 2));

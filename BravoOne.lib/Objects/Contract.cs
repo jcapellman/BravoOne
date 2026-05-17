@@ -27,8 +27,21 @@ namespace BravoOne.lib.Objects
 
         public uint SkillPointsRemaining { get; set; }
 
+        // Set once at creation; used for XP calculation so harder contracts reward more.
+        public uint SkillPointsTotal { get; set; }
+
         public Dictionary<Specialties, int> SpecialtiesRequired { get; set; }
 
         public List<Guid> AssignedTeamMembers { get; set; }
+
+        public int TurnsRemaining(DateTime currentDate)
+        {
+            if (CompleteDate <= currentDate)
+            {
+                return 0;
+            }
+
+            return (CompleteDate.Year - currentDate.Year) * 12 + CompleteDate.Month - currentDate.Month;
+        }
     }
 }

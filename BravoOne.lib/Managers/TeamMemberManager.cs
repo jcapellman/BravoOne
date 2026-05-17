@@ -18,18 +18,47 @@ namespace BravoOne.lib.Managers
 
         public override async Task<(TurnStatus Status, Game CurrentGame)> ProcessTurnAsync(Game currentGame)
         {
-            foreach (TeamMember member in currentGame.TeamMembers.Where(a => a.Status == TeamMemberStatus.OnTeam))
+            var activeMembers = currentGame.TeamMembers
+                .Where(a => a.Status == TeamMemberStatus.OnTeam || a.Status == TeamMemberStatus.Injured)
+                .ToList();
+
+            foreach (TeamMember member in activeMembers)
             {
-                if (member.MonthlySalary > currentGame.Money)
+                // Only pay salaries for active (not injured) members
+                if (member.Status == TeamMemberStatus.OnTeam)
                 {
-                    return (TurnStatus.OUT_OF_MONEY, currentGame);
+                    if (member.MonthlySalary > currentGame.Money)
+                    {
+                        return (TurnStatus.OUT_OF_MONEY, currentGame);
+                    }
+
+                    currentGame.Money -= member.MonthlySalary;
+
+                    member.Health -= currentGame.Contracts.Where(a => a.Status == ContractStatus.InProgress && 
+                        a.AssignedTeamMembers.Contains(member.Id)).Sum(c => c.TeamMemberToll);
+                }
+                else if (member.Status == TeamMemberStatus.Injured)
+                {
+                    // Injured members recover 10 health per turn
+                    member.Health = Math.Min(100, member.Health + 10);
+
+                    if (member.Health > 20)
+                    {
+                        member.Status = TeamMemberStatus.OnTeam;
+                    }
                 }
 
-                currentGame.Money -= member.MonthlySalary;
+                // Age one month; convert to years every 12 turns
+                member.AgeMonths++;
 
-                member.Health -= currentGame.Contracts.Where(a => a.Status == ContractStatus.InProgress && 
-                    a.AssignedTeamMembers.Contains(member.Id)).Sum(c => c.TeamMemberToll);
+                if (member.AgeMonths >= 12)
+                {
+                    member.Age++;
+                    member.AgeMonths = 0;
+                }
             }
+
+            currentGame.ApplyHealthChanges(activeMembers);
 
             currentGame = await InitializeAsync(currentGame);
 
@@ -38,14 +67,12 @@ namespace BravoOne.lib.Managers
 
         public override async Task<Game> InitializeAsync(Game currentGame)
         {
-            currentGame.TeamMembers = currentGame.TeamMembers.Where(a => a.Status != TeamMemberStatus.Available).ToList();
+            currentGame.TeamMembers = currentGame.TeamMembers
+                .Where(a => a.Status != TeamMemberStatus.Available &&
+                            a.Status != TeamMemberStatus.Deceased)
+                .ToList();
 
             var rng = new Random();
-            var randomFirst = rng;
-            var randomLast = rng;
-            var randomSkill = rng;
-            var randomSpecialty = rng;
-            var randomAvatar = rng;
 
             var specialties = (Specialties[])Enum.GetValues(typeof(Specialties));
             var avatarImages = await Storage.GetAvatarImagesAsync();
@@ -56,23 +83,26 @@ namespace BravoOne.lib.Managers
                 {
                     Health = 100,
                     Status = TeamMemberStatus.Available,
-                    Id = Guid.NewGuid()
+                    Id = Guid.NewGuid(),
+                    Age = rng.Next(22, 45),
+                    AgeMonths = rng.Next(0, 11),
+                    RetirementAge = rng.Next(55, 65)
                 };
 
                 do
                 {
-                    var firstName = Common.Constants.FIRST_NAMES[randomFirst.Next(0, Common.Constants.FIRST_NAMES.Length - 1)];
-                    var lastName = Common.Constants.LAST_NAMES[randomLast.Next(0, Common.Constants.LAST_NAMES.Length - 1)];
+                    var firstName = Common.Constants.FIRST_NAMES[rng.Next(0, Common.Constants.FIRST_NAMES.Length - 1)];
+                    var lastName = Common.Constants.LAST_NAMES[rng.Next(0, Common.Constants.LAST_NAMES.Length - 1)];
 
                     member.Name = $"{firstName} {lastName}";
                 } while (currentGame.TeamMembers.Any(a => a.Name == member.Name));
 
-                member.SkillPoints = (uint)randomSkill.Next(1, currentGame.TeamLevel + 5);
+                member.SkillPoints = (uint)rng.Next(1, currentGame.TeamLevel + 5);
 
                 member.MonthlySalary = 10000 * member.SkillPoints;
 
-                member.Specialty = specialties[randomSpecialty.Next(0, specialties.Length)];
-                member.AvatarImagePath = avatarImages[randomAvatar.Next(0, avatarImages.Count() - 1)];
+                member.Specialty = specialties[rng.Next(0, specialties.Length)];
+                member.AvatarImagePath = avatarImages[rng.Next(0, avatarImages.Count() - 1)];
 
                 currentGame.TeamMembers.Add(member);
             }

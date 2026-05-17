@@ -17,6 +17,18 @@ namespace BravoOne.UWP.ViewModels
             }
         }
 
+        public int Difficulty
+        {
+            get => gWrapper.Option.Difficulty;
+
+            set
+            {
+                gWrapper.Option.Difficulty = value;
+                gWrapper.Option = gWrapper.Option;
+                OnPropertyChanged();
+            }
+        }
+
         public OptionsViewModel(GameWrapper wrapper) : base(wrapper)
         {
             Option = gWrapper.Option;

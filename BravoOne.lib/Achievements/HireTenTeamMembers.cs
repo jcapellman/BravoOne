@@ -12,6 +12,6 @@ namespace BravoOne.lib.Achievements
 
         public override string Description => "Hired 10 team members";
 
-        public override bool VerifyAchievement(Game currentGame) => currentGame.TeamMembers.Count(a => a.Status == Enums.TeamMemberStatus.OnTeam) >= 10;
+        public override bool VerifyAchievement(Game currentGame) => currentGame.TeamMembers.Count(a => a.Status == Enums.TeamMemberStatus.OnTeam) > 10;
     }
 }

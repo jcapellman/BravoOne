@@ -27,7 +27,7 @@ namespace BravoOne.Tests
         public void HireTeamMember_OneMember_ReturnsTrue()
         {
             var game = CreateGame();
-            game.TeamMembers.Add(new TeamMember { Id = Guid.NewGuid(), Name = "Test" });
+            game.TeamMembers.Add(new TeamMember { Id = Guid.NewGuid(), Name = "Test", Status = TeamMemberStatus.OnTeam });
             Assert.True(new HireTeamMember().VerifyAchievement(game));
         }
 
@@ -38,7 +38,7 @@ namespace BravoOne.Tests
         {
             var game = CreateGame();
             for (var i = 0; i < 10; i++)
-                game.TeamMembers.Add(new TeamMember { Id = Guid.NewGuid(), Name = $"Member {i}" });
+                game.TeamMembers.Add(new TeamMember { Id = Guid.NewGuid(), Name = $"Member {i}", Status = TeamMemberStatus.OnTeam });
             Assert.False(new HireTenTeamMembers().VerifyAchievement(game));
         }
 
@@ -47,7 +47,7 @@ namespace BravoOne.Tests
         {
             var game = CreateGame();
             for (var i = 0; i < 11; i++)
-                game.TeamMembers.Add(new TeamMember { Id = Guid.NewGuid(), Name = $"Member {i}" });
+                game.TeamMembers.Add(new TeamMember { Id = Guid.NewGuid(), Name = $"Member {i}", Status = TeamMemberStatus.OnTeam });
             Assert.True(new HireTenTeamMembers().VerifyAchievement(game));
         }
 
@@ -119,8 +119,8 @@ namespace BravoOne.Tests
         public void CompleteTenContracts_TenCompleted_ReturnsFalse()
         {
             var game = CreateGame();
-            for (var i = 0; i < 10; i++)
-                game.Contracts.Add(new Contract { Status = ContractStatus.Completed });
+            for (var i = 0; i < 9; i++)
+                game.RecordContractCompleted();
             Assert.False(new CompleteTenContracts().VerifyAchievement(game));
         }
 
@@ -128,8 +128,8 @@ namespace BravoOne.Tests
         public void CompleteTenContracts_ElevenCompleted_ReturnsTrue()
         {
             var game = CreateGame();
-            for (var i = 0; i < 11; i++)
-                game.Contracts.Add(new Contract { Status = ContractStatus.Completed });
+            for (var i = 0; i < 10; i++)
+                game.RecordContractCompleted();
             Assert.True(new CompleteTenContracts().VerifyAchievement(game));
         }
 

@@ -17,6 +17,11 @@ namespace BravoOne.UWP.ViewModels
 
         public void AcceptContract(Contract contract)
         {
+            if (!gWrapper.CurrentGame.CanAcceptContract(contract))
+            {
+                return;
+            }
+
             gWrapper.CurrentGame.AddContract(contract);
         }
 

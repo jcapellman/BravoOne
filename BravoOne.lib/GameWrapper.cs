@@ -61,10 +61,26 @@ namespace BravoOne.lib
 
         public async Task StartGame(string teamLeaderName, string selectedLogo)
         {
+            ulong startingMoney;
+
+            switch (Option.Difficulty)
+            {
+                case 1:
+                    startingMoney = 200000;
+                    break;
+                case 3:
+                    startingMoney = 50000;
+                    break;
+                default:
+                    startingMoney = 100000;
+                    break;
+            }
+
             CurrentGame = new Game
             {
                 TeamLeaderName = teamLeaderName,
-                TeamLogo = selectedLogo
+                TeamLogo = selectedLogo,
+                Money = startingMoney
             };
 
             foreach (var manager in _managers)
