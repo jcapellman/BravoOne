@@ -19,228 +19,301 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <!-- Header Row -->
-        <Grid Grid.Row="0" VerticalAlignment="Top" Margin="10,0,10,0">
+        <!-- Header Row — command strip -->
+        <Grid Grid.Row="0" Padding="16,10,16,10">
+            <Grid.Background>
+                <SolidColorBrush Color="Black" Opacity="0.72" />
+            </Grid.Background>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
+            <!-- Logo + team name -->
+            <Image Grid.Column="0" Width="52" Height="52" Stretch="Uniform" Margin="0,0,12,0" VerticalAlignment="Center">
+                <Image.Source>
+                    <BitmapImage UriSource="{Binding gWrapper.CurrentGame.TeamLogo}" />
+                </Image.Source>
+            </Image>
 
-            <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                <TextBlock Style="{StaticResource Header}" Text="BRAVO ONE  //  HQ SITREP" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource SubHeader}" Foreground="#FFB0B0B0" Text="CO: " />
+                    <TextBlock Style="{StaticResource SubHeader}" Text="{Binding gWrapper.CurrentGame.TeamLeaderName}" />
+                    <TextBlock Style="{StaticResource SubHeader}" Foreground="#FFB0B0B0" Text="   LEVEL " Margin="16,0,0,0" />
+                    <TextBlock Style="{StaticResource SubHeader}" Foreground="#FF88FF88" Text="{Binding gWrapper.CurrentGame.TeamLevel}" />
+                </StackPanel>
+            </StackPanel>
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                
-                <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Width="64" Height="64" VerticalAlignment="Center" Stretch="Uniform" MinHeight="64" MinWidth="64" MaxWidth="256" MaxHeight="256" Margin="10,10,10,0">
-                    <Image.Source>
-                        <BitmapImage UriSource="{Binding gWrapper.CurrentGame.TeamLogo}" />
-                    </Image.Source>
-                </Image>
-
-                <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource Header}" Text="Bravo Team Sitrep" />
-                <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource SubHeader}" Text="{Binding gWrapper.CurrentGame.TeamLeaderName}" />
-
-                <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource SubHeader}" Text="Bravo Team Level" />
-                <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource SubHeader}" Text="{Binding gWrapper.CurrentGame.TeamLevel}" />
-            </Grid>
-
-            <TextBlock Grid.Column="1" Grid.Row="0" Style="{StaticResource Header}" HorizontalAlignment="Right" Text="{Binding gWrapper.CurrentGame.CurrentDateString}" />
-
-            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right">
-                <TextBlock Style="{StaticResource SubHeader}" FontWeight="Bold" Text="Bank Account Balance" />
-                <TextBlock Margin="20,0,0,0" Style="{StaticResource SubHeader}" Text="$" />
-                <TextBlock Style="{StaticResource SubHeader}" Text="{Binding gWrapper.CurrentGame.Money}" />
+            <!-- Date + funds — right-aligned -->
+            <StackPanel Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Right">
+                <TextBlock Style="{StaticResource Header}" HorizontalAlignment="Right"
+                           Text="{Binding gWrapper.CurrentGame.CurrentDateString}" />
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock Style="{StaticResource SubHeader}" Foreground="#FFB0B0B0" Text="FUNDS  $" />
+                    <TextBlock Style="{StaticResource SubHeader}" Foreground="#FF88FF88"
+                               Text="{Binding gWrapper.CurrentGame.Money}" />
+                </StackPanel>
             </StackPanel>
         </Grid>
 
-        <!-- Content Row -->
-        <Grid Grid.Row="1" Margin="10,0,10,10">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-
+        <!-- Content Row — three panels -->
+        <Grid Grid.Row="1" Margin="16,10,16,10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="12" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="12" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <!-- Team Member Status -->
-            <Grid Grid.Column="0" Padding="10,0,10,0">
+            <!-- ── PANEL 1: Team Roster ── -->
+            <Grid Grid.Column="0" CornerRadius="10" Padding="14,12,14,12">
                 <Grid.Background>
-                    <SolidColorBrush Color="Black" Opacity="0.5" />
+                    <SolidColorBrush Color="Black" Opacity="0.60" />
                 </Grid.Background>
-                
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Style="{StaticResource SubHeader}" Text="Team Member Status" />
-                <ListView Grid.Row="1" ItemsSource="{Binding TeamMembers}">
+                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+                    <TextBlock Style="{StaticResource SubHeader}" Text="TEAM ROSTER" />
+                    <TextBlock Style="{StaticResource SubHeader}" Foreground="#FF888888"
+                               Margin="10,0,0,0" Text="{Binding TeamMembers.Count}" />
+                    <TextBlock Style="{StaticResource SubHeader}" Foreground="#FF888888" Text=" operators" />
+                </StackPanel>
+
+                <ListView Grid.Row="1" SelectionMode="None" ItemsSource="{Binding TeamMembers}">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="Padding" Value="0,3,0,3"/>
                         </Style>
                     </ListView.ItemContainerStyle>
-                    
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Grid Margin="0,0,0,10">
+                            <Grid Margin="0,0,0,8" Padding="10,8,10,8" CornerRadius="6">
+                                <Grid.Background>
+                                    <SolidColorBrush Color="#0D1A00" Opacity="0.8" />
+                                </Grid.Background>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
-                                
-                                <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Name}" />
 
-                                <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
-                                    <TextBlock Text="status" FontWeight="Bold" />
-                                    <TextBlock Text="{Binding Status}" Margin="2,0,0,0" />
+                                <!-- Name -->
+                                <TextBlock Grid.Row="0" Grid.Column="0" FontWeight="Bold" FontSize="14"
+                                           Foreground="#FFFFFFFF" Text="{Binding Name}" />
 
-                                    <TextBlock Text="health" FontWeight="Bold" Margin="5,0,0,0" />
-                                    <TextBlock Text="{Binding Health}" Margin="2,0,0,0" />
+                                <!-- Specialty + skill -->
+                                <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" Margin="0,2,0,4">
+                                    <TextBlock Style="{StaticResource FieldHeader}" Text="{Binding Specialty}" />
+                                    <TextBlock Style="{StaticResource FieldValue}" Foreground="#FFAADDFF"
+                                               Margin="8,0,0,0" Text="SP " />
+                                    <TextBlock Style="{StaticResource FieldValue}" Foreground="#FFAADDFF"
+                                               Text="{Binding SkillPoints}" />
                                 </StackPanel>
 
-                                <Button Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" HorizontalContentAlignment="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Content="Manage" Click="btnManageTeamMember_Click" />
+                                <!-- Health bar -->
+                                <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Vertical" Margin="0,0,0,4">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Style="{StaticResource FieldHeader}" Text="HEALTH  " />
+                                        <TextBlock Style="{StaticResource FieldValue}" Text="{Binding Health}" />
+                                    </StackPanel>
+                                    <ProgressBar Height="5" Minimum="0" Maximum="100"
+                                                 Value="{Binding Health}"
+                                                 Foreground="#FF44DD44" />
+                                </StackPanel>
+
+                                <!-- Salary -->
+                                <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal">
+                                    <TextBlock Style="{StaticResource FieldHeader}" Text="SALARY  $" />
+                                    <TextBlock Style="{StaticResource FieldValue}" Foreground="#FFFF9944"
+                                               Text="{Binding MonthlySalary}" />
+                                </StackPanel>
+
+                                <Button Grid.Row="0" Grid.RowSpan="2" Grid.Column="1"
+                                        VerticalAlignment="Top" HorizontalAlignment="Right"
+                                        Content="MANAGE" Click="btnManageTeamMember_Click" />
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
             </Grid>
 
-            <!-- Contract Status -->
-            <Grid Grid.Column="1" Margin="50,0,0,0" Padding="10,0,10,0">
+            <!-- ── PANEL 2: Active Contracts ── -->
+            <Grid Grid.Column="2" CornerRadius="10" Padding="14,12,14,12">
                 <Grid.Background>
-                    <SolidColorBrush Color="Black" Opacity="0.5" />
+                    <SolidColorBrush Color="Black" Opacity="0.60" />
                 </Grid.Background>
-
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Style="{StaticResource SubHeader}" Text="Contract Status" />
-                <ListView Grid.Row="1" ItemsSource="{Binding CurrentGame.Contracts, Mode=TwoWay}">
+                <TextBlock Grid.Row="0" Style="{StaticResource SubHeader}" Margin="0,0,0,10"
+                           Text="ACTIVE CONTRACTS" />
+
+                <ListView Grid.Row="1" SelectionMode="None"
+                          ItemsSource="{Binding gWrapper.CurrentGame.Contracts}">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="Padding" Value="0,3,0,3"/>
                         </Style>
                     </ListView.ItemContainerStyle>
-
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Grid Margin="0,0,0,10">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-
+                            <Grid Margin="0,0,0,8" Padding="10,8,10,8" CornerRadius="6">
+                                <Grid.Background>
+                                    <SolidColorBrush Color="#0D1A00" Opacity="0.8" />
+                                </Grid.Background>
                                 <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
 
-                                <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Name}" />
+                                <!-- Name + type -->
+                                <Grid Grid.Row="0" Margin="0,0,0,2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" FontWeight="Bold" FontSize="14"
+                                               Foreground="White" Text="{Binding Name}" />
+                                    <Border Grid.Column="1" Background="#CC102010" CornerRadius="4"
+                                            Padding="8,2,8,2" VerticalAlignment="Center">
+                                        <TextBlock Foreground="#FF88FF88" FontSize="10" FontWeight="Bold"
+                                                   Text="{Binding CType}" />
+                                    </Border>
+                                </Grid>
 
-                                <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
-                                    <TextBlock Text="status" FontWeight="Bold" />
-                                    <TextBlock Text="{Binding Status}" Margin="2,0,0,0" />
+                                <!-- Progress bar -->
+                                <StackPanel Grid.Row="1" Margin="0,4,0,2">
+                                    <TextBlock Style="{StaticResource FieldHeader}" Text="PROGRESS" Margin="0,0,0,2" />
+                                    <ProgressBar Height="6" Minimum="0"
+                                                 Maximum="{Binding SkillPointsTotal}"
+                                                 Value="{Binding SkillPointsRemaining}"
+                                                 Foreground="#FF44AA44" />
+                                </StackPanel>
 
-                                    <TextBlock Text="complete date" FontWeight="Bold" Margin="5,0,0,0" />
-                                    <TextBlock Text="{Binding CompletedDateString}" Margin="2,0,0,0" />
+                                <!-- Payout + deadline -->
+                                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,4,0,2">
+                                    <TextBlock Style="{StaticResource FieldHeader}" Text="PAYOUT  $" />
+                                    <TextBlock Style="{StaticResource FieldValue}" Foreground="#FF88FF88"
+                                               Text="{Binding Income}" Margin="4,0,16,0" />
+                                    <TextBlock Style="{StaticResource FieldHeader}" Text="STATUS  " />
+                                    <TextBlock Style="{StaticResource FieldValue}" Foreground="#FFFFCC44"
+                                               Text="{Binding Status}" />
+                                </StackPanel>
+
+                                <!-- Complete date -->
+                                <StackPanel Grid.Row="3" Orientation="Horizontal">
+                                    <TextBlock Style="{StaticResource FieldHeader}" Text="DEADLINE  " />
+                                    <TextBlock Style="{StaticResource FieldValue}" Foreground="#FFFF9944"
+                                               Text="{Binding CompleteDate}" />
                                 </StackPanel>
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
+
+                <!-- Shortcut to contracts screen -->
+                <Button Grid.Row="2" Margin="0,10,0,0" HorizontalAlignment="Stretch"
+                        Style="{ThemeResource MainButton}" Content="View Available Contracts"
+                        Click="btnContracts_Click" />
             </Grid>
 
-            <!-- Activity Log -->
-            <Grid Grid.Column="2" Margin="50,0,0,0" Padding="10,0,10,0">
+            <!-- ── PANEL 3: Activity Log ── -->
+            <Grid Grid.Column="4" CornerRadius="10" Padding="14,12,14,12">
                 <Grid.Background>
-                    <SolidColorBrush Color="Black" Opacity="0.5" />
+                    <SolidColorBrush Color="Black" Opacity="0.60" />
                 </Grid.Background>
-
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Style="{StaticResource SubHeader}" Text="Activity Log" />
-                <ListView Grid.Row="1" ItemsSource="{Binding gWrapper.CurrentGame.Activities, Mode=TwoWay}">
+                <TextBlock Grid.Row="0" Style="{StaticResource SubHeader}" Margin="0,0,0,10"
+                           Text="INTEL FEED" />
+
+                <ListView Grid.Row="1" SelectionMode="None"
+                          ItemsSource="{Binding gWrapper.CurrentGame.Activities}">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="Padding" Value="0,3,0,3"/>
                         </Style>
                     </ListView.ItemContainerStyle>
-
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Grid Margin="0,0,0,10">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-
+                            <Grid Margin="0,0,0,8" Padding="10,8,10,8" CornerRadius="6">
+                                <Grid.Background>
+                                    <SolidColorBrush Color="#0D1A00" Opacity="0.8" />
+                                </Grid.Background>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
 
-                                <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" MaxHeight="128" MaxWidth="128">
+                                <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="3"
+                                       Width="36" Height="36" Margin="0,0,10,0"
+                                       VerticalAlignment="Top">
                                     <Image.Source>
                                         <BitmapImage UriSource="{Binding IconImagePath}" />
                                     </Image.Source>
                                 </Image>
 
-                                <TextBlock Grid.Row="0" Grid.Column="1" Margin="10,20,0,0" Style="{StaticResource ListViewHeader}" Text="{Binding Title}" />
-
-                                <Grid Grid.Row="1" Grid.Column="1" Margin="10,0,0,0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-
-                                    <TextBlock Grid.Column="0" Text="detail" Style="{StaticResource FieldHeader}" />
-                                    <TextBlock Grid.Column="1" Margin="5,0,0,0" Text="{Binding Detail}" Style="{StaticResource FieldValue}" />
-                                </Grid>
+                                <TextBlock Grid.Row="0" Grid.Column="1" FontWeight="Bold" FontSize="13"
+                                           Foreground="White" Text="{Binding Title}" />
+                                <TextBlock Grid.Row="1" Grid.Column="1" FontSize="12"
+                                           Foreground="#FFD0D0D0" TextWrapping="Wrap"
+                                           Text="{Binding Detail}" />
+                                <TextBlock Grid.Row="2" Grid.Column="1" FontSize="11"
+                                           Foreground="#FF888888" Text="{Binding TimeStamp}" />
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
             </Grid>
         </Grid>
-        
-        <!-- Footer Row -->
-        <Grid Grid.Row="2" VerticalAlignment="Bottom" Margin="10,0,10,10">
+
+        <!-- Footer Row — nav buttons -->
+        <Grid Grid.Row="2" Padding="16,8,16,12">
+            <Grid.Background>
+                <SolidColorBrush Color="Black" Opacity="0.72" />
+            </Grid.Background>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
             <StackPanel Orientation="Horizontal" Grid.Column="0">
-                <Button Style="{ThemeResource MainButton}" Content="Recruitment" Margin="0,0,20,0" Click="btnRecruitment_Click" />
-                <Button Style="{ThemeResource MainButton}" Content="Equipment" Margin="0,0,20,0" Click="btnEquipment_Click" />
-                <Button Style="{ThemeResource MainButton}" Content="Contracts" Margin="0,0,20,0" Click="btnContracts_Click" />
-                <Button Style="{ThemeResource MainButton}" Content="Game Options" Margin="0,0,20,0">
+                <Button Style="{ThemeResource MainButton}" Content="RECRUITMENT"
+                        Margin="0,0,12,0" Click="btnRecruitment_Click" />
+                <Button Style="{ThemeResource MainButton}" Content="EQUIPMENT"
+                        Margin="0,0,12,0" Click="btnEquipment_Click" />
+                <Button Style="{ThemeResource MainButton}" Content="CONTRACTS"
+                        Margin="0,0,12,0" Click="btnContracts_Click" />
+                <Button Style="{ThemeResource MainButton}" Content="GAME OPTIONS" Margin="0,0,12,0">
                     <Button.Flyout>
                         <MenuFlyout>
                             <MenuFlyoutItem Text="Save Game" Click="btnSaveGame_Click" />
@@ -251,7 +324,8 @@
                 </Button>
             </StackPanel>
 
-            <Button Grid.Column="1" Content="End Month" Click="btnEndMonth_Click" Style="{ThemeResource MainButton}" />
+            <Button Grid.Column="1" Content="END MONTH  ▶"
+                    Click="btnEndMonth_Click" Style="{ThemeResource MainButton}" />
         </Grid>
     </Grid>
 </Page>

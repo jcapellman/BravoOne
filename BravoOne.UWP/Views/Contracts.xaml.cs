@@ -31,8 +31,8 @@ namespace BravoOne.UWP.Views
         private void btnAccept_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             var btn = (Button)sender;
-
-            ViewModel.AcceptContract((Contract)btn.DataContext);
+            var item = (ContractListingItem)btn.DataContext;
+            ViewModel.AcceptContract(item.Contract);
         }
     }
 }

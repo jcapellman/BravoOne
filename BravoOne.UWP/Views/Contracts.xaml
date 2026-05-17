@@ -19,92 +19,162 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <!-- Header Row -->
-            <Grid Grid.Row="0" VerticalAlignment="Top" Margin="10,0,10,0">
-                <TextBlock Style="{StaticResource Header}" Text="Contracts" />
-            </Grid>
-
-            <!-- Content Row -->
-            <Grid Grid.Row="1" Margin="10,10,10,10">
+            <!-- Header -->
+            <Grid Grid.Row="0" Margin="16,12,16,8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Style="{StaticResource Header}" Text="AVAILABLE CONTRACTS" />
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Style="{StaticResource SubHeader}" Foreground="#FF88FF88"
+                               Text="{Binding AvailableContracts.Count}" />
+                    <TextBlock Style="{StaticResource SubHeader}" Text=" contracts on the board" />
+                </StackPanel>
+            </Grid>
 
-                <Grid Grid.Column="0" Margin="0,0,10,0">
-                    <ListView SelectionMode="None" ItemsSource="{Binding Contracts}">
+            <!-- Content: available left, active right -->
+            <Grid Grid.Row="1" Margin="16,0,16,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="16" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Available Contracts list -->
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Style="{StaticResource SubHeader}" Foreground="#FFAADDFF"
+                               Margin="0,0,0,8" Text="OPEN CONTRACTS  —  hire specialists then accept" />
+                    <ListView Grid.Row="1" SelectionMode="None" ItemsSource="{Binding AvailableContracts}">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                <Setter Property="Padding" Value="0,3,0,3"/>
                             </Style>
                         </ListView.ItemContainerStyle>
-
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="0,0,0,10" CornerRadius="15">
+                                <Grid Margin="0,0,0,10" Padding="16,14,16,14" CornerRadius="10">
                                     <Grid.Background>
-                                        <SolidColorBrush Color="Black" Opacity="0.5" />
+                                        <SolidColorBrush Color="Black" Opacity="0.65" />
                                     </Grid.Background>
-
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-
                                     <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
 
-                                    <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" MaxHeight="128" MaxWidth="128">
-                                        <Image.Source>
-                                            <BitmapImage UriSource="{Binding AvatarImagePath}" />
-                                        </Image.Source>
-                                    </Image>
-
-                                    <TextBlock Grid.Row="0" Margin="10,20,0,0" Grid.Column="1" Text="{Binding Name}" Style="{StaticResource ListViewHeader}" />
-
-                                    <Grid Grid.Row="1" Grid.Column="1" Margin="10,0,0,0">
+                                    <!-- Name + type badge -->
+                                    <Grid Grid.Row="0" Margin="0,0,0,2">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="Auto" />
-
-                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
-
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                        </Grid.RowDefinitions>
-
-                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="speciality" Style="{StaticResource FieldHeader}" />
-                                        <TextBlock Grid.Row="0" Grid.Column="1" Margin="5,0,0,0" Text="{Binding Specialty}" Style="{StaticResource FieldValue}" />
-
-                                        <TextBlock Grid.Row="0" Grid.Column="2" Margin="10,0,0,0" Text="monthly salary" Style="{StaticResource FieldHeader}" />
-                                        <TextBlock Grid.Row="0" Grid.Column="3" Margin="10,0,0,0" Text="{Binding MonthlySalary}" Style="{StaticResource FieldValue}" />
-
-                                        <TextBlock Grid.Row="1" Grid.Column="0" Text="skill level" Style="{StaticResource FieldHeader}" />
-                                        <TextBlock Grid.Row="1" Grid.Column="1" Margin="5,0,0,0" Text="{Binding SkillPoints}" Style="{StaticResource FieldValue}" />
-
-                                        <TextBlock Grid.Row="1" Grid.Column="2" Margin="10,0,0,0" Text="status" Style="{StaticResource FieldHeader}" />
-                                        <TextBlock Grid.Row="1" Grid.Column="3" Margin="10,0,0,0" Text="{Binding Comments}" Style="{StaticResource FieldValue}" />
+                                        <TextBlock Grid.Column="0" Style="{StaticResource ListViewHeader}"
+                                                   Text="{Binding Contract.Name}" />
+                                        <Border Grid.Column="1" Background="#CC102010" CornerRadius="4"
+                                                Padding="10,3,10,3" VerticalAlignment="Center">
+                                            <TextBlock Foreground="#FF88FF88" FontSize="11" FontWeight="Bold"
+                                                       Text="{Binding Contract.CType}" />
+                                        </Border>
                                     </Grid>
 
-                                    <Button Grid.Row="0" Grid.RowSpan="2" Margin="0,0,10,0" Grid.Column="2" Style="{StaticResource MainButton}" HorizontalContentAlignment="Right" HorizontalAlignment="Right" VerticalAlignment="Center" IsEnabled="{Binding Available}" Content="Accept Contract" Click="btnAccept_Click" />
+                                    <!-- Briefing -->
+                                    <TextBlock Grid.Row="1" Margin="0,6,0,10" TextWrapping="Wrap"
+                                               Foreground="#FFD0D0D0" FontSize="13" FontStyle="Italic"
+                                               Text="{Binding Contract.Briefing}" />
+
+                                    <!-- Payout / Penalty / Window -->
+                                    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,6">
+                                        <TextBlock Style="{StaticResource FieldHeader}" Text="PAYOUT " />
+                                        <TextBlock Style="{StaticResource FieldValue}" Foreground="#FF88FF88"
+                                                   Text="{Binding Contract.Income}" Margin="4,0,20,0" />
+                                        <TextBlock Style="{StaticResource FieldHeader}" Text="PENALTY " />
+                                        <TextBlock Style="{StaticResource FieldValue}" Foreground="#FFFF6666"
+                                                   Text="{Binding Contract.Penalty}" Margin="4,0,20,0" />
+                                        <TextBlock Style="{StaticResource FieldHeader}" Text="WINDOW " />
+                                        <TextBlock Style="{StaticResource FieldValue}" Foreground="#FFFFCC44"
+                                                   Text="{Binding DeadlineLabel}" Margin="4,0,0,0" />
+                                    </StackPanel>
+
+                                    <!-- Required specialists -->
+                                    <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,0,0,12">
+                                        <TextBlock Style="{StaticResource FieldHeader}" Text="REQUIRES  " />
+                                        <TextBlock Style="{StaticResource FieldValue}" Foreground="#FFAADDFF"
+                                                   Text="{Binding SpecialtiesLabel}" />
+                                    </StackPanel>
+
+                                    <!-- Accept -->
+                                    <Button Grid.Row="4" HorizontalAlignment="Left"
+                                            Style="{StaticResource MainButton}"
+                                            IsEnabled="{Binding CanAccept}"
+                                            Content="{Binding AcceptLabel}"
+                                            Click="btnAccept_Click" />
                                 </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
                 </Grid>
 
-                <Grid Grid.Column="1" Margin="0,0,10,0" HorizontalAlignment="Right" CornerRadius="15">
-                    <Image Source="/Assets/SidePanels/Contracts.png" />
+                <!-- Active contracts sidebar -->
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Style="{StaticResource SubHeader}" Foreground="#FFFFCC44"
+                               Margin="0,0,0,8" Text="ACTIVE CONTRACTS" />
+                    <ListView Grid.Row="1" SelectionMode="None" ItemsSource="{Binding ActiveContracts}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,0,0,8" Padding="12,10,12,10" CornerRadius="8">
+                                    <Grid.Background>
+                                        <SolidColorBrush Color="#0D1A00" Opacity="0.9" />
+                                    </Grid.Background>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" Style="{StaticResource ListViewHeader}"
+                                               Text="{Binding Contract.Name}" />
+                                    <TextBlock Grid.Row="1" Margin="0,2,0,4" FontSize="11"
+                                               Foreground="#FF888888" Text="{Binding Contract.CType}" />
+                                    <ProgressBar Grid.Row="2" Margin="0,0,0,4" Height="6"
+                                                 Minimum="0" Maximum="{Binding Contract.SkillPointsTotal}"
+                                                 Value="{Binding Contract.SkillPointsRemaining}"
+                                                 Foreground="#FF44AA44" />
+                                    <Grid Grid.Row="3">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Style="{StaticResource FieldValue}"
+                                                   Foreground="#FFB0B0B0" Text="{Binding SpecialtiesLabel}" />
+                                        <TextBlock Grid.Column="1" Style="{StaticResource FieldValue}"
+                                                   Foreground="#FFFFCC44" Text="{Binding DeadlineLabel}" />
+                                    </Grid>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </Grid>
             </Grid>
 
-            <Button Grid.Row="2" Style="{ThemeResource MainButton}" Content="Return to Main Screen" Click="btnBack_Click" />
+            <Button Grid.Row="2" Margin="16,8,0,12" Style="{ThemeResource MainButton}"
+                    Content="Return to Main Screen" Click="btnBack_Click" />
         </Grid>
     </Grid>
 </Page>
