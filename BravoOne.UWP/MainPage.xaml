@@ -144,7 +144,7 @@
 
                                 <Button Grid.Row="0" Grid.RowSpan="2" Grid.Column="1"
                                         VerticalAlignment="Top" HorizontalAlignment="Right"
-                                        Content="MANAGE" Click="btnManageTeamMember_Click" />
+                                        Content="ASSIGN" Click="btnManageTeamMember_Click" />
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -206,7 +206,7 @@
                                     <TextBlock Style="{StaticResource FieldHeader}" Text="PROGRESS" Margin="0,0,0,2" />
                                     <ProgressBar Height="6" Minimum="0"
                                                  Maximum="{Binding SkillPointsTotal}"
-                                                 Value="{Binding SkillPointsRemaining}"
+                                                 Value="{Binding SkillPointsCompleted}"
                                                  Foreground="#FF44AA44" />
                                 </StackPanel>
 

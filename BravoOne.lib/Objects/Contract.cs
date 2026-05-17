@@ -30,6 +30,11 @@ namespace BravoOne.lib.Objects
         // Set once at creation; used for XP calculation so harder contracts reward more.
         public uint SkillPointsTotal { get; set; }
 
+        // Completed work = total minus what remains — used for progress bars.
+        public uint SkillPointsCompleted => SkillPointsTotal >= SkillPointsRemaining
+            ? SkillPointsTotal - SkillPointsRemaining
+            : 0;
+
         // Flavor text shown to the player when browsing available contracts.
         public string Briefing { get; set; }
 

@@ -70,6 +70,7 @@ namespace BravoOne.UWP.ViewModels
                     {
                         Contract = c,
                         CanAccept = false,
+                        SkillPointsCompleted = c.SkillPointsTotal - c.SkillPointsRemaining,
                         DeadlineLabel = c.TurnsRemaining(gWrapper.CurrentGame.CurrentDate) <= 1
                             ? "⚠ DEADLINE CRITICAL"
                             : $"{c.TurnsRemaining(gWrapper.CurrentGame.CurrentDate)} months left",
@@ -107,5 +108,6 @@ namespace BravoOne.UWP.ViewModels
         public string AcceptLabel { get; set; }
         public string DeadlineLabel { get; set; }
         public string SpecialtiesLabel { get; set; }
+        public uint SkillPointsCompleted { get; set; }
     }
 }

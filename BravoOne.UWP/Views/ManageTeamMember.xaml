@@ -4,39 +4,296 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:BravoOne.UWP.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:viewmodels="using:BravoOne.UWP.ViewModels"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
     <Grid>
-        <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="../Assets/Backgrounds/Camo.png" />
+        </Grid.Background>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Grid Grid.Row="0" Padding="16,10,16,10">
             <Grid.Background>
-                <ImageBrush ImageSource="../Assets/Backgrounds/Camo.png" />
+                <SolidColorBrush Color="Black" Opacity="0.72" />
             </Grid.Background>
+            <TextBlock Style="{StaticResource Header}" Text="OPERATOR MANAGEMENT" />
+        </Grid>
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
+        <!-- Tab pivot -->
+        <Pivot Grid.Row="1" Margin="16,8,16,0">
 
-            <!-- Header Row -->
-            <Grid Grid.Row="0" VerticalAlignment="Top" Margin="10,0,10,0">
-                <TextBlock Style="{StaticResource Header}" Text="Manage Team Member" />
-            </Grid>
+            <!-- ══════════════════════════════════════════════════
+                 TAB 1 — CONTRACT ASSIGNMENTS
+            ══════════════════════════════════════════════════ -->
+            <PivotItem Header="CONTRACT ASSIGNMENTS">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,8,0,0">
+                    <ItemsControl ItemsSource="{Binding ContractAssignments}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,0,0,16" Padding="16,14,16,14" CornerRadius="10">
+                                    <Grid.Background>
+                                        <SolidColorBrush Color="Black" Opacity="0.68" />
+                                    </Grid.Background>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
 
-            <!-- Content Row -->
-            <Grid Grid.Row="1" Margin="10,10,10,10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+                                    <!-- Name + type badge + deadline -->
+                                    <Grid Grid.Row="0" Margin="0,0,0,4">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Style="{StaticResource ListViewHeader}"
+                                                   Text="{Binding Contract.Name}" />
+                                        <Border Grid.Column="1" Background="#CC102010" CornerRadius="4"
+                                                Padding="8,2,8,2" VerticalAlignment="Center" Margin="8,0,8,0">
+                                            <TextBlock Foreground="#FF88FF88" FontSize="11" FontWeight="Bold"
+                                                       Text="{Binding Contract.CType}" />
+                                        </Border>
+                                        <Border Grid.Column="2" Background="#CC1A1000" CornerRadius="4"
+                                                Padding="8,2,8,2" VerticalAlignment="Center">
+                                            <TextBlock Foreground="#FFFFCC44" FontSize="11" FontWeight="Bold"
+                                                       Text="{Binding DeadlineLabel}" />
+                                        </Border>
+                                    </Grid>
 
+                                    <!-- Progress bar — Value bound to completed work, not remaining -->
+                                    <StackPanel Grid.Row="1" Margin="0,4,0,6">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Style="{StaticResource FieldHeader}" Text="PROGRESS  " />
+                                            <TextBlock Style="{StaticResource FieldValue}" Foreground="#FF88FF88"
+                                                       Text="{Binding SkillPointsCompleted}" />
+                                            <TextBlock Style="{StaticResource FieldValue}" Foreground="#FF666666"
+                                                       Text=" / " />
+                                            <TextBlock Style="{StaticResource FieldValue}" Foreground="#FFB0B0B0"
+                                                       Text="{Binding Contract.SkillPointsTotal}" />
+                                            <TextBlock Style="{StaticResource FieldValue}" Foreground="#FF666666"
+                                                       Text=" SP" />
+                                        </StackPanel>
+                                        <ProgressBar Height="8" Minimum="0"
+                                                     Maximum="{Binding Contract.SkillPointsTotal}"
+                                                     Value="{Binding SkillPointsCompleted}"
+                                                     Foreground="#FF44AA44" Margin="0,4,0,0" />
+                                    </StackPanel>
 
-                <Grid Grid.Column="1" Margin="0,0,10,0" HorizontalAlignment="Right" CornerRadius="15">
-                    <Image Source="/Assets/SidePanels/TeamMemberEquipment.png" />
-                </Grid>
-            </Grid>
+                                    <!-- Required specialties -->
+                                    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,12">
+                                        <TextBlock Style="{StaticResource FieldHeader}" Text="REQUIRES  " />
+                                        <TextBlock Style="{StaticResource FieldValue}" Foreground="#FFAADDFF"
+                                                   Text="{Binding SpecialtiesLabel}" />
+                                    </StackPanel>
 
-            <Button Grid.Row="2" Style="{ThemeResource MainButton}" Content="Return to Main Screen" Click="btnBack_Click" />
+                                    <Rectangle Grid.Row="3" Height="1" Fill="#44FFFFFF" Margin="0,0,0,10" />
+
+                                    <!-- Roster rows -->
+                                    <ItemsControl Grid.Row="4" ItemsSource="{Binding Members}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid Margin="0,0,0,6" Padding="10,8,10,8" CornerRadius="6">
+                                                    <Grid.Background>
+                                                        <SolidColorBrush Color="#0D1A00" Opacity="0.85" />
+                                                    </Grid.Background>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="120" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Grid.Column="0" FontWeight="Bold" FontSize="13"
+                                                               VerticalAlignment="Center" Foreground="White"
+                                                               Text="{Binding Member.Name}" />
+                                                    <TextBlock Grid.Column="1" Style="{StaticResource FieldHeader}"
+                                                               VerticalAlignment="Center" Margin="0,0,16,0"
+                                                               Text="{Binding Member.Specialty}" />
+                                                    <TextBlock Grid.Column="2" FontSize="11" FontWeight="Bold"
+                                                               VerticalAlignment="Center" Margin="0,0,16,0"
+                                                               Foreground="#FF44DD44"
+                                                               Text="{Binding SpecialtyMatchLabel}" />
+                                                    <StackPanel Grid.Column="3" Orientation="Horizontal"
+                                                                VerticalAlignment="Center" Margin="0,0,16,0">
+                                                        <TextBlock Style="{StaticResource FieldHeader}" Text="SP " />
+                                                        <TextBlock Style="{StaticResource FieldValue}"
+                                                                   Foreground="#FFAADDFF" Text="{Binding Member.SkillPoints}" />
+                                                    </StackPanel>
+                                                    <StackPanel Grid.Column="4" Orientation="Horizontal"
+                                                                VerticalAlignment="Center" Margin="0,0,16,0">
+                                                        <TextBlock Style="{StaticResource FieldHeader}" Text="HP " />
+                                                        <TextBlock Style="{StaticResource FieldValue}"
+                                                                   Text="{Binding Member.Health}" />
+                                                    </StackPanel>
+                                                    <Button Grid.Column="5" HorizontalAlignment="Stretch"
+                                                            Content="{Binding ButtonLabel}"
+                                                            Style="{StaticResource MainButton}"
+                                                            Click="btnToggleAssignment_Click" />
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </PivotItem>
+
+            <!-- ══════════════════════════════════════════════════
+                 TAB 2 — EQUIPMENT ASSIGNMENT
+            ══════════════════════════════════════════════════ -->
+            <PivotItem Header="EQUIPMENT">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,8,0,0">
+                    <ItemsControl ItemsSource="{Binding OperatorEquipment}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <!-- One card per operator -->
+                                <Grid Margin="0,0,0,16" Padding="16,14,16,14" CornerRadius="10">
+                                    <Grid.Background>
+                                        <SolidColorBrush Color="Black" Opacity="0.68" />
+                                    </Grid.Background>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <!-- Operator name + specialty -->
+                                    <Grid Grid.Row="0" Margin="0,0,0,8">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Style="{StaticResource ListViewHeader}"
+                                                   Text="{Binding Member.Name}" />
+                                        <TextBlock Grid.Column="1" Style="{StaticResource FieldHeader}"
+                                                   VerticalAlignment="Center" Margin="0,0,16,0"
+                                                   Text="{Binding Member.Specialty}" />
+                                        <StackPanel Grid.Column="2" Orientation="Horizontal"
+                                                    VerticalAlignment="Center" Margin="0,0,16,0">
+                                            <TextBlock Style="{StaticResource FieldHeader}" Text="HP " />
+                                            <TextBlock Style="{StaticResource FieldValue}" Text="{Binding Member.Health}" />
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center">
+                                            <TextBlock Style="{StaticResource FieldHeader}" Text="SP " />
+                                            <TextBlock Style="{StaticResource FieldValue}"
+                                                       Foreground="#FFAADDFF" Text="{Binding Member.SkillPoints}" />
+                                        </StackPanel>
+                                    </Grid>
+
+                                    <!-- Currently assigned gear -->
+                                    <TextBlock Grid.Row="1" Style="{StaticResource FieldHeader}"
+                                               Margin="0,0,0,6" Text="ASSIGNED GEAR" />
+                                    <ItemsControl Grid.Row="2" ItemsSource="{Binding AssignedSlots}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid Margin="0,0,0,4" Padding="10,6,10,6" CornerRadius="5">
+                                                    <Grid.Background>
+                                                        <SolidColorBrush Color="#0D1A00" Opacity="0.85" />
+                                                    </Grid.Background>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Grid.Column="0" FontWeight="Bold" FontSize="13"
+                                                               Foreground="White" VerticalAlignment="Center"
+                                                               Text="{Binding EquipmentName}" />
+                                                    <TextBlock Grid.Column="1" Style="{StaticResource FieldHeader}"
+                                                               VerticalAlignment="Center" Margin="0,0,12,0"
+                                                               Text="CONDITION  " />
+                                                    <TextBlock Grid.Column="2" FontSize="12" FontWeight="Bold"
+                                                               VerticalAlignment="Center" Margin="0,0,16,0"
+                                                               Foreground="{Binding ConditionColor}"
+                                                               Text="{Binding ConditionLabel}" />
+                                                    <Button Grid.Column="3" Content="REMOVE"
+                                                            Style="{StaticResource MainButton}"
+                                                            Click="btnUnassignEquipment_Click" />
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+
+                                    <Rectangle Grid.Row="3" Height="1" Fill="#44FFFFFF" Margin="0,8,0,8" />
+
+                                    <!-- Pool gear available to assign -->
+                                    <ItemsControl Grid.Row="4" ItemsSource="{Binding PoolItems}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid Margin="0,0,0,4" Padding="10,6,10,6" CornerRadius="5">
+                                                    <Grid.Background>
+                                                        <SolidColorBrush Color="#001A1A00" Opacity="0.6" />
+                                                    </Grid.Background>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Grid.Column="0" FontWeight="Bold" FontSize="13"
+                                                               Foreground="#FFD0D0D0" VerticalAlignment="Center"
+                                                               Text="{Binding Equipment.Name}" />
+                                                    <TextBlock Grid.Column="1" Style="{StaticResource FieldHeader}"
+                                                               VerticalAlignment="Center" Margin="0,0,6,0"
+                                                               Text="{Binding Equipment.EType}" />
+                                                    <StackPanel Grid.Column="2" Orientation="Horizontal"
+                                                                VerticalAlignment="Center" Margin="0,0,16,0">
+                                                        <TextBlock Style="{StaticResource FieldHeader}" Text="DMG " />
+                                                        <TextBlock Style="{StaticResource FieldValue}"
+                                                                   Foreground="#FFFF9944" Text="{Binding Equipment.Damage}" />
+                                                    </StackPanel>
+                                                    <StackPanel Grid.Column="3" Orientation="Horizontal"
+                                                                VerticalAlignment="Center" Margin="0,0,16,0">
+                                                        <TextBlock Style="{StaticResource FieldHeader}" Text="REL " />
+                                                        <TextBlock Style="{StaticResource FieldValue}"
+                                                                   Text="{Binding Equipment.Reliability}" />
+                                                    </StackPanel>
+                                                    <TextBlock Grid.Column="4" FontSize="11" FontWeight="Bold"
+                                                               VerticalAlignment="Center" Margin="0,0,12,0"
+                                                               Foreground="#FF888888"
+                                                               Text="ALREADY ASSIGNED" />
+                                                    <Button Grid.Column="5"
+                                                            Content="{Binding ButtonLabel}"
+                                                            IsEnabled="{Binding CanAssign}"
+                                                            Style="{StaticResource MainButton}"
+                                                            Click="btnAssignEquipment_Click" />
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </PivotItem>
+        </Pivot>
+
+        <!-- Footer -->
+        <Grid Grid.Row="2" Padding="16,8,16,12">
+            <Grid.Background>
+                <SolidColorBrush Color="Black" Opacity="0.72" />
+            </Grid.Background>
+            <Button Style="{ThemeResource MainButton}" Content="◀  Return to HQ" Click="btnBack_Click" />
         </Grid>
     </Grid>
 </Page>

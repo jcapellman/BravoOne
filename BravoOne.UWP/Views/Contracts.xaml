@@ -154,7 +154,7 @@
                                                Foreground="#FF888888" Text="{Binding Contract.CType}" />
                                     <ProgressBar Grid.Row="2" Margin="0,0,0,4" Height="6"
                                                  Minimum="0" Maximum="{Binding Contract.SkillPointsTotal}"
-                                                 Value="{Binding Contract.SkillPointsRemaining}"
+                                                 Value="{Binding SkillPointsCompleted}"
                                                  Foreground="#FF44AA44" />
                                     <Grid Grid.Row="3">
                                         <Grid.ColumnDefinitions>
