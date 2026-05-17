@@ -223,7 +223,54 @@ namespace BravoOne.lib.Objects
 
         public void AddContract(Contract contract)
         {
+            contract.Status = ContractStatus.InProgress;
+            contract.CompleteDate = CurrentDate.AddMonths(3);
+
+            AvailableContracts.Remove(contract);
+
             Contracts.Add(contract);
+
+            AddActivityLog(ActivityType.CONTRACT_COMPLETED, "Contract Accepted", $"Contract {contract.Name} is now in progress");
+        }
+
+        public bool DeductMoney(ulong amount)
+        {
+            if (amount > Money)
+            {
+                Money = 0;
+                return false;
+            }
+
+            Money -= amount;
+            return true;
+        }
+
+        public void CompleteContract(Contract contract)
+        {
+            contract.Status = ContractStatus.Completed;
+            Money += contract.Income;
+            gsContracts++;
+            gsXP += (int)contract.SkillPointsRemaining + 1;
+            CheckTeamLevelUp();
+            AddActivityLog(ActivityType.CONTRACT_COMPLETED, "Contract Completed", $"Contract {contract.Name} completed successfully");
+        }
+
+        public void FailContract(Contract contract)
+        {
+            contract.Status = ContractStatus.Failed;
+            DeductMoney(contract.Penalty);
+            AddActivityLog(ActivityType.CONTRACT_FAILED, "Contract Failed", $"Contract {contract.Name} has failed");
+        }
+
+        private void CheckTeamLevelUp()
+        {
+            var xpThreshold = TeamLevel * 1000;
+
+            if (gsXP >= xpThreshold)
+            {
+                TeamLevel++;
+                AddActivityLog(ActivityType.TEAM_LEVEL_UP, "Team Level Up", $"Your team has reached level {TeamLevel}");
+            }
         }
 
         public void AddActivityLog(ActivityType type, string title, string detail)

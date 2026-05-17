@@ -27,7 +27,7 @@ namespace BravoOne.lib.Managers
 
                 currentGame.Money -= member.MonthlySalary;
 
-                member.Status -= currentGame.Contracts.Where(a => a.Status == ContractStatus.InProgress && 
+                member.Health -= currentGame.Contracts.Where(a => a.Status == ContractStatus.InProgress && 
                     a.AssignedTeamMembers.Contains(member.Id)).Sum(c => c.TeamMemberToll);
             }
 
@@ -47,7 +47,7 @@ namespace BravoOne.lib.Managers
             var randomSpecialty = rng;
             var randomAvatar = rng;
 
-            var specialties = Enum.GetNames(typeof(Specialties));
+            var specialties = (Specialties[])Enum.GetValues(typeof(Specialties));
             var avatarImages = await Storage.GetAvatarImagesAsync();
 
             for (var x = 0; x < 50; x++)
@@ -71,7 +71,7 @@ namespace BravoOne.lib.Managers
 
                 member.MonthlySalary = 10000 * member.SkillPoints;
 
-                member.Specialty = specialties[randomSpecialty.Next(0, specialties.Length - 1)];
+                member.Specialty = specialties[randomSpecialty.Next(0, specialties.Length)];
                 member.AvatarImagePath = avatarImages[randomAvatar.Next(0, avatarImages.Count() - 1)];
 
                 currentGame.TeamMembers.Add(member);

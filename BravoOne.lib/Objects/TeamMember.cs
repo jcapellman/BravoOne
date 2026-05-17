@@ -21,7 +21,7 @@ namespace BravoOne.lib.Objects
 
         public uint SkillPoints { get; set; }
 
-        public string Specialty { get; set; }
+        public Specialties Specialty { get; set; }
 
         public string Comments { get; set; }
 

@@ -48,7 +48,7 @@ namespace BravoOne.lib.Managers
                 } while (currentGame.AvailableContracts.Any(a => a.Name == contract.Name) || 
                     currentGame.Contracts.Any(a => a.Name == contract.Name));
 
-                contract.CType = (ContractType)randomType.Next(0, Enum.GetValues(typeof(ContractType)).Length - 1);
+                contract.CType = (ContractType)randomType.Next(0, Enum.GetValues(typeof(ContractType)).Length);
                 contract.SkillPointsRemaining = (uint)randomSkillPoints.Next(currentGame.TeamLevel, currentGame.TeamLevel * (currentGame.TeamMembers.Count + 1) * 5);
                 contract.Income = (ulong)randomIncome.Next((int)(contract.SkillPointsRemaining * 10), (int)(contract.SkillPointsRemaining * 25));
                 contract.TeamMemberToll = randomToll.Next(5, 20);
@@ -101,36 +101,89 @@ namespace BravoOne.lib.Managers
                         continue;
                     }
 
-                    currentGame.Contracts[x].SkillPointsRemaining -= teamMember.SkillPoints;
+                    if (currentGame.Contracts[x].SkillPointsRemaining > teamMember.SkillPoints)
+                    {
+                        currentGame.Contracts[x].SkillPointsRemaining -= teamMember.SkillPoints;
+                    }
+                    else
+                    {
+                        currentGame.Contracts[x].SkillPointsRemaining = 0;
+                    }
                 }
 
-                if (currentGame.Contracts[x].SkillPointsRemaining <= 0)
+                if (currentGame.Contracts[x].SkillPointsRemaining == 0)
                 {
-                    currentGame.Contracts[x].Status = ContractStatus.Completed;
+                    currentGame.CompleteContract(currentGame.Contracts[x]);
                 }
                 else if (currentGame.CurrentDate > currentGame.Contracts[x].CompleteDate)
                 {
-                    currentGame.Contracts[x].Status = ContractStatus.Failed;
-                }
-
-                switch (currentGame.Contracts[x].Status)
-                {
-                    case Enums.ContractStatus.Completed:
-                        currentGame.Money += currentGame.Contracts[x].Income;
-                        break;
-                    case Enums.ContractStatus.Failed:
-                        currentGame.Money -= currentGame.Contracts[x].Penalty;
-                        break;
-                    case Enums.ContractStatus.NotStarted:
-                        break;
-                    case Enums.ContractStatus.InProgress:
-                        break;
-                    default:
-                        break;
+                    currentGame.FailContract(currentGame.Contracts[x]);
                 }
             }
 
+            currentGame = await RefreshAvailableContractsAsync(currentGame);
+
             return (TurnStatus.OK, currentGame);
+        }
+
+        private Task<Game> RefreshAvailableContractsAsync(Game currentGame)
+        {
+            var rng = new Random();
+
+            var needed = 10 - currentGame.AvailableContracts.Count;
+
+            for (var x = 0; x < needed; x++)
+            {
+                var contract = new Contract
+                {
+                    Id = Guid.NewGuid(),
+                    Status = ContractStatus.NotStarted,
+                    SpecialtiesRequired = new System.Collections.Generic.Dictionary<Specialties, int>(),
+                    AssignedTeamMembers = new System.Collections.Generic.List<Guid>()
+                };
+
+                do
+                {
+                    var name = Common.Constants.MISSION_NAMES[rng.Next(0, Common.Constants.MISSION_NAMES.Length - 1)];
+                    var prefix = Common.Constants.MISSION_PREFIX[rng.Next(0, Common.Constants.MISSION_PREFIX.Length - 1)];
+
+                    contract.Name = $"{prefix} {name}";
+                } while (currentGame.AvailableContracts.Any(a => a.Name == contract.Name) ||
+                    currentGame.Contracts.Any(a => a.Name == contract.Name));
+
+                contract.CType = (ContractType)rng.Next(0, Enum.GetValues(typeof(ContractType)).Length);
+                contract.SkillPointsRemaining = (uint)rng.Next(currentGame.TeamLevel, currentGame.TeamLevel * (currentGame.TeamMembers.Count + 1) * 5);
+                contract.Income = (ulong)rng.Next((int)(contract.SkillPointsRemaining * 10), (int)(contract.SkillPointsRemaining * 25));
+                contract.TeamMemberToll = rng.Next(5, 20);
+                contract.Penalty = (ulong)rng.Next((int)contract.Income / 2, (int)(contract.Income * 2));
+
+                switch (contract.CType)
+                {
+                    case ContractType.DEMOLITION:
+                        contract.SpecialtiesRequired.Add(Specialties.DEMOLITION, 1);
+                        contract.SpecialtiesRequired.Add(Specialties.RECON, 1);
+                        break;
+                    case ContractType.INFILTRATION:
+                        contract.SpecialtiesRequired.Add(Specialties.ASSAULT, 1);
+                        contract.SpecialtiesRequired.Add(Specialties.DEMOLITION, 1);
+                        contract.SpecialtiesRequired.Add(Specialties.RECON, 1);
+                        contract.SpecialtiesRequired.Add(Specialties.SNIPER, 1);
+                        break;
+                    case ContractType.RESCUE:
+                        contract.SpecialtiesRequired.Add(Specialties.ASSAULT, 1);
+                        contract.SpecialtiesRequired.Add(Specialties.SNIPER, 1);
+                        contract.SpecialtiesRequired.Add(Specialties.RECON, 1);
+                        break;
+                    case ContractType.RECON:
+                        contract.SpecialtiesRequired.Add(Specialties.RECON, 1);
+                        contract.SpecialtiesRequired.Add(Specialties.SNIPER, 1);
+                        break;
+                }
+
+                currentGame.AvailableContracts.Add(contract);
+            }
+
+            return Task.FromResult(currentGame);
         }
     }
 }

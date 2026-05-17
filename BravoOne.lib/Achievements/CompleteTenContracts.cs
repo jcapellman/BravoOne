@@ -11,6 +11,6 @@ namespace BravoOne.lib.Achievements
 
         public override string Description => "Complete 10 Contracts";
 
-        public override bool VerifyAchievement(Game currentGame) => currentGame.Contracts.Count(a => a.Status == Enums.ContractStatus.Completed) > 10;
+        public override bool VerifyAchievement(Game currentGame) => currentGame.gsContracts >= 10;
     }
 }
