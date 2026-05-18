@@ -9,16 +9,15 @@ namespace BravoOne.UWP.ViewModels
 {
     public class RecruitmentViewModel : BaseViewModel
     {
-        private List<TeamMember> _recruits;
+        private List<RecruitItem> _recruits;
 
-        public List<TeamMember> Recruits
+        public List<RecruitItem> Recruits
         {
             get => _recruits;
 
             set
             {
                 _recruits = value;
-
                 OnPropertyChanged();
             }
         }
@@ -30,36 +29,54 @@ namespace BravoOne.UWP.ViewModels
 
         private void LoadRecruits()
         {
-            var availableMembers = gWrapper.CurrentGame.TeamMembers.Where(a => a.Status == lib.Enums.TeamMemberStatus.Available).OrderByDescending(b => b.MonthlySalary).ToList();
+            var availableMembers = gWrapper.CurrentGame.TeamMembers
+                .Where(a => a.Status == lib.Enums.TeamMemberStatus.Available)
+                .ToList();
 
-            Recruits = new List<TeamMember>();
+            var items = new List<RecruitItem>();
 
             foreach (var recruit in availableMembers)
             {
-                recruit.Available = true;
-
-                recruit.Comments = "Available for your team";
+                var item = new RecruitItem { Member = recruit };
 
                 if (recruit.SkillPoints > gWrapper.CurrentGame.TeamLevel)
                 {
-                    recruit.Comments = "Recruit is too experienced for your team";
-                    recruit.Available = false;
+                    item.StatusLabel = "TOO EXPERIENCED";
+                    item.CanRecruit = false;
                 }
                 else if (recruit.MonthlySalary > gWrapper.CurrentGame.Money)
                 {
-                    recruit.Comments = "Recruit is too expensive for your team";
-                    recruit.Available = false;
+                    item.StatusLabel = "INSUFFICIENT FUNDS";
+                    item.CanRecruit = false;
+                }
+                else
+                {
+                    item.StatusLabel = "AVAILABLE";
+                    item.CanRecruit = true;
                 }
 
-                Recruits.Add(recruit);
+                items.Add(item);
             }
+
+            // Available recruits always sort to the top, then by skill descending
+            Recruits = items
+                .OrderByDescending(a => a.CanRecruit)
+                .ThenByDescending(a => a.Member.SkillPoints)
+                .ToList();
         }
 
-        public void AddTeamMember(TeamMember recruit)
+        public void AddTeamMember(RecruitItem item)
         {
-            gWrapper.CurrentGame.AddTeamMember(recruit);
-
+            gWrapper.CurrentGame.AddTeamMember(item.Member);
             LoadRecruits();
         }
+    }
+
+    public class RecruitItem
+    {
+        public TeamMember Member { get; set; }
+        public bool CanRecruit { get; set; }
+        public string StatusLabel { get; set; }
+        public string StatusColor => CanRecruit ? "#FF44FF55" : "#FFFF4400";
     }
 }

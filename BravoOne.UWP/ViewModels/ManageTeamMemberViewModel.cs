@@ -82,23 +82,51 @@ namespace BravoOne.UWP.ViewModels
             ContractAssignments = new ObservableCollection<ContractAssignmentItem>(
                 gWrapper.CurrentGame.Contracts
                     .Where(c => c.Status == ContractStatus.InProgress)
-                    .Select(c => new ContractAssignmentItem
+                    .Select(c =>
                     {
-                        Contract = c,
-                        DeadlineLabel = c.TurnsRemaining(gWrapper.CurrentGame.CurrentDate) <= 1
-                            ? "⚠ OVERDUE"
-                            : $"{c.TurnsRemaining(gWrapper.CurrentGame.CurrentDate)} months left",
-                        SpecialtiesLabel = string.Join(", ", c.SpecialtiesRequired.Keys.Select(k => k.ToString())),
-                        SkillPointsCompleted = c.SkillPointsTotal - c.SkillPointsRemaining,
-                        Members = new ObservableCollection<MemberAssignmentItem>(
-                            onTeam.Select(m => new MemberAssignmentItem
-                            {
-                                Member = m,
-                                Contract = c,
-                                IsAssigned = c.AssignedTeamMembers.Contains(m.Id),
-                                ButtonLabel = c.AssignedTeamMembers.Contains(m.Id) ? "UNASSIGN" : "ASSIGN",
-                                SpecialtyMatchLabel = c.SpecialtiesRequired.ContainsKey(m.Specialty) ? "✓ MATCH" : string.Empty
-                            }))
+                        // Which specialties are filled (at least one assigned member matches)
+                        var assignedSpecialties = new HashSet<Specialties>(
+                            onTeam
+                                .Where(m => c.AssignedTeamMembers.Contains(m.Id))
+                                .Select(m => m.Specialty));
+
+                        return new ContractAssignmentItem
+                        {
+                            Contract = c,
+                            DeadlineLabel = c.TurnsRemaining(gWrapper.CurrentGame.CurrentDate) <= 1
+                                ? "⚠ OVERDUE"
+                                : $"{c.TurnsRemaining(gWrapper.CurrentGame.CurrentDate)} months left",
+                            SkillPointsCompleted = c.SkillPointsTotal - c.SkillPointsRemaining,
+                            AssignedCount = c.AssignedTeamMembers.Count,
+                            // One badge per required specialty showing filled/missing state
+                            RequirementSlots = c.SpecialtiesRequired.Keys
+                                .Select(k => new RequirementSlotItem
+                                {
+                                    Label = k.ToString(),
+                                    IsFilled = assignedSpecialties.Contains(k)
+                                })
+                                .ToList(),
+                            // Assigned operator name-tags
+                            AssignedNames = string.Join("  //  ",
+                                onTeam
+                                    .Where(m => c.AssignedTeamMembers.Contains(m.Id))
+                                    .Select(m => m.Name)),
+                            Members = new ObservableCollection<MemberAssignmentItem>(
+                                onTeam
+                                    .Select(m => new MemberAssignmentItem
+                                    {
+                                        Member = m,
+                                        Contract = c,
+                                        IsAssigned = c.AssignedTeamMembers.Contains(m.Id),
+                                        ButtonLabel = c.AssignedTeamMembers.Contains(m.Id) ? "REMOVE" : "ASSIGN",
+                                        IsMatch = c.SpecialtiesRequired.ContainsKey(m.Specialty),
+                                        SpecialtyMatchLabel = c.SpecialtiesRequired.ContainsKey(m.Specialty) ? "MATCH" : string.Empty
+                                    })
+                                    // Assigned first, then unassigned matches, then the rest
+                                    .OrderByDescending(m => m.IsAssigned)
+                                    .ThenByDescending(m => m.IsMatch)
+                                    .ThenBy(m => m.Member.Name))
+                        };
                     }));
 
             // ── Equipment assignments ─────────────────────────────────
@@ -145,9 +173,21 @@ namespace BravoOne.UWP.ViewModels
     {
         public Contract Contract { get; set; }
         public string DeadlineLabel { get; set; }
-        public string SpecialtiesLabel { get; set; }
         public uint SkillPointsCompleted { get; set; }
+        public int AssignedCount { get; set; }
+        public string AssignedNames { get; set; }
+        public List<RequirementSlotItem> RequirementSlots { get; set; }
         public ObservableCollection<MemberAssignmentItem> Members { get; set; }
+    }
+
+    public class RequirementSlotItem
+    {
+        public string Label { get; set; }
+        public bool IsFilled { get; set; }
+        // Drives border/text colour in XAML via a pre-computed string
+        public string FilledColor => IsFilled ? "#FF44FF55" : "#FFFF4400";
+        public string FilledBorderColor => IsFilled ? "#FF226622" : "#FF661100";
+        public string FilledIcon => IsFilled ? "✓" : "✗";
     }
 
     public class MemberAssignmentItem
@@ -155,8 +195,12 @@ namespace BravoOne.UWP.ViewModels
         public TeamMember Member { get; set; }
         public Contract Contract { get; set; }
         public bool IsAssigned { get; set; }
+        public bool IsMatch { get; set; }
         public string ButtonLabel { get; set; }
         public string SpecialtyMatchLabel { get; set; }
+        // Background tint: assigned rows get a subtle highlight
+        public string RowBackground => IsAssigned ? "#FF1C2A00" : "#FF110E00";
+        public string RowBorderColor => IsAssigned ? "#FF446600" : "#FF664400";
     }
 
     public class OperatorEquipmentItem

@@ -4,107 +4,128 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:BravoOne.UWP.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:viewmodels="using:BravoOne.UWP.ViewModels"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid>
-        <Grid>
-            <Grid.Background>
-                <ImageBrush ImageSource="../Assets/Backgrounds/Camo.png" />
-            </Grid.Background>
-
+    <Grid Background="{StaticResource AppBg}">
+        <Grid Background="{StaticResource PanelBg}"
+              BorderBrush="{StaticResource AmberBorder}" BorderThickness="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <!-- Header Row -->
-            <Grid Grid.Row="0" VerticalAlignment="Top" Margin="10,0,10,0">
-               <TextBlock Style="{StaticResource Header}" Text="Recruitment" />
-            </Grid>
-
-            <!-- Content Row -->
-            <Grid Grid.Row="1" Margin="10,10,10,10">
+            <!-- Header -->
+            <Grid Grid.Row="0" Padding="16,10,16,10"
+                  Background="{StaticResource PanelBg}"
+                  BorderBrush="{StaticResource AmberBorder}" BorderThickness="0,0,0,2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-
-                <Grid Grid.Column="0" Margin="0,0,10,0">
-                    <ListView SelectionMode="None" ItemsSource="{Binding Recruits}">
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                            </Style>
-                        </ListView.ItemContainerStyle>
-
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <Grid Margin="0,0,0,10" CornerRadius="15">
-                                    <Grid.Background>
-                                        <SolidColorBrush Color="Black" Opacity="0.5" />
-                                    </Grid.Background>
-
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-
-                                    <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" MaxHeight="128" MaxWidth="128">
-                                        <Image.Source>
-                                            <BitmapImage UriSource="{Binding AvatarImagePath}" />
-                                        </Image.Source>
-                                    </Image>
-
-                                    <TextBlock Grid.Row="0" Margin="10,20,0,0" Grid.Column="1" Text="{Binding Name}" Style="{StaticResource ListViewHeader}" />
-
-                                    <Grid Grid.Row="1" Grid.Column="1" Margin="10,0,0,0">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="Auto" />
-
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="Auto" />
-                                        </Grid.ColumnDefinitions>
-
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                        </Grid.RowDefinitions>
-
-                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="speciality" Style="{StaticResource FieldHeader}" />
-                                        <TextBlock Grid.Row="0" Grid.Column="1" Margin="5,0,0,0" Text="{Binding Specialty}" Style="{StaticResource FieldValue}" />
-
-                                        <TextBlock Grid.Row="0" Grid.Column="2" Margin="10,0,0,0" Text="monthly salary" Style="{StaticResource FieldHeader}" />
-                                        <TextBlock Grid.Row="0" Grid.Column="3" Margin="10,0,0,0" Text="{Binding MonthlySalary}" Style="{StaticResource FieldValue}" />
-
-                                        <TextBlock Grid.Row="1" Grid.Column="0" Text="skill level" Style="{StaticResource FieldHeader}" />
-                                        <TextBlock Grid.Row="1" Grid.Column="1" Margin="5,0,0,0" Text="{Binding SkillPoints}" Style="{StaticResource FieldValue}" />
-
-                                        <TextBlock Grid.Row="1" Grid.Column="2" Margin="10,0,0,0" Text="status" Style="{StaticResource FieldHeader}" />
-                                        <TextBlock Grid.Row="1" Grid.Column="3" Margin="10,0,0,0" Text="{Binding Comments}" Style="{StaticResource FieldValue}" />
-                                    </Grid>
-
-                                    <Button Grid.Row="0" Grid.RowSpan="2" Margin="0,0,10,0" Grid.Column="2" Style="{StaticResource MainButton}" HorizontalContentAlignment="Right" HorizontalAlignment="Right" VerticalAlignment="Center" IsEnabled="{Binding Available}" Content="Recruit to Team" Click="btnRecruit_Click" />
-                                </Grid>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </Grid>
-                
-                <Grid Grid.Column="1" Margin="0,0,10,0" HorizontalAlignment="Right" CornerRadius="15">
-                    <Image Source="/Assets/SidePanels/Tank.png" />
-                </Grid>
+                <TextBlock Grid.Column="0" Style="{StaticResource Header}" Text="PERSONNEL RECRUITMENT" />
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Style="{StaticResource SubHeader}"
+                               Foreground="{StaticResource PhosphorGreen}"
+                               Text="{Binding Recruits.Count}" />
+                    <TextBlock Style="{StaticResource SubHeader}" Text=" candidates on file" />
+                </StackPanel>
             </Grid>
 
-            <Button Grid.Row="2" Style="{ThemeResource MainButton}" Content="Return to Main Screen" Click="btnBack_Click" />
+            <!-- Recruit list -->
+            <ListView Grid.Row="1" Margin="16,10,16,0"
+                      SelectionMode="None" ItemsSource="{Binding Recruits}">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="Padding" Value="0,3,0,3"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,0,0,8" Padding="14,12,14,12"
+                              Background="{StaticResource ItemBg}"
+                              BorderBrush="{StaticResource AmberBorder}" BorderThickness="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Avatar -->
+                            <Image Grid.Column="0" Width="64" Height="64"
+                                   Stretch="UniformToFill" VerticalAlignment="Top"
+                                   Margin="0,0,14,0">
+                                <Image.Source>
+                                    <BitmapImage UriSource="{Binding Member.AvatarImagePath}" />
+                                </Image.Source>
+                            </Image>
+
+                            <!-- Stats block -->
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <!-- Name + status badge -->
+                                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,6">
+                                    <TextBlock Style="{StaticResource ListViewHeader}"
+                                               Text="{Binding Member.Name}" Margin="0,0,12,0" />
+                                    <Border Padding="8,2,8,2" VerticalAlignment="Center"
+                                            BorderBrush="{StaticResource AmberBorder}" BorderThickness="1"
+                                            Background="#CC1A0A00">
+                                        <TextBlock FontSize="11" FontWeight="Bold"
+                                                   FontFamily="Fonts/MainFont.ttf#Tudor Victors"
+                                                   Foreground="{Binding StatusColor}"
+                                                   Text="{Binding StatusLabel}" />
+                                    </Border>
+                                </StackPanel>
+
+                                <!-- Specialty / Skill -->
+                                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,4">
+                                    <TextBlock Style="{StaticResource FieldHeader}" Text="SPECIALTY  " />
+                                    <TextBlock Style="{StaticResource FieldValue}"
+                                               Foreground="{StaticResource ColdBlue}"
+                                               Text="{Binding Member.Specialty}" Margin="0,0,24,0" />
+                                    <TextBlock Style="{StaticResource FieldHeader}" Text="SKILL  " />
+                                    <TextBlock Style="{StaticResource FieldValue}"
+                                               Foreground="{StaticResource AmberPrimary}"
+                                               Text="{Binding Member.SkillPoints}" />
+                                </StackPanel>
+
+                                <!-- Salary / Age -->
+                                <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                    <TextBlock Style="{StaticResource FieldHeader}" Text="SALARY  $" />
+                                    <TextBlock Style="{StaticResource FieldValue}"
+                                               Foreground="{StaticResource AlertRed}"
+                                               Text="{Binding Member.MonthlySalary}" Margin="0,0,24,0" />
+                                    <TextBlock Style="{StaticResource FieldHeader}" Text="AGE  " />
+                                    <TextBlock Style="{StaticResource FieldValue}"
+                                               Foreground="{StaticResource AmberDim}"
+                                               Text="{Binding Member.Age}" />
+                                </StackPanel>
+                            </Grid>
+
+                            <!-- Recruit button -->
+                            <Button Grid.Column="2" VerticalAlignment="Center"
+                                    Style="{StaticResource MainButton}"
+                                    IsEnabled="{Binding CanRecruit}"
+                                    Content="ENLIST"
+                                    Click="btnRecruit_Click" />
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <!-- Footer -->
+            <Grid Grid.Row="2" Padding="16,8,16,12"
+                  Background="{StaticResource PanelBg}"
+                  BorderBrush="{StaticResource AmberBorder}" BorderThickness="0,2,0,0">
+                <Button Style="{ThemeResource MainButton}" Content="◀  Return to HQ" Click="btnBack_Click" />
+            </Grid>
         </Grid>
     </Grid>
 </Page>

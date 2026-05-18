@@ -34,17 +34,21 @@
                     <ItemsControl ItemsSource="{Binding ContractAssignments}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="0,0,0,16" Padding="16,14,16,14" Background="{StaticResource ItemBg}" BorderBrush="{StaticResource AmberBorder}" BorderThickness="1">
+                                <Grid Margin="0,0,0,20" Padding="16,14,16,14"
+                                      Background="{StaticResource ItemBg}"
+                                      BorderBrush="{StaticResource AmberBorder}" BorderThickness="1">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" /><!-- title row -->
+                                        <RowDefinition Height="Auto" /><!-- requirement badges -->
+                                        <RowDefinition Height="Auto" /><!-- progress -->
+                                        <RowDefinition Height="Auto" /><!-- assigned names strip -->
+                                        <RowDefinition Height="Auto" /><!-- separator -->
+                                        <RowDefinition Height="Auto" /><!-- operator table header -->
+                                        <RowDefinition Height="Auto" /><!-- operator rows -->
                                     </Grid.RowDefinitions>
 
-                                    <!-- Name + type badge + deadline -->
-                                    <Grid Grid.Row="0" Margin="0,0,0,4">
+                                    <!-- ── Row 0: Mission name / type / deadline ── -->
+                                    <Grid Grid.Row="0" Margin="0,0,0,10">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="Auto" />
@@ -52,8 +56,8 @@
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Grid.Column="0" Style="{StaticResource ListViewHeader}"
                                                    Text="{Binding Contract.Name}" />
-                                        <Border Grid.Column="1" Background="#CC1A0A00"
-                                                Padding="8,2,8,2" VerticalAlignment="Center" Margin="8,0,8,0"
+                                        <Border Grid.Column="1" Background="#CC1A0A00" Margin="8,0,8,0"
+                                                Padding="8,2,8,2" VerticalAlignment="Center"
                                                 BorderBrush="{StaticResource AmberBorder}" BorderThickness="1">
                                             <TextBlock Foreground="{StaticResource AmberDim}" FontSize="11" FontWeight="Bold"
                                                        FontFamily="Fonts/MainFont.ttf#Tudor Victors"
@@ -68,73 +72,143 @@
                                         </Border>
                                     </Grid>
 
-                                    <!-- Progress bar — Value bound to completed work, not remaining -->
-                                    <StackPanel Grid.Row="1" Margin="0,4,0,6">
-                                        <StackPanel Orientation="Horizontal">
+                                    <!-- ── Row 1: Required specialty badges (filled=green, missing=red) ── -->
+                                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,10">
+                                        <TextBlock Style="{StaticResource FieldHeader}"
+                                                   VerticalAlignment="Center" Margin="0,0,10,0"
+                                                   Text="REQUIRES" />
+                                        <ItemsControl ItemsSource="{Binding RequirementSlots}">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <StackPanel Orientation="Horizontal" />
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Border Margin="0,0,6,0" Padding="8,3,8,3"
+                                                            BorderThickness="1"
+                                                            BorderBrush="{Binding FilledBorderColor}">
+                                                        <Border.Background>
+                                                            <SolidColorBrush Color="#CC110800" />
+                                                        </Border.Background>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock FontSize="11" FontWeight="Bold"
+                                                                       FontFamily="Fonts/MainFont.ttf#Tudor Victors"
+                                                                       Foreground="{Binding FilledColor}"
+                                                                       Text="{Binding FilledIcon}"
+                                                                       Margin="0,0,4,0" />
+                                                            <TextBlock FontSize="11" FontWeight="Bold"
+                                                                       FontFamily="Fonts/MainFont.ttf#Tudor Victors"
+                                                                       Foreground="{Binding FilledColor}"
+                                                                       Text="{Binding Label}" />
+                                                        </StackPanel>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </StackPanel>
+
+                                    <!-- ── Row 2: Progress bar ── -->
+                                    <StackPanel Grid.Row="2" Margin="0,0,0,10">
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
                                             <TextBlock Style="{StaticResource FieldHeader}" Text="PROGRESS  " />
-                                            <TextBlock Style="{StaticResource FieldValue}" Foreground="#FF88FF88"
+                                            <TextBlock Style="{StaticResource FieldValue}"
+                                                       Foreground="{StaticResource PhosphorGreen}"
                                                        Text="{Binding SkillPointsCompleted}" />
-                                            <TextBlock Style="{StaticResource FieldValue}" Foreground="#FF666666"
-                                                       Text=" / " />
-                                            <TextBlock Style="{StaticResource FieldValue}" Foreground="#FFB0B0B0"
+                                            <TextBlock Style="{StaticResource FieldValue}"
+                                                       Foreground="{StaticResource AmberBorder}" Text=" / " />
+                                            <TextBlock Style="{StaticResource FieldValue}"
+                                                       Foreground="{StaticResource AmberDim}"
                                                        Text="{Binding Contract.SkillPointsTotal}" />
-                                            <TextBlock Style="{StaticResource FieldValue}" Foreground="#FF666666"
-                                                       Text=" SP" />
+                                            <TextBlock Style="{StaticResource FieldValue}"
+                                                       Foreground="{StaticResource AmberBorder}" Text=" SP" />
                                         </StackPanel>
-                                        <ProgressBar Height="8" Minimum="0"
+                                        <ProgressBar Height="6" Minimum="0"
                                                      Maximum="{Binding Contract.SkillPointsTotal}"
                                                      Value="{Binding SkillPointsCompleted}"
-                                                     Foreground="#FF44AA44" Margin="0,4,0,0" />
+                                                     Foreground="{StaticResource PhosphorGreen}" />
                                     </StackPanel>
 
-                                    <!-- Required specialties -->
-                                    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,12">
-                                        <TextBlock Style="{StaticResource FieldHeader}" Text="REQUIRES  " />
-                                        <TextBlock Style="{StaticResource FieldValue}" Foreground="#FFAADDFF"
-                                                   Text="{Binding SpecialtiesLabel}" />
+                                    <!-- ── Row 3: Assigned operators name strip ── -->
+                                    <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,0,0,10">
+                                        <TextBlock Style="{StaticResource FieldHeader}"
+                                                   Margin="0,0,10,0" Text="ASSIGNED" />
+                                        <TextBlock Style="{StaticResource FieldValue}"
+                                                   Foreground="{StaticResource ColdBlue}"
+                                                   Text="{Binding AssignedNames}" />
+                                        <TextBlock Style="{StaticResource FieldHeader}"
+                                                   Foreground="{StaticResource AmberBorder}"
+                                                   Margin="10,0,0,0"
+                                                   Text="{Binding AssignedCount}" />
+                                        <TextBlock Style="{StaticResource FieldHeader}"
+                                                   Foreground="{StaticResource AmberBorder}"
+                                                   Text=" operators" />
                                     </StackPanel>
 
-                                    <Rectangle Grid.Row="3" Height="1" Fill="{StaticResource AmberBorder}" Margin="0,0,0,10" />
+                                    <!-- ── Row 4: Separator ── -->
+                                    <Rectangle Grid.Row="4" Height="1"
+                                               Fill="{StaticResource AmberBorder}" Margin="0,0,0,8" />
 
-                                    <!-- Roster rows -->
-                                    <ItemsControl Grid.Row="4" ItemsSource="{Binding Members}">
+                                    <!-- ── Row 5: Operator table column headers ── -->
+                                    <Grid Grid.Row="5" Margin="0,0,0,4" Padding="10,4,10,4"
+                                          Background="{StaticResource AppBg}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="100" />
+                                            <ColumnDefinition Width="60" />
+                                            <ColumnDefinition Width="60" />
+                                            <ColumnDefinition Width="120" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Style="{StaticResource FieldHeader}" Text="OPERATOR" />
+                                        <TextBlock Grid.Column="1" Style="{StaticResource FieldHeader}" Text="SPECIALTY" />
+                                        <TextBlock Grid.Column="2" Style="{StaticResource FieldHeader}" Text="SP" />
+                                        <TextBlock Grid.Column="3" Style="{StaticResource FieldHeader}" Text="HP" />
+                                        <TextBlock Grid.Column="4" Style="{StaticResource FieldHeader}" Text="" />
+                                    </Grid>
+
+                                    <!-- ── Row 6: Operator rows ── -->
+                                    <ItemsControl Grid.Row="6" ItemsSource="{Binding Members}">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
-                                                <Grid Margin="0,0,0,6" Padding="10,8,10,8"
-                                                      Background="{StaticResource PanelBg}" BorderBrush="{StaticResource AmberBorder}" BorderThickness="1">
+                                                <Grid Margin="0,0,0,3" Padding="10,7,10,7"
+                                                      Background="{Binding RowBackground}"
+                                                      BorderBrush="{Binding RowBorderColor}" BorderThickness="1">
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*" />
-                                                        <ColumnDefinition Width="Auto" />
-                                                        <ColumnDefinition Width="Auto" />
-                                                        <ColumnDefinition Width="Auto" />
-                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="100" />
+                                                        <ColumnDefinition Width="60" />
+                                                        <ColumnDefinition Width="60" />
                                                         <ColumnDefinition Width="120" />
                                                     </Grid.ColumnDefinitions>
+                                                    <!-- Name -->
                                                     <TextBlock Grid.Column="0" FontWeight="Bold" FontSize="13"
                                                                VerticalAlignment="Center"
                                                                FontFamily="Fonts/MainFont.ttf#Tudor Victors"
                                                                Foreground="{StaticResource AmberPrimary}"
                                                                Text="{Binding Member.Name}" />
-                                                    <TextBlock Grid.Column="1" Style="{StaticResource FieldHeader}"
-                                                               VerticalAlignment="Center" Margin="0,0,16,0"
-                                                               Text="{Binding Member.Specialty}" />
-                                                    <TextBlock Grid.Column="2" FontSize="11" FontWeight="Bold"
-                                                               VerticalAlignment="Center" Margin="0,0,16,0"
-                                                               Foreground="#FF44DD44"
-                                                               Text="{Binding SpecialtyMatchLabel}" />
-                                                    <StackPanel Grid.Column="3" Orientation="Horizontal"
-                                                                VerticalAlignment="Center" Margin="0,0,16,0">
-                                                        <TextBlock Style="{StaticResource FieldHeader}" Text="SP " />
-                                                        <TextBlock Style="{StaticResource FieldValue}"
-                                                                   Foreground="#FFAADDFF" Text="{Binding Member.SkillPoints}" />
+                                                    <!-- Specialty + match indicator -->
+                                                    <StackPanel Grid.Column="1" Orientation="Horizontal"
+                                                                VerticalAlignment="Center">
+                                                        <TextBlock Style="{StaticResource FieldHeader}"
+                                                                   Text="{Binding Member.Specialty}" />
+                                                        <TextBlock FontSize="10" FontWeight="Bold"
+                                                                   VerticalAlignment="Center"
+                                                                   FontFamily="Fonts/MainFont.ttf#Tudor Victors"
+                                                                   Foreground="{StaticResource PhosphorGreen}"
+                                                                   Margin="4,0,0,0"
+                                                                   Text="{Binding SpecialtyMatchLabel}" />
                                                     </StackPanel>
-                                                    <StackPanel Grid.Column="4" Orientation="Horizontal"
-                                                                VerticalAlignment="Center" Margin="0,0,16,0">
-                                                        <TextBlock Style="{StaticResource FieldHeader}" Text="HP " />
-                                                        <TextBlock Style="{StaticResource FieldValue}"
-                                                                   Text="{Binding Member.Health}" />
-                                                    </StackPanel>
-                                                    <Button Grid.Column="5" HorizontalAlignment="Stretch"
+                                                    <!-- SP -->
+                                                    <TextBlock Grid.Column="2" Style="{StaticResource FieldValue}"
+                                                               VerticalAlignment="Center"
+                                                               Foreground="{StaticResource ColdBlue}"
+                                                               Text="{Binding Member.SkillPoints}" />
+                                                    <!-- HP -->
+                                                    <TextBlock Grid.Column="3" Style="{StaticResource FieldValue}"
+                                                               VerticalAlignment="Center"
+                                                               Text="{Binding Member.Health}" />
+                                                    <!-- Assign/Remove button -->
+                                                    <Button Grid.Column="4" HorizontalAlignment="Stretch"
                                                             Content="{Binding ButtonLabel}"
                                                             Style="{StaticResource MainButton}"
                                                             Click="btnToggleAssignment_Click" />
