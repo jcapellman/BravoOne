@@ -7,10 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="../Assets/Backgrounds/Camo.png" />
-        </Grid.Background>
+    <Grid Background="{StaticResource AppBg}">
+        <Grid Background="{StaticResource PanelBg}" BorderBrush="{StaticResource AmberBorder}" BorderThickness="1">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -19,10 +17,9 @@
         </Grid.RowDefinitions>
 
         <!-- Header -->
-        <Grid Grid.Row="0" Padding="16,10,16,10">
-            <Grid.Background>
-                <SolidColorBrush Color="Black" Opacity="0.72" />
-            </Grid.Background>
+        <Grid Grid.Row="0" Padding="16,10,16,10"
+              Background="{StaticResource PanelBg}"
+              BorderBrush="{StaticResource AmberBorder}" BorderThickness="0,0,0,2">
             <TextBlock Style="{StaticResource Header}" Text="OPERATOR MANAGEMENT" />
         </Grid>
 
@@ -37,10 +34,7 @@
                     <ItemsControl ItemsSource="{Binding ContractAssignments}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="0,0,0,16" Padding="16,14,16,14" CornerRadius="10">
-                                    <Grid.Background>
-                                        <SolidColorBrush Color="Black" Opacity="0.68" />
-                                    </Grid.Background>
+                                <Grid Margin="0,0,0,16" Padding="16,14,16,14" Background="{StaticResource ItemBg}" BorderBrush="{StaticResource AmberBorder}" BorderThickness="1">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
@@ -58,14 +52,18 @@
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Grid.Column="0" Style="{StaticResource ListViewHeader}"
                                                    Text="{Binding Contract.Name}" />
-                                        <Border Grid.Column="1" Background="#CC102010" CornerRadius="4"
-                                                Padding="8,2,8,2" VerticalAlignment="Center" Margin="8,0,8,0">
-                                            <TextBlock Foreground="#FF88FF88" FontSize="11" FontWeight="Bold"
+                                        <Border Grid.Column="1" Background="#CC1A0A00"
+                                                Padding="8,2,8,2" VerticalAlignment="Center" Margin="8,0,8,0"
+                                                BorderBrush="{StaticResource AmberBorder}" BorderThickness="1">
+                                            <TextBlock Foreground="{StaticResource AmberDim}" FontSize="11" FontWeight="Bold"
+                                                       FontFamily="Fonts/MainFont.ttf#Tudor Victors"
                                                        Text="{Binding Contract.CType}" />
                                         </Border>
-                                        <Border Grid.Column="2" Background="#CC1A1000" CornerRadius="4"
-                                                Padding="8,2,8,2" VerticalAlignment="Center">
-                                            <TextBlock Foreground="#FFFFCC44" FontSize="11" FontWeight="Bold"
+                                        <Border Grid.Column="2" Background="#CC1A0A00"
+                                                Padding="8,2,8,2" VerticalAlignment="Center"
+                                                BorderBrush="{StaticResource AmberBorder}" BorderThickness="1">
+                                            <TextBlock Foreground="{StaticResource AmberPrimary}" FontSize="11" FontWeight="Bold"
+                                                       FontFamily="Fonts/MainFont.ttf#Tudor Victors"
                                                        Text="{Binding DeadlineLabel}" />
                                         </Border>
                                     </Grid>
@@ -96,16 +94,14 @@
                                                    Text="{Binding SpecialtiesLabel}" />
                                     </StackPanel>
 
-                                    <Rectangle Grid.Row="3" Height="1" Fill="#44FFFFFF" Margin="0,0,0,10" />
+                                    <Rectangle Grid.Row="3" Height="1" Fill="{StaticResource AmberBorder}" Margin="0,0,0,10" />
 
                                     <!-- Roster rows -->
                                     <ItemsControl Grid.Row="4" ItemsSource="{Binding Members}">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
-                                                <Grid Margin="0,0,0,6" Padding="10,8,10,8" CornerRadius="6">
-                                                    <Grid.Background>
-                                                        <SolidColorBrush Color="#0D1A00" Opacity="0.85" />
-                                                    </Grid.Background>
+                                                <Grid Margin="0,0,0,6" Padding="10,8,10,8"
+                                                      Background="{StaticResource PanelBg}" BorderBrush="{StaticResource AmberBorder}" BorderThickness="1">
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*" />
                                                         <ColumnDefinition Width="Auto" />
@@ -115,7 +111,9 @@
                                                         <ColumnDefinition Width="120" />
                                                     </Grid.ColumnDefinitions>
                                                     <TextBlock Grid.Column="0" FontWeight="Bold" FontSize="13"
-                                                               VerticalAlignment="Center" Foreground="White"
+                                                               VerticalAlignment="Center"
+                                                               FontFamily="Fonts/MainFont.ttf#Tudor Victors"
+                                                               Foreground="{StaticResource AmberPrimary}"
                                                                Text="{Binding Member.Name}" />
                                                     <TextBlock Grid.Column="1" Style="{StaticResource FieldHeader}"
                                                                VerticalAlignment="Center" Margin="0,0,16,0"
@@ -160,10 +158,7 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <!-- One card per operator -->
-                                <Grid Margin="0,0,0,16" Padding="16,14,16,14" CornerRadius="10">
-                                    <Grid.Background>
-                                        <SolidColorBrush Color="Black" Opacity="0.68" />
-                                    </Grid.Background>
+                                <Grid Margin="0,0,0,16" Padding="16,14,16,14" Background="{StaticResource ItemBg}" BorderBrush="{StaticResource AmberBorder}" BorderThickness="1">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
@@ -203,10 +198,8 @@
                                     <ItemsControl Grid.Row="2" ItemsSource="{Binding AssignedSlots}">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
-                                                <Grid Margin="0,0,0,4" Padding="10,6,10,6" CornerRadius="5">
-                                                    <Grid.Background>
-                                                        <SolidColorBrush Color="#0D1A00" Opacity="0.85" />
-                                                    </Grid.Background>
+                                                <Grid Margin="0,0,0,4" Padding="10,6,10,6"
+                                                      Background="{StaticResource PanelBg}" BorderBrush="{StaticResource AmberBorder}" BorderThickness="1">
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*" />
                                                         <ColumnDefinition Width="Auto" />
@@ -214,7 +207,8 @@
                                                         <ColumnDefinition Width="Auto" />
                                                     </Grid.ColumnDefinitions>
                                                     <TextBlock Grid.Column="0" FontWeight="Bold" FontSize="13"
-                                                               Foreground="White" VerticalAlignment="Center"
+                                                               FontFamily="Fonts/MainFont.ttf#Tudor Victors"
+                                                               Foreground="{StaticResource AmberPrimary}" VerticalAlignment="Center"
                                                                Text="{Binding EquipmentName}" />
                                                     <TextBlock Grid.Column="1" Style="{StaticResource FieldHeader}"
                                                                VerticalAlignment="Center" Margin="0,0,12,0"
@@ -231,16 +225,14 @@
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>
 
-                                    <Rectangle Grid.Row="3" Height="1" Fill="#44FFFFFF" Margin="0,8,0,8" />
+                                    <Rectangle Grid.Row="3" Height="1" Fill="{StaticResource AmberBorder}" Margin="0,8,0,8" />
 
                                     <!-- Pool gear available to assign -->
                                     <ItemsControl Grid.Row="4" ItemsSource="{Binding PoolItems}">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
-                                                <Grid Margin="0,0,0,4" Padding="10,6,10,6" CornerRadius="5">
-                                                    <Grid.Background>
-                                                        <SolidColorBrush Color="#001A1A00" Opacity="0.6" />
-                                                    </Grid.Background>
+                                                <Grid Margin="0,0,0,4" Padding="10,6,10,6"
+                                                      Background="{StaticResource ItemBg}" BorderBrush="{StaticResource AmberBorder}" BorderThickness="1">
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*" />
                                                         <ColumnDefinition Width="Auto" />
@@ -250,7 +242,8 @@
                                                         <ColumnDefinition Width="Auto" />
                                                     </Grid.ColumnDefinitions>
                                                     <TextBlock Grid.Column="0" FontWeight="Bold" FontSize="13"
-                                                               Foreground="#FFD0D0D0" VerticalAlignment="Center"
+                                                               FontFamily="Fonts/MainFont.ttf#Tudor Victors"
+                                                               Foreground="{StaticResource AmberDim}" VerticalAlignment="Center"
                                                                Text="{Binding Equipment.Name}" />
                                                     <TextBlock Grid.Column="1" Style="{StaticResource FieldHeader}"
                                                                VerticalAlignment="Center" Margin="0,0,6,0"
@@ -269,7 +262,8 @@
                                                     </StackPanel>
                                                     <TextBlock Grid.Column="4" FontSize="11" FontWeight="Bold"
                                                                VerticalAlignment="Center" Margin="0,0,12,0"
-                                                               Foreground="#FF888888"
+                                                               FontFamily="Fonts/MainFont.ttf#Tudor Victors"
+                                                               Foreground="{StaticResource AmberBorder}"
                                                                Text="ALREADY ASSIGNED" />
                                                     <Button Grid.Column="5"
                                                             Content="{Binding ButtonLabel}"
@@ -289,11 +283,11 @@
         </Pivot>
 
         <!-- Footer -->
-        <Grid Grid.Row="2" Padding="16,8,16,12">
-            <Grid.Background>
-                <SolidColorBrush Color="Black" Opacity="0.72" />
-            </Grid.Background>
+        <Grid Grid.Row="2" Padding="16,8,16,12"
+              Background="{StaticResource PanelBg}"
+              BorderBrush="{StaticResource AmberBorder}" BorderThickness="0,2,0,0">
             <Button Style="{ThemeResource MainButton}" Content="◀  Return to HQ" Click="btnBack_Click" />
+        </Grid>
         </Grid>
     </Grid>
 </Page>

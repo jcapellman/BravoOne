@@ -8,10 +8,7 @@
     mc:Ignorable="d"
     >
 
-    <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="Assets/Backgrounds/Camo.png" />
-        </Grid.Background>
+    <Grid Background="#0A0800">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -20,10 +17,8 @@
         </Grid.RowDefinitions>
 
         <!-- Header Row — command strip -->
-        <Grid Grid.Row="0" Padding="16,10,16,10">
-            <Grid.Background>
-                <SolidColorBrush Color="Black" Opacity="0.72" />
-            </Grid.Background>
+        <Grid Grid.Row="0" Padding="16,10,16,10" Background="#110E00"
+              BorderBrush="#664400" BorderThickness="0,0,0,2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
@@ -41,10 +36,12 @@
             <StackPanel Grid.Column="1" VerticalAlignment="Center">
                 <TextBlock Style="{StaticResource Header}" Text="BRAVO ONE  //  HQ SITREP" />
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Style="{StaticResource SubHeader}" Foreground="#FFB0B0B0" Text="CO: " />
-                    <TextBlock Style="{StaticResource SubHeader}" Text="{Binding gWrapper.CurrentGame.TeamLeaderName}" />
-                    <TextBlock Style="{StaticResource SubHeader}" Foreground="#FFB0B0B0" Text="   LEVEL " Margin="16,0,0,0" />
-                    <TextBlock Style="{StaticResource SubHeader}" Foreground="#FF88FF88" Text="{Binding gWrapper.CurrentGame.TeamLevel}" />
+                    <TextBlock Style="{StaticResource SubHeader}" Foreground="#AA7700" Text="CO: " />
+                    <TextBlock Style="{StaticResource SubHeader}" Foreground="#FFB000"
+                               Text="{Binding gWrapper.CurrentGame.TeamLeaderName}" />
+                    <TextBlock Style="{StaticResource SubHeader}" Foreground="#AA7700" Text="   CLEARANCE LVL " Margin="16,0,0,0" />
+                    <TextBlock Style="{StaticResource SubHeader}" Foreground="#44FF55"
+                               Text="{Binding gWrapper.CurrentGame.TeamLevel}" />
                 </StackPanel>
             </StackPanel>
 
@@ -53,8 +50,8 @@
                 <TextBlock Style="{StaticResource Header}" HorizontalAlignment="Right"
                            Text="{Binding gWrapper.CurrentGame.CurrentDateString}" />
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <TextBlock Style="{StaticResource SubHeader}" Foreground="#FFB0B0B0" Text="FUNDS  $" />
-                    <TextBlock Style="{StaticResource SubHeader}" Foreground="#FF88FF88"
+                    <TextBlock Style="{StaticResource SubHeader}" Foreground="#AA7700" Text="FUNDS  $" />
+                    <TextBlock Style="{StaticResource SubHeader}" Foreground="#44FF55"
                                Text="{Binding gWrapper.CurrentGame.Money}" />
                 </StackPanel>
             </StackPanel>
@@ -71,20 +68,18 @@
             </Grid.ColumnDefinitions>
 
             <!-- ── PANEL 1: Team Roster ── -->
-            <Grid Grid.Column="0" CornerRadius="10" Padding="14,12,14,12">
-                <Grid.Background>
-                    <SolidColorBrush Color="Black" Opacity="0.60" />
-                </Grid.Background>
+            <Grid Grid.Column="0" Padding="14,12,14,12"
+                  Background="#110E00" BorderBrush="#664400" BorderThickness="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
                 <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
-                    <TextBlock Style="{StaticResource SubHeader}" Text="TEAM ROSTER" />
-                    <TextBlock Style="{StaticResource SubHeader}" Foreground="#FF888888"
+                    <TextBlock Style="{StaticResource SubHeader}" Text="TEAM ROSTER" Foreground="#FFB000" />
+                    <TextBlock Style="{StaticResource SubHeader}" Foreground="#AA7700"
                                Margin="10,0,0,0" Text="{Binding TeamMembers.Count}" />
-                    <TextBlock Style="{StaticResource SubHeader}" Foreground="#FF888888" Text=" operators" />
+                    <TextBlock Style="{StaticResource SubHeader}" Foreground="#AA7700" Text=" operators" />
                 </StackPanel>
 
                 <ListView Grid.Row="1" SelectionMode="None" ItemsSource="{Binding TeamMembers}">
@@ -96,10 +91,8 @@
                     </ListView.ItemContainerStyle>
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Grid Margin="0,0,0,8" Padding="10,8,10,8" CornerRadius="6">
-                                <Grid.Background>
-                                    <SolidColorBrush Color="#0D1A00" Opacity="0.8" />
-                                </Grid.Background>
+                            <Grid Margin="0,0,0,6" Padding="10,8,10,8"
+                                  Background="#1C1600" BorderBrush="#443300" BorderThickness="1">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
@@ -113,14 +106,15 @@
 
                                 <!-- Name -->
                                 <TextBlock Grid.Row="0" Grid.Column="0" FontWeight="Bold" FontSize="14"
-                                           Foreground="#FFFFFFFF" Text="{Binding Name}" />
+                                           FontFamily="Fonts/MainFont.ttf#Tudor Victors"
+                                           Foreground="#FFB000" Text="{Binding Name}" />
 
                                 <!-- Specialty + skill -->
                                 <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" Margin="0,2,0,4">
                                     <TextBlock Style="{StaticResource FieldHeader}" Text="{Binding Specialty}" />
-                                    <TextBlock Style="{StaticResource FieldValue}" Foreground="#FFAADDFF"
+                                    <TextBlock Style="{StaticResource FieldValue}" Foreground="#44AAFF"
                                                Margin="8,0,0,0" Text="SP " />
-                                    <TextBlock Style="{StaticResource FieldValue}" Foreground="#FFAADDFF"
+                                    <TextBlock Style="{StaticResource FieldValue}" Foreground="#44AAFF"
                                                Text="{Binding SkillPoints}" />
                                 </StackPanel>
 
@@ -130,15 +124,15 @@
                                         <TextBlock Style="{StaticResource FieldHeader}" Text="HEALTH  " />
                                         <TextBlock Style="{StaticResource FieldValue}" Text="{Binding Health}" />
                                     </StackPanel>
-                                    <ProgressBar Height="5" Minimum="0" Maximum="100"
+                                    <ProgressBar Height="4" Minimum="0" Maximum="100"
                                                  Value="{Binding Health}"
-                                                 Foreground="#FF44DD44" />
+                                                 Foreground="#44FF55" />
                                 </StackPanel>
 
                                 <!-- Salary -->
                                 <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal">
                                     <TextBlock Style="{StaticResource FieldHeader}" Text="SALARY  $" />
-                                    <TextBlock Style="{StaticResource FieldValue}" Foreground="#FFFF9944"
+                                    <TextBlock Style="{StaticResource FieldValue}" Foreground="#FF4400"
                                                Text="{Binding MonthlySalary}" />
                                 </StackPanel>
 
@@ -152,10 +146,8 @@
             </Grid>
 
             <!-- ── PANEL 2: Active Contracts ── -->
-            <Grid Grid.Column="2" CornerRadius="10" Padding="14,12,14,12">
-                <Grid.Background>
-                    <SolidColorBrush Color="Black" Opacity="0.60" />
-                </Grid.Background>
+            <Grid Grid.Column="2" Padding="14,12,14,12"
+                  Background="{StaticResource PanelBg}" BorderBrush="{StaticResource AmberBorder}" BorderThickness="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -175,31 +167,32 @@
                     </ListView.ItemContainerStyle>
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Grid Margin="0,0,0,8" Padding="10,8,10,8" CornerRadius="6">
-                                <Grid.Background>
-                                    <SolidColorBrush Color="#0D1A00" Opacity="0.8" />
-                                </Grid.Background>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
+                            <Grid Margin="0,0,0,8" Padding="10,8,10,8"
+                                          Background="{StaticResource ItemBg}" BorderBrush="{StaticResource AmberBorder}" BorderThickness="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
 
-                                <!-- Name + type -->
-                                <Grid Grid.Row="0" Margin="0,0,0,2">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" FontWeight="Bold" FontSize="14"
-                                               Foreground="White" Text="{Binding Name}" />
-                                    <Border Grid.Column="1" Background="#CC102010" CornerRadius="4"
-                                            Padding="8,2,8,2" VerticalAlignment="Center">
-                                        <TextBlock Foreground="#FF88FF88" FontSize="10" FontWeight="Bold"
-                                                   Text="{Binding CType}" />
-                                    </Border>
-                                </Grid>
+                                        <!-- Name + type -->
+                                        <Grid Grid.Row="0" Margin="0,0,0,2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" FontWeight="Bold" FontSize="14"
+                                                       FontFamily="Fonts/MainFont.ttf#Tudor Victors"
+                                                       Foreground="{StaticResource AmberPrimary}" Text="{Binding Name}" />
+                                            <Border Grid.Column="1" Background="#CC1A0A00"
+                                                    Padding="8,2,8,2" VerticalAlignment="Center"
+                                                    BorderBrush="{StaticResource AmberBorder}" BorderThickness="1">
+                                                <TextBlock Foreground="{StaticResource AmberDim}" FontSize="10" FontWeight="Bold"
+                                                           FontFamily="Fonts/MainFont.ttf#Tudor Victors"
+                                                           Text="{Binding CType}" />
+                                            </Border>
+                                        </Grid>
 
                                 <!-- Progress bar -->
                                 <StackPanel Grid.Row="1" Margin="0,4,0,2">
@@ -238,10 +231,8 @@
             </Grid>
 
             <!-- ── PANEL 3: Activity Log ── -->
-            <Grid Grid.Column="4" CornerRadius="10" Padding="14,12,14,12">
-                <Grid.Background>
-                    <SolidColorBrush Color="Black" Opacity="0.60" />
-                </Grid.Background>
+            <Grid Grid.Column="4" Padding="14,12,14,12"
+                  Background="{StaticResource PanelBg}" BorderBrush="{StaticResource AmberBorder}" BorderThickness="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -260,10 +251,8 @@
                     </ListView.ItemContainerStyle>
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Grid Margin="0,0,0,8" Padding="10,8,10,8" CornerRadius="6">
-                                <Grid.Background>
-                                    <SolidColorBrush Color="#0D1A00" Opacity="0.8" />
-                                </Grid.Background>
+                            <Grid Margin="0,0,0,8" Padding="10,8,10,8"
+                                  Background="{StaticResource ItemBg}" BorderBrush="{StaticResource AmberBorder}" BorderThickness="1">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
@@ -283,12 +272,13 @@
                                 </Image>
 
                                 <TextBlock Grid.Row="0" Grid.Column="1" FontWeight="Bold" FontSize="13"
-                                           Foreground="White" Text="{Binding Title}" />
+                                           FontFamily="Fonts/MainFont.ttf#Tudor Victors"
+                                           Foreground="{StaticResource AmberPrimary}" Text="{Binding Title}" />
                                 <TextBlock Grid.Row="1" Grid.Column="1" FontSize="12"
-                                           Foreground="#FFD0D0D0" TextWrapping="Wrap"
+                                           Foreground="{StaticResource AmberDim}" TextWrapping="Wrap"
                                            Text="{Binding Detail}" />
                                 <TextBlock Grid.Row="2" Grid.Column="1" FontSize="11"
-                                           Foreground="#FF888888" Text="{Binding TimeStamp}" />
+                                           Foreground="{StaticResource PhosphorGreen}" Text="{Binding TimeStamp}" />
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -297,10 +287,9 @@
         </Grid>
 
         <!-- Footer Row — nav buttons -->
-        <Grid Grid.Row="2" Padding="16,8,16,12">
-            <Grid.Background>
-                <SolidColorBrush Color="Black" Opacity="0.72" />
-            </Grid.Background>
+        <Grid Grid.Row="2" Padding="16,8,16,12"
+              Background="{StaticResource PanelBg}"
+              BorderBrush="{StaticResource AmberBorder}" BorderThickness="0,2,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
