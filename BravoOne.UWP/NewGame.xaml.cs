@@ -27,9 +27,9 @@ namespace BravoOne.UWP
             Frame.GoBack();
         }
 
-        private void btnStart_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private async void btnStart_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            ViewModel.CreateGame();
+            await ViewModel.CreateGame();
 
             _ = Frame.Navigate(typeof(MainPage), ViewModel.gWrapper);
         }

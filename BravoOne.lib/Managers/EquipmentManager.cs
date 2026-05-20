@@ -4,6 +4,7 @@ using BravoOne.lib.Managers.Base;
 using BravoOne.lib.Objects;
 using BravoOne.lib.PlatformAbstractions;
 
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -30,12 +31,13 @@ namespace BravoOne.lib.Managers
 
                 foreach (var equipment in teamMember.Equipment)
                 {
-                    if (equipment.Status == 0)
+                    if (equipment.Status <= 0)
                     {
+                        equipment.Status = 0;
                         continue;
                     }
 
-                    equipment.Status -= TURN_STATUS;
+                    equipment.Status = Math.Max(0, equipment.Status - TURN_STATUS);
                 }
             }
 

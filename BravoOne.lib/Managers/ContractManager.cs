@@ -50,14 +50,15 @@ namespace BravoOne.lib.Managers
 
         public override async Task<(TurnStatus Status, Game CurrentGame)> ProcessTurnAsync(Game currentGame)
         {
-            for (int x = 0; x < currentGame.Contracts.Count; x++)
-            {
-                if (currentGame.Contracts[x].Status != ContractStatus.InProgress)
-                    continue;
+            var contractsToProcess = currentGame.Contracts
+                .Where(c => c.Status == ContractStatus.InProgress)
+                .ToList();
 
+            foreach (var contract in contractsToProcess)
+            {
                 var affectedMembers = new List<TeamMember>();
 
-                foreach (Guid guid in currentGame.Contracts[x].AssignedTeamMembers)
+                foreach (Guid guid in contract.AssignedTeamMembers)
                 {
                     var teamMember = currentGame.TeamMembers.FirstOrDefault(a => a.Id == guid);
                     if (teamMember == null)
@@ -73,15 +74,15 @@ namespace BravoOne.lib.Managers
 
                     var effective = teamMember.EffectiveSkillPoints(currentGame.TeamEquipment);
 
-                    if (currentGame.Contracts[x].SkillPointsRemaining > effective)
-                        currentGame.Contracts[x].SkillPointsRemaining -= effective;
+                    if (contract.SkillPointsRemaining > effective)
+                        contract.SkillPointsRemaining -= effective;
                     else
-                        currentGame.Contracts[x].SkillPointsRemaining = 0;
+                        contract.SkillPointsRemaining = 0;
 
                     affectedMembers.Add(teamMember);
                 }
 
-                foreach (Guid guid in currentGame.Contracts[x].AssignedTeamMembers)
+                foreach (Guid guid in contract.AssignedTeamMembers)
                 {
                     var medic = currentGame.TeamMembers.FirstOrDefault(a =>
                         a.Id == guid && a.Specialty == Specialties.MEDIC);
@@ -98,10 +99,10 @@ namespace BravoOne.lib.Managers
 
                 currentGame.ApplyHealthChanges(affectedMembers);
 
-                if (currentGame.Contracts[x].SkillPointsRemaining == 0)
-                    currentGame.CompleteContract(currentGame.Contracts[x]);
-                else if (currentGame.CurrentDate > currentGame.Contracts[x].CompleteDate)
-                    currentGame.FailContract(currentGame.Contracts[x]);
+                if (contract.SkillPointsRemaining == 0)
+                    currentGame.CompleteContract(contract);
+                else if (currentGame.CurrentDate > contract.CompleteDate)
+                    currentGame.FailContract(contract);
             }
 
             currentGame = await RefreshAvailableContractsAsync(currentGame);

@@ -6,6 +6,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 
+using System.Threading.Tasks;
 using Windows.Storage;
 
 namespace BravoOne.UWP.ViewModels
@@ -97,9 +98,9 @@ namespace BravoOne.UWP.ViewModels
             LoadImages();
         }
 
-        public async void CreateGame()
+        public Task CreateGame()
         {
-            await gWrapper.StartGame(Name, SelectedLogo);
+            return gWrapper.StartGame(Name, SelectedLogo);
         }
     }
 }

@@ -39,12 +39,7 @@ namespace BravoOne.UWP.ViewModels
             {
                 var item = new RecruitItem { Member = recruit };
 
-                if (recruit.SkillPoints > gWrapper.CurrentGame.TeamLevel)
-                {
-                    item.StatusLabel = "TOO EXPERIENCED";
-                    item.CanRecruit = false;
-                }
-                else if (recruit.MonthlySalary > gWrapper.CurrentGame.Money)
+                if (recruit.MonthlySalary > gWrapper.CurrentGame.Money)
                 {
                     item.StatusLabel = "INSUFFICIENT FUNDS";
                     item.CanRecruit = false;
