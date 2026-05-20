@@ -4,74 +4,87 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:BravoOne.UWP"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:viewmodels="using:BravoOne.UWP.ViewModels"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="using:BravoOne.UWP.ViewModels"
+    mc:Ignorable="d">
 
-    <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="Assets/Backgrounds/Camo.png" />
-        </Grid.Background>
+    <Grid Background="{StaticResource AppBg}">
+        <Grid Background="{StaticResource PanelBg}" BorderBrush="{StaticResource AmberBorder}" BorderThickness="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-
-            <RowDefinition Height="*" />
-
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-
-        <TextBlock Grid.Row="0" Margin="10,20,0,0" Text="New Game" HorizontalAlignment="Left" Style="{ThemeResource Header}" />
-
-        <Grid Grid.Row="1" Margin="10,30,10,30">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-
-            <Grid Grid.Column="0" HorizontalAlignment="Left">
-                <Grid.Background>
-                    <SolidColorBrush Color="Black" Opacity="0.25" />
-                </Grid.Background>
-
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                
-                <TextBlock Grid.Row="0" Text="Your Name" Style="{ThemeResource FieldHeader}" Margin="0,0,0,10" />
-                <TextBox Grid.Row="1" HorizontalAlignment="Left" MaxLength="40" CornerRadius="10" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="400" />
-
-                <TextBlock Grid.Row="2" Text="Team Logo" Style="{ThemeResource FieldHeader}" Margin="0,30,0,10" />
-                <GridView Grid.Row="3" SelectionMode="Single" ItemsSource="{Binding Logos, Mode=TwoWay}" SelectedItem="{Binding SelectedLogo, Mode=TwoWay}">
-                    <GridView.ItemTemplate>
-                        <DataTemplate>
-                            <Image Width="64" Height="64" Stretch="Uniform" MinHeight="64" MinWidth="64" MaxWidth="256" MaxHeight="256">
-                                <Image.Source>
-                                    <BitmapImage UriSource="{Binding}" />
-                                </Image.Source>
-                            </Image>
-                        </DataTemplate>
-                    </GridView.ItemTemplate>
-                </GridView>
+            <Grid Grid.Row="0" Padding="16,10,16,10" Background="{StaticResource PanelBg}" BorderBrush="{StaticResource AmberBorder}" BorderThickness="0,0,0,2">
+                <TextBlock Text="NEW MISSION DOSSIER" Style="{StaticResource Header}" />
             </Grid>
 
-            <Grid Grid.Column="1" HorizontalAlignment="Right" CornerRadius="15">
-                <Image Source="Assets/SidePanels/Helicopter.png" />
+            <Grid Grid.Row="1" Margin="16,16,16,16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0" Margin="0,0,20,0" Background="{StaticResource ItemBg}" Padding="16,16,16,16">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="COMMANDING OFFICER" Style="{StaticResource FieldHeader}" Margin="0,0,0,6" />
+                    <TextBox Grid.Row="1" HorizontalAlignment="Left" MaxLength="40"
+                             Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             Width="400"
+                             Background="{StaticResource ItemBg}"
+                             Foreground="{StaticResource AmberPrimary}"
+                             BorderBrush="{StaticResource AmberBorder}" />
+
+                    <TextBlock Grid.Row="2" Text="UNIT INSIGNIA" Style="{StaticResource FieldHeader}" Margin="0,24,0,6" />
+                    <GridView Grid.Row="3" SelectionMode="Single"
+                              ItemsSource="{Binding Logos, Mode=TwoWay}"
+                              SelectedItem="{Binding SelectedLogo, Mode=TwoWay}">
+                        <GridView.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="{StaticResource AmberBorder}" BorderThickness="1" Margin="4" Padding="4">
+                                    <Image Width="64" Height="64" Stretch="Uniform">
+                                        <Image.Source>
+                                            <BitmapImage UriSource="{Binding}" />
+                                        </Image.Source>
+                                    </Image>
+                                </Border>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                    </GridView>
+                </Grid>
+
+                <Grid Grid.Column="1" HorizontalAlignment="Right">
+                    <Image Source="Assets/SidePanels/Helicopter.png" Stretch="Uniform" />
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="2" Padding="16,10,16,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" Content="BACK TO MAIN MENU" Click="btnBack_Click" Style="{StaticResource MainButton}" />
+                <Button Grid.Column="1" HorizontalAlignment="Right" Content="DEPLOY UNIT" IsEnabled="{Binding Enabled, Mode=TwoWay}" Click="btnStart_Click" Style="{StaticResource MainButton}" />
             </Grid>
         </Grid>
 
-        <Grid Grid.Row="2" Margin="10,10,10,10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <Button Grid.Column="0" Content="Back to Main Menu" Click="btnBack_Click" Style="{ThemeResource MainButton}" />
-            <Button Grid.Column="1" HorizontalAlignment="Right" Content="Start Game" IsEnabled="{Binding Enabled, Mode=TwoWay}" Click="btnStart_Click" Style="{ThemeResource MainButton}" />
-        </Grid>
+        <Rectangle IsHitTestVisible="False" Grid.RowSpan="3" Opacity="0.28">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,0.05" SpreadMethod="Repeat">
+                    <GradientStop Color="#33000000" Offset="0.0" />
+                    <GradientStop Color="#33000000" Offset="0.49" />
+                    <GradientStop Color="#00000000" Offset="0.5" />
+                    <GradientStop Color="#00000000" Offset="1.0" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
     </Grid>
 </Page>

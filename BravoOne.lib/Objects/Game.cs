@@ -277,6 +277,16 @@ namespace BravoOne.lib.Objects
             Money += contract.Income;
             RecordContractCompleted((int)contract.SkillPointsTotal + 1);
             AddActivityLog(ActivityType.CONTRACT_COMPLETED, "Contract Completed", $"Contract {contract.Name} completed successfully");
+            // Replace the contract in the collection to force UI collection change notification
+            var idx = Contracts.IndexOf(contract);
+            if (idx >= 0)
+            {
+                Contracts[idx] = contract;
+            }
+            else
+            {
+                OnPropertyChanged(nameof(Contracts));
+            }
         }
 
         // Called by CompleteContract and directly in tests.
@@ -292,6 +302,15 @@ namespace BravoOne.lib.Objects
             contract.Status = ContractStatus.Failed;
             DeductMoney(contract.Penalty);
             AddActivityLog(ActivityType.CONTRACT_FAILED, "Contract Failed", $"Contract {contract.Name} has failed");
+            var idx = Contracts.IndexOf(contract);
+            if (idx >= 0)
+            {
+                Contracts[idx] = contract;
+            }
+            else
+            {
+                OnPropertyChanged(nameof(Contracts));
+            }
         }
 
         public void ApplyHealthChanges(List<TeamMember> membersToCheck)

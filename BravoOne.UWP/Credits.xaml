@@ -5,53 +5,64 @@
     xmlns:local="using:BravoOne.UWP"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    mc:Ignorable="d">
 
-    <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="Assets/Backgrounds/Camo.png" />
-        </Grid.Background>
+    <Grid Background="{StaticResource AppBg}">
+        <Grid Background="{StaticResource PanelBg}" BorderBrush="{StaticResource AmberBorder}" BorderThickness="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-
-            <RowDefinition Height="*" />
-
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-
-        <TextBlock Grid.Row="0" Margin="10,0,0,0" Text="Credits" HorizontalAlignment="Left" Style="{ThemeResource Header}" />
-
-        <Grid Grid.Row="1" Margin="10,30,10,30">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-
-            <Grid Grid.Column="0" x:Name="gCredits" Margin="0,800,20,0" HorizontalAlignment="Center">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                
-                <TextBlock Grid.Row="0" HorizontalAlignment="Center" Text="Programming and Design" Style="{ThemeResource SubHeader}" />
-                <TextBlock Grid.Row="1" HorizontalAlignment="Center" Text="Jarred Capellman" Style="{ThemeResource Header}" />
-
-                <TextBlock Grid.Row="2" Margin="0,40,0,0" HorizontalAlignment="Center" Text="Quality Assurance" Style="{ThemeResource SubHeader}" />
-                <TextBlock Grid.Row="3" HorizontalAlignment="Center" Text="Nophil Anwer" Style="{ThemeResource Header}" />
+            <Grid Grid.Row="0" Padding="16,10,16,10" Background="{StaticResource PanelBg}" BorderBrush="{StaticResource AmberBorder}" BorderThickness="0,0,0,2">
+                <TextBlock Text="PERSONNEL FILE" Style="{StaticResource Header}" />
             </Grid>
 
-            <Grid Grid.Column="1" HorizontalAlignment="Right" CornerRadius="15">
-                <Image Source="Assets/SidePanels/Satellite.png" />
+            <Grid Grid.Row="1" Margin="16,16,16,16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0" x:Name="gCredits" Margin="0,800,20,0" HorizontalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" HorizontalAlignment="Center"
+                               Text="PROGRAMMING &amp; DESIGN" Style="{StaticResource SubHeader}" Foreground="{StaticResource AmberDim}" />
+                    <TextBlock Grid.Row="1" HorizontalAlignment="Center"
+                               Text="JARRED CAPELLMAN" Style="{StaticResource Header}" Foreground="{StaticResource AmberPrimary}" />
+
+                    <TextBlock Grid.Row="2" Margin="0,40,0,0" HorizontalAlignment="Center"
+                               Text="QUALITY ASSURANCE" Style="{StaticResource SubHeader}" Foreground="{StaticResource AmberDim}" />
+                    <TextBlock Grid.Row="3" HorizontalAlignment="Center"
+                               Text="NOPHIL ANWER" Style="{StaticResource Header}" Foreground="{StaticResource AmberPrimary}" />
+                </Grid>
+
+                <Grid Grid.Column="1" HorizontalAlignment="Right">
+                    <Image Source="Assets/SidePanels/Satellite.png" Stretch="Uniform" />
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="2" Padding="16,10,16,10">
+                <Button Content="BACK TO MAIN MENU" Click="btnBack_Click" Style="{StaticResource MainButton}" />
             </Grid>
         </Grid>
 
-        <Grid Grid.Row="2" Margin="10,10,10,10">
-            <Button Grid.Column="0" Content="Back to Main Menu" Click="btnBack_Click" Style="{ThemeResource MainButton}" />
-        </Grid>
+        <Rectangle IsHitTestVisible="False" Grid.RowSpan="3" Opacity="0.28">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,0.05" SpreadMethod="Repeat">
+                    <GradientStop Color="#33000000" Offset="0.0" />
+                    <GradientStop Color="#33000000" Offset="0.49" />
+                    <GradientStop Color="#00000000" Offset="0.5" />
+                    <GradientStop Color="#00000000" Offset="1.0" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
     </Grid>
 </Page>

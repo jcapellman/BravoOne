@@ -5,47 +5,59 @@
     xmlns:local="using:BravoOne.UWP.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    mc:Ignorable="d">
 
-    <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="../Assets/Backgrounds/Camo.png" />
-        </Grid.Background>
-
-        <Grid HorizontalAlignment="Center" Padding="20,0,20,20" CornerRadius="15" VerticalAlignment="Center">
-            <Grid.Background>
-                <SolidColorBrush Color="Black" Opacity="0.5" />
-            </Grid.Background>
-            
+    <Grid Background="{StaticResource AppBg}">
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="480" Padding="32,24,32,32"
+              Background="{StaticResource PanelBg}" BorderBrush="{StaticResource AmberBorder}" BorderThickness="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" Text="Game Over" HorizontalAlignment="Center" Style="{StaticResource Header}" />
+            <TextBlock Grid.Row="0" Text="MISSION TERMINATED" HorizontalAlignment="Center"
+                       Style="{StaticResource Header}" Margin="0,0,0,8" />
 
-            <StackPanel Orientation="Vertical" Grid.Row="1">
-                <TextBlock Style="{StaticResource FieldHeader}" Text="Months of Operation" />
-                <TextBlock Style="{StaticResource FieldValue}" Text="{Binding gWrapper.CurrentGame.gsMonths}" />
+            <Rectangle Grid.Row="1" Height="1" Fill="{StaticResource AmberBorder}" Margin="0,4,0,20" />
+
+            <StackPanel Orientation="Vertical" Grid.Row="2" Margin="0,0,0,16"
+                        Background="{StaticResource ItemBg}" Padding="12">
+                <TextBlock Style="{StaticResource FieldHeader}" Text="MONTHS OF OPERATION" />
+                <TextBlock Style="{StaticResource FieldValue}" Foreground="{StaticResource PhosphorGreen}"
+                           Text="{Binding gWrapper.CurrentGame.gsMonths}" />
             </StackPanel>
 
-            <StackPanel Orientation="Vertical" Margin="0,20,0,0" Grid.Row="2">
-                <TextBlock Style="{StaticResource FieldHeader}" Text="Number of Completed Contracts" />
-                <TextBlock Style="{StaticResource FieldValue}" Text="{Binding gWrapper.CurrentGame.gsContracts}" />
+            <StackPanel Orientation="Vertical" Grid.Row="3" Margin="0,0,0,16"
+                        Background="{StaticResource ItemBg}" Padding="12">
+                <TextBlock Style="{StaticResource FieldHeader}" Text="CONTRACTS COMPLETED" />
+                <TextBlock Style="{StaticResource FieldValue}" Foreground="{StaticResource PhosphorGreen}"
+                           Text="{Binding gWrapper.CurrentGame.gsContracts}" />
             </StackPanel>
 
-            <StackPanel Orientation="Vertical" Margin="0,20,0,0" Grid.Row="3">
-                <TextBlock Style="{StaticResource FieldHeader}" Text="Total XP Generated" />
-                <TextBlock Style="{StaticResource FieldValue}" Text="{Binding gWrapper.CurrentGame.gsXP}" />
+            <StackPanel Orientation="Vertical" Grid.Row="4" Margin="0,0,0,24"
+                        Background="{StaticResource ItemBg}" Padding="12">
+                <TextBlock Style="{StaticResource FieldHeader}" Text="TOTAL XP GENERATED" />
+                <TextBlock Style="{StaticResource FieldValue}" Foreground="{StaticResource PhosphorGreen}"
+                           Text="{Binding gWrapper.CurrentGame.gsXP}" />
             </StackPanel>
 
-            <Button Grid.Row="4" Margin="0,50,0,0" Content="Return to Main Menu" Style="{StaticResource MainButton}" Click="btnEndGame_Click" />
+            <Button Grid.Row="5" HorizontalAlignment="Stretch"
+                    Content="RETURN TO MAIN MENU" Style="{StaticResource MainButton}" Click="btnEndGame_Click" />
         </Grid>
+
+        <Rectangle IsHitTestVisible="False" Opacity="0.28">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,0.05" SpreadMethod="Repeat">
+                    <GradientStop Color="#33000000" Offset="0.0" />
+                    <GradientStop Color="#33000000" Offset="0.49" />
+                    <GradientStop Color="#00000000" Offset="0.5" />
+                    <GradientStop Color="#00000000" Offset="1.0" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
     </Grid>
 </Page>

@@ -7,93 +7,110 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="Assets/Backgrounds/Camo.png" />
-        </Grid.Background>
+    <Grid Background="{StaticResource AppBg}">
+        <Grid Background="{StaticResource PanelBg}" BorderBrush="{StaticResource AmberBorder}" BorderThickness="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-
-            <RowDefinition Height="*" />
-
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-
-        <TextBlock Grid.Row="0" Margin="10,0,0,0" Text="Load Game" HorizontalAlignment="Left" Style="{ThemeResource Header}" />
-
-        <Grid Grid.Row="1" Margin="10,30,10,30">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-
-            <Grid Grid.Column="0" Margin="0,0,20,0" Visibility="{Binding NoGamesListingVisibility, Mode=TwoWay}">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="No save games exist to load" Style="{ThemeResource SubHeader}" />
-            </Grid>
-            
-            <Grid Grid.Column="0" Margin="0,0,20,0" Visibility="{Binding GamesListingVisibility, Mode=TwoWay}">
-                <Grid.Background>
-                    <SolidColorBrush Color="Black" Opacity="0.25" />
-                </Grid.Background>
-
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-
-                <TextBlock Grid.Row="0" Text="Select a game from the list" Style="{ThemeResource FieldHeader}" Margin="0,30,0,10" />
-                <ListView Grid.Row="1" SelectionMode="Single" ItemsSource="{Binding Games, Mode=TwoWay}" SelectedItem="{Binding SelectedGame, Mode=TwoWay}">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                    
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Margin="0,0,0,20">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-
-                                <TextBlock Grid.Column="0" Grid.Row="0" Text="game date" />
-                                <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding CurrentDateString}" Style="{StaticResource SubtitleTextBlockStyle}" />
-
-                                <TextBlock Grid.Column="1" Grid.Row="0" Margin="20,0,0,0" Text="team leader name" />
-                                <TextBlock Grid.Column="1" Grid.Row="1" Margin="20,0,0,0" Text="{Binding TeamLeaderName}" Style="{StaticResource SubtitleTextBlockStyle}" />
-
-                                <TextBlock Grid.Column="2" Grid.Row="0" Margin="20,0,0,0" Text="money" />
-                                <TextBlock Grid.Column="2" Grid.Row="1" Margin="20,0,0,0" Text="{Binding Money}" Style="{StaticResource SubtitleTextBlockStyle}" />
-
-                                <Button Grid.Column="3" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,10,0,0" Grid.RowSpan="2" Content="Delete Game" Style="{StaticResource MainButton}" Click="btnDeleteGame_Click" />
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+            <Grid Grid.Row="0" Padding="16,10,16,10" Background="{StaticResource PanelBg}" BorderBrush="{StaticResource AmberBorder}" BorderThickness="0,0,0,2">
+                <TextBlock Text="LOAD MISSION" Style="{StaticResource Header}" />
             </Grid>
 
-            <Grid Grid.Column="1" HorizontalAlignment="Right" CornerRadius="15">
-                <Image Source="Assets/SidePanels/WinterShack.png" />
+            <Grid Grid.Row="1" Margin="16,16,16,16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <!-- no saves message -->
+                <Grid Grid.Column="0" Margin="0,0,20,0" Visibility="{Binding NoGamesListingVisibility, Mode=TwoWay}">
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                               Text="-- NO MISSION RECORDS ON FILE --"
+                               Style="{StaticResource SubHeader}" Foreground="{StaticResource AmberDim}" />
+                </Grid>
+
+                <!-- save list -->
+                <Grid Grid.Column="0" Margin="0,0,20,0" Visibility="{Binding GamesListingVisibility, Mode=TwoWay}" Background="{StaticResource ItemBg}" Padding="12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="SELECT MISSION FILE" Style="{StaticResource FieldHeader}" Margin="0,0,0,10" />
+                    <ListView Grid.Row="1" SelectionMode="Single"
+                              ItemsSource="{Binding Games, Mode=TwoWay}"
+                              SelectedItem="{Binding SelectedGame, Mode=TwoWay}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,0,0,8" Padding="10,8,10,8"
+                                      Background="{StaticResource ItemBg}"
+                                      BorderBrush="{StaticResource AmberBorder}" BorderThickness="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="DATE" Style="{StaticResource FieldHeader}" />
+                                    <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding CurrentDateString}" Style="{StaticResource FieldValue}" Foreground="{StaticResource PhosphorGreen}" />
+
+                                    <TextBlock Grid.Column="1" Grid.Row="0" Margin="20,0,0,0" Text="CO" Style="{StaticResource FieldHeader}" />
+                                    <TextBlock Grid.Column="1" Grid.Row="1" Margin="20,0,0,0" Text="{Binding TeamLeaderName}" Style="{StaticResource FieldValue}" Foreground="{StaticResource AmberPrimary}" />
+
+                                    <TextBlock Grid.Column="2" Grid.Row="0" Margin="20,0,0,0" Text="FUNDS" Style="{StaticResource FieldHeader}" />
+                                    <TextBlock Grid.Column="2" Grid.Row="1" Margin="20,0,0,0" Text="{Binding Money}" Style="{StaticResource FieldValue}" Foreground="{StaticResource PhosphorGreen}" />
+
+                                    <Button Grid.Column="3" Grid.Row="0" Grid.RowSpan="2"
+                                            HorizontalAlignment="Right" VerticalAlignment="Center"
+                                            Content="PURGE" Style="{StaticResource MainButton}"
+                                            Click="btnDeleteGame_Click" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+
+                <Grid Grid.Column="1" HorizontalAlignment="Right">
+                    <Image Source="Assets/SidePanels/WinterShack.png" Stretch="Uniform" />
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="2" Padding="16,10,16,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" Content="BACK TO MAIN MENU" Click="btnBack_Click" Style="{StaticResource MainButton}" />
+                <Button Grid.Column="1" HorizontalAlignment="Right" Content="LOAD MISSION"
+                        Style="{StaticResource MainButton}" IsEnabled="{Binding Enabled, Mode=TwoWay}"
+                        Click="btnLoadGame_Click" />
             </Grid>
         </Grid>
 
-        <Grid Grid.Row="2" Margin="10,10,10,10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <Button Grid.Column="0" Content="Back to Main Menu" Click="btnBack_Click" Style="{ThemeResource MainButton}" />
-            <Button Grid.Column="1" HorizontalAlignment="Right" Content="Load Game" Style="{ThemeResource MainButton}" IsEnabled="{Binding Enabled, Mode=TwoWay}" Click="btnLoadGame_Click" />
-        </Grid>
+        <Rectangle IsHitTestVisible="False" Grid.RowSpan="3" Opacity="0.28">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,0.05" SpreadMethod="Repeat">
+                    <GradientStop Color="#33000000" Offset="0.0" />
+                    <GradientStop Color="#33000000" Offset="0.49" />
+                    <GradientStop Color="#00000000" Offset="0.5" />
+                    <GradientStop Color="#00000000" Offset="1.0" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
     </Grid>
 </Page>

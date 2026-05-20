@@ -8,7 +8,7 @@
     mc:Ignorable="d"
     >
 
-    <Grid Background="#0A0800">
+    <Grid Background="{StaticResource AppBg}">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -17,8 +17,8 @@
         </Grid.RowDefinitions>
 
         <!-- Header Row — command strip -->
-        <Grid Grid.Row="0" Padding="16,10,16,10" Background="#110E00"
-              BorderBrush="#664400" BorderThickness="0,0,0,2">
+        <Grid Grid.Row="0" Padding="16,10,16,10" Background="{StaticResource PanelBg}"
+              BorderBrush="{StaticResource AmberBorder}" BorderThickness="0,0,0,2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
@@ -36,11 +36,11 @@
             <StackPanel Grid.Column="1" VerticalAlignment="Center">
                 <TextBlock Style="{StaticResource Header}" Text="BRAVO ONE  //  HQ SITREP" />
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Style="{StaticResource SubHeader}" Foreground="#AA7700" Text="CO: " />
-                    <TextBlock Style="{StaticResource SubHeader}" Foreground="#FFB000"
+                    <TextBlock Style="{StaticResource SubHeader}" Foreground="{StaticResource AmberDim}" Text="CO: " />
+                    <TextBlock Style="{StaticResource SubHeader}" Foreground="{StaticResource AmberPrimary}"
                                Text="{Binding gWrapper.CurrentGame.TeamLeaderName}" />
-                    <TextBlock Style="{StaticResource SubHeader}" Foreground="#AA7700" Text="   CLEARANCE LVL " Margin="16,0,0,0" />
-                    <TextBlock Style="{StaticResource SubHeader}" Foreground="#44FF55"
+                    <TextBlock Style="{StaticResource SubHeader}" Foreground="{StaticResource AmberDim}" Text="   CLEARANCE LVL " Margin="16,0,0,0" />
+                    <TextBlock Style="{StaticResource SubHeader}" Foreground="{StaticResource PhosphorGreen}"
                                Text="{Binding gWrapper.CurrentGame.TeamLevel}" />
                 </StackPanel>
             </StackPanel>
@@ -50,8 +50,8 @@
                 <TextBlock Style="{StaticResource Header}" HorizontalAlignment="Right"
                            Text="{Binding gWrapper.CurrentGame.CurrentDateString}" />
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <TextBlock Style="{StaticResource SubHeader}" Foreground="#AA7700" Text="FUNDS  $" />
-                    <TextBlock Style="{StaticResource SubHeader}" Foreground="#44FF55"
+                    <TextBlock Style="{StaticResource SubHeader}" Foreground="{StaticResource AmberDim}" Text="FUNDS  $" />
+                    <TextBlock Style="{StaticResource SubHeader}" Foreground="{StaticResource PhosphorGreen}"
                                Text="{Binding gWrapper.CurrentGame.Money}" />
                 </StackPanel>
             </StackPanel>
@@ -69,17 +69,17 @@
 
             <!-- ── PANEL 1: Team Roster ── -->
             <Grid Grid.Column="0" Padding="14,12,14,12"
-                  Background="#110E00" BorderBrush="#664400" BorderThickness="1">
+                  Background="{StaticResource PanelBg}" BorderBrush="{StaticResource AmberBorder}" BorderThickness="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
                 <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
-                    <TextBlock Style="{StaticResource SubHeader}" Text="TEAM ROSTER" Foreground="#FFB000" />
-                    <TextBlock Style="{StaticResource SubHeader}" Foreground="#AA7700"
+                    <TextBlock Style="{StaticResource SubHeader}" Text="TEAM ROSTER" Foreground="{StaticResource AmberPrimary}" />
+                    <TextBlock Style="{StaticResource SubHeader}" Foreground="{StaticResource AmberDim}"
                                Margin="10,0,0,0" Text="{Binding TeamMembers.Count}" />
-                    <TextBlock Style="{StaticResource SubHeader}" Foreground="#AA7700" Text=" operators" />
+                    <TextBlock Style="{StaticResource SubHeader}" Foreground="{StaticResource AmberDim}" Text=" operators" />
                 </StackPanel>
 
                 <ListView Grid.Row="1" SelectionMode="None" ItemsSource="{Binding TeamMembers}">
@@ -92,7 +92,7 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid Margin="0,0,0,6" Padding="10,8,10,8"
-                                  Background="#1C1600" BorderBrush="#443300" BorderThickness="1">
+                                  Background="{StaticResource ItemBg}" BorderBrush="{StaticResource AmberBorder}" BorderThickness="1">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
@@ -107,14 +107,14 @@
                                 <!-- Name -->
                                 <TextBlock Grid.Row="0" Grid.Column="0" FontWeight="Bold" FontSize="14"
                                            FontFamily="Fonts/MainFont.ttf#Tudor Victors"
-                                           Foreground="#FFB000" Text="{Binding Name}" />
+                                           Foreground="{StaticResource AmberPrimary}" Text="{Binding Name}" />
 
                                 <!-- Specialty + skill -->
                                 <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" Margin="0,2,0,4">
                                     <TextBlock Style="{StaticResource FieldHeader}" Text="{Binding Specialty}" />
-                                    <TextBlock Style="{StaticResource FieldValue}" Foreground="#44AAFF"
+                                    <TextBlock Style="{StaticResource FieldValue}" Foreground="{StaticResource ColdBlue}"
                                                Margin="8,0,0,0" Text="SP " />
-                                    <TextBlock Style="{StaticResource FieldValue}" Foreground="#44AAFF"
+                                    <TextBlock Style="{StaticResource FieldValue}" Foreground="{StaticResource ColdBlue}"
                                                Text="{Binding SkillPoints}" />
                                 </StackPanel>
 
@@ -126,13 +126,13 @@
                                     </StackPanel>
                                     <ProgressBar Height="4" Minimum="0" Maximum="100"
                                                  Value="{Binding Health}"
-                                                 Foreground="#44FF55" />
+                                                 Foreground="{StaticResource PhosphorGreen}" />
                                 </StackPanel>
 
                                 <!-- Salary -->
                                 <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal">
                                     <TextBlock Style="{StaticResource FieldHeader}" Text="SALARY  $" />
-                                    <TextBlock Style="{StaticResource FieldValue}" Foreground="#FF4400"
+                                    <TextBlock Style="{StaticResource FieldValue}" Foreground="{StaticResource AlertRed}"
                                                Text="{Binding MonthlySalary}" />
                                 </StackPanel>
 
@@ -200,23 +200,23 @@
                                     <ProgressBar Height="6" Minimum="0"
                                                  Maximum="{Binding SkillPointsTotal}"
                                                  Value="{Binding SkillPointsCompleted}"
-                                                 Foreground="#FF44AA44" />
+                                                 Foreground="{StaticResource PhosphorGreen}" />
                                 </StackPanel>
 
                                 <!-- Payout + deadline -->
                                 <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,4,0,2">
                                     <TextBlock Style="{StaticResource FieldHeader}" Text="PAYOUT  $" />
-                                    <TextBlock Style="{StaticResource FieldValue}" Foreground="#FF88FF88"
+                                    <TextBlock Style="{StaticResource FieldValue}" Foreground="{StaticResource PhosphorGreen}"
                                                Text="{Binding Income}" Margin="4,0,16,0" />
                                     <TextBlock Style="{StaticResource FieldHeader}" Text="STATUS  " />
-                                    <TextBlock Style="{StaticResource FieldValue}" Foreground="#FFFFCC44"
+                                    <TextBlock Style="{StaticResource FieldValue}" Foreground="{StaticResource AmberPrimary}"
                                                Text="{Binding Status}" />
                                 </StackPanel>
 
                                 <!-- Complete date -->
                                 <StackPanel Grid.Row="3" Orientation="Horizontal">
                                     <TextBlock Style="{StaticResource FieldHeader}" Text="DEADLINE  " />
-                                    <TextBlock Style="{StaticResource FieldValue}" Foreground="#FFFF9944"
+                                    <TextBlock Style="{StaticResource FieldValue}" Foreground="{StaticResource AmberDim}"
                                                Text="{Binding CompleteDate}" />
                                 </StackPanel>
                             </Grid>
@@ -316,5 +316,17 @@
             <Button Grid.Column="1" Content="END MONTH  ▶"
                     Click="btnEndMonth_Click" Style="{ThemeResource MainButton}" />
         </Grid>
+
+        <!-- CRT scanline overlay -->
+        <Rectangle IsHitTestVisible="False" Grid.RowSpan="3" Opacity="0.28">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,0.05" SpreadMethod="Repeat">
+                    <GradientStop Color="#33000000" Offset="0.0" />
+                    <GradientStop Color="#33000000" Offset="0.49" />
+                    <GradientStop Color="#00000000" Offset="0.5" />
+                    <GradientStop Color="#00000000" Offset="1.0" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
     </Grid>
 </Page>

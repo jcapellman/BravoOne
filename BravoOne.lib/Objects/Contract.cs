@@ -1,34 +1,97 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 using BravoOne.lib.Enums;
 
 namespace BravoOne.lib.Objects
 {
-    public class Contract
+    public class Contract : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
         public Guid Id { get; set; }
 
-        public ContractType CType { get; set; }
+        private ContractType _ctype;
+        public ContractType CType
+        {
+            get => _ctype;
+            set { _ctype = value; OnPropertyChanged(); }
+        }
 
-        public ulong Income { get; set; }
+        private ulong _income;
+        public ulong Income
+        {
+            get => _income;
+            set { _income = value; OnPropertyChanged(); }
+        }
 
-        public ulong Penalty { get; set; }
+        private ulong _penalty;
+        public ulong Penalty
+        {
+            get => _penalty;
+            set { _penalty = value; OnPropertyChanged(); }
+        }
 
-        public string Name { get; set; }
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            set { _name = value; OnPropertyChanged(); }
+        }
 
-        public ContractStatus Status { get; set; }
+        private ContractStatus _status;
+        public ContractStatus Status
+        {
+            get => _status;
+            set { _status = value; OnPropertyChanged(); }
+        }
 
-        public string CompletedDateString { get; set; }
+        private string _completedDateString;
+        public string CompletedDateString
+        {
+            get => _completedDateString;
+            set { _completedDateString = value; OnPropertyChanged(); }
+        }
 
-        public DateTime CompleteDate { get; set; }
+        private DateTime _completeDate;
+        public DateTime CompleteDate
+        {
+            get => _completeDate;
+            set { _completeDate = value; OnPropertyChanged(); }
+        }
 
-        public int TeamMemberToll { get; set; }
+        private int _teamMemberToll;
+        public int TeamMemberToll
+        {
+            get => _teamMemberToll;
+            set { _teamMemberToll = value; OnPropertyChanged(); }
+        }
 
-        public uint SkillPointsRemaining { get; set; }
+        private uint _skillPointsRemaining;
+        public uint SkillPointsRemaining
+        {
+            get => _skillPointsRemaining;
+            set
+            {
+                _skillPointsRemaining = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(SkillPointsCompleted));
+            }
+        }
 
         // Set once at creation; used for XP calculation so harder contracts reward more.
-        public uint SkillPointsTotal { get; set; }
+        private uint _skillPointsTotal;
+        public uint SkillPointsTotal
+        {
+            get => _skillPointsTotal;
+            set { _skillPointsTotal = value; OnPropertyChanged(); OnPropertyChanged(nameof(SkillPointsCompleted)); }
+        }
 
         // Completed work = total minus what remains — used for progress bars.
         public uint SkillPointsCompleted => SkillPointsTotal >= SkillPointsRemaining
