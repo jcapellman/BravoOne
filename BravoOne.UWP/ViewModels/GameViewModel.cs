@@ -4,6 +4,7 @@ using BravoOne.UWP.ViewModels.Base;
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace BravoOne.UWP.ViewModels
@@ -57,11 +58,6 @@ namespace BravoOne.UWP.ViewModels
         {
             var endofGame = await gWrapper.EndTurn();
 
-            if (!endofGame)
-            {
-                return false;
-            }
-
             TeamMembers = gWrapper.CurrentGame.TeamMembers.Where(a => a.Status == lib.Enums.TeamMemberStatus.OnTeam).OrderBy(b => b.Name).ToList();
 
             if (gWrapper.Option.AutoSave)
@@ -69,7 +65,69 @@ namespace BravoOne.UWP.ViewModels
                 SaveGame();
             }
 
-            return true;
+            return endofGame;
+        }
+
+        // Builds the plain-text content for the end-of-month summary dialog.
+        public string BuildTurnSummaryText()
+        {
+            var summary = gWrapper.CurrentGame.LastTurnSummary;
+            if (summary == null || !summary.HasEvents)
+                return null;
+
+            var sb = new StringBuilder();
+
+            var sign = summary.MoneyDelta >= 0 ? "+" : "";
+            sb.AppendLine($"FUNDS  {sign}${summary.MoneyDelta}");
+
+            if (summary.ContractsCompleted.Count > 0)
+            {
+                sb.AppendLine();
+                sb.AppendLine("CONTRACTS COMPLETED:");
+                foreach (var c in summary.ContractsCompleted)
+                    sb.AppendLine($"  ✓  {c}");
+            }
+
+            if (summary.ContractsFailed.Count > 0)
+            {
+                sb.AppendLine();
+                sb.AppendLine("CONTRACTS FAILED:");
+                foreach (var c in summary.ContractsFailed)
+                    sb.AppendLine($"  ✗  {c}");
+            }
+
+            if (summary.OperatorLevelUps.Count > 0)
+            {
+                sb.AppendLine();
+                sb.AppendLine("OPERATOR EXPERIENCE:");
+                foreach (var o in summary.OperatorLevelUps)
+                    sb.AppendLine($"  ▲  {o}");
+            }
+
+            if (summary.OperatorsInjured.Count > 0)
+            {
+                sb.AppendLine();
+                sb.AppendLine("CASUALTIES — INJURED:");
+                foreach (var o in summary.OperatorsInjured)
+                    sb.AppendLine($"  ⚕  {o}");
+            }
+
+            if (summary.OperatorsKilled.Count > 0)
+            {
+                sb.AppendLine();
+                sb.AppendLine("CASUALTIES — KIA:");
+                foreach (var o in summary.OperatorsKilled)
+                    sb.AppendLine($"  ✝  {o}");
+            }
+
+            if (!string.IsNullOrEmpty(summary.RandomEventDescription))
+            {
+                sb.AppendLine();
+                sb.AppendLine("INTEL EVENT:");
+                sb.AppendLine($"  {summary.RandomEventDescription}");
+            }
+
+            return sb.ToString().TrimEnd();
         }
     }
 }

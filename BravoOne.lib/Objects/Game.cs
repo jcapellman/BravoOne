@@ -18,6 +18,9 @@ namespace BravoOne.lib.Objects
 
         public int gsXP { get; private set; }
 
+        // Populated at the start of each EndTurn and read by the UI for the summary dialog.
+        public TurnSummary LastTurnSummary { get; set; }
+
         private string _teamLeaderName;
 
         public string TeamLeaderName {
@@ -275,6 +278,7 @@ namespace BravoOne.lib.Objects
             Money += contract.Income;
             RecordContractCompleted((int)contract.SkillPointsTotal + 1);
             AddActivityLog(ActivityType.CONTRACT_COMPLETED, "Contract Completed", $"Contract {contract.Name} completed successfully");
+            LastTurnSummary?.ContractsCompleted.Add(contract.Name);
             Contracts.Remove(contract);
         }
 
@@ -291,7 +295,32 @@ namespace BravoOne.lib.Objects
             contract.Status = ContractStatus.Failed;
             DeductMoney(contract.Penalty);
             AddActivityLog(ActivityType.CONTRACT_FAILED, "Contract Failed", $"Contract {contract.Name} has failed");
+            LastTurnSummary?.ContractsFailed.Add(contract.Name);
             Contracts.Remove(contract);
+        }
+
+        // Awards one skill point to an operator and logs the event.
+        public void AwardOperatorXP(TeamMember member)
+        {
+            member.SkillPoints++;
+            // Salary scales with skill
+            member.MonthlySalary = 10000 * member.SkillPoints;
+            AddActivityLog(ActivityType.TEAM_MEMBER_LEVEL_UP, "Operator Experienced", $"{member.Name} gained a skill point (SP {member.SkillPoints})");
+            LastTurnSummary?.OperatorLevelUps.Add($"{member.Name} → SP {member.SkillPoints}");
+        }
+
+        // Repairs a single equipment slot by the given amount (0-100 scale), costing money.
+        public bool RepairEquipment(TeamEquipment slot, int repairAmount)
+        {
+            var eq = TeamEquipment.FirstOrDefault(e => e.Id == slot.EquipmentId);
+            if (eq == null) return false;
+
+            var repairCost = (ulong)(eq.Cost / 10 * repairAmount / 100);
+            if (!DeductMoney(repairCost)) return false;
+
+            slot.Status = Math.Min(100, slot.Status + repairAmount);
+            AddActivityLog(ActivityType.CONTRACT_ACCEPTED, "Equipment Repaired", $"{eq.Name} repaired to {slot.Status}% condition");
+            return true;
         }
 
         public void ApplyHealthChanges(List<TeamMember> membersToCheck)
@@ -302,11 +331,15 @@ namespace BravoOne.lib.Objects
                 {
                     member.Status = TeamMemberStatus.Deceased;
                     AddActivityLog(ActivityType.TEAM_MEMBER_DIED, "Team Member KIA", $"{member.Name} has been killed in action");
+                    LastTurnSummary?.OperatorsKilled.Add(member.Name);
                 }
                 else if (member.Health <= 20)
                 {
                     member.Status = TeamMemberStatus.Injured;
-                    AddActivityLog(ActivityType.TEAM_MEMBER_RETIRED, "Team Member Injured", $"{member.Name} is critically injured and cannot work");
+                    // Permanent scar: max health is reduced by 10, minimum 40.
+                    member.MaxHealth = Math.Max(40, member.MaxHealth - 10);
+                    AddActivityLog(ActivityType.TEAM_MEMBER_RETIRED, "Team Member Injured", $"{member.Name} is critically injured (max health now {member.MaxHealth})");
+                    LastTurnSummary?.OperatorsInjured.Add(member.Name);
                 }
 
                 if (member.Age >= member.RetirementAge && member.Status == TeamMemberStatus.OnTeam)
@@ -344,9 +377,17 @@ namespace BravoOne.lib.Objects
 
         public void EndTurn()
         {
+            LastTurnSummary = new TurnSummary { MoneyDelta = (long)Money };
+
             CurrentDate = CurrentDate.AddMonths(1);
 
             gsMonths++;
+        }
+
+        public void FinalizeTurnSummary()
+        {
+            if (LastTurnSummary != null)
+                LastTurnSummary.MoneyDelta = (long)Money - LastTurnSummary.MoneyDelta;
         }
     }
 }

@@ -36,9 +36,15 @@ namespace BravoOne.lib.Objects
 
         public bool Available { get; set; }
 
+        // Maximum health — permanently reduced after critical injuries.
+        public int MaxHealth { get; set; } = 100;
+
+        // Consecutive months assigned to a contract; resets to 0 when unassigned for a month.
+        public int FatigueMonths { get; set; }
+
         public List<TeamEquipment> Equipment { get; set; }
 
-        // Returns effective skill points factoring in health and equipment condition.
+        // Returns effective skill points factoring in health, fatigue, and equipment condition.
         // A medic at full health contributes only healing, not combat skill points.
         public uint EffectiveSkillPoints(List<Equipment> teamEquipment)
         {
@@ -48,6 +54,10 @@ namespace BravoOne.lib.Objects
             }
 
             var healthFactor = Math.Max(0.0, Health / 100.0);
+
+            // Fatigue: each month beyond the 2nd on a contract reduces effectiveness by 10%, capped at -50%.
+            var fatiguePenalty = Math.Min(0.5, Math.Max(0.0, (FatigueMonths - 2) * 0.1));
+            var effectiveFactor = healthFactor * (1.0 - fatiguePenalty);
 
             var equipmentBonus = Equipment
                 .Where(te => te.Status > 0)
@@ -59,7 +69,7 @@ namespace BravoOne.lib.Objects
                 .DefaultIfEmpty(0u)
                 .Aggregate(0u, (sum, v) => sum + v);
 
-            return (uint)(SkillPoints * healthFactor) + equipmentBonus;
+            return (uint)(SkillPoints * effectiveFactor) + equipmentBonus;
         }
 
         // Returns health restored by this member if they are a medic.
@@ -77,6 +87,7 @@ namespace BravoOne.lib.Objects
         public TeamMember()
         {
             Equipment = new List<TeamEquipment>();
+            MaxHealth = 100;
         }
     }
 }

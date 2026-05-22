@@ -22,9 +22,11 @@
             <Grid Grid.Row="1" Margin="16,10,16,10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="16" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
+                <!-- Available to purchase -->
                 <ListView Grid.Column="0" SelectionMode="None"
                           ItemsSource="{Binding gWrapper.CurrentGame.AvailableEquipment}">
                     <ListView.ItemContainerStyle>
@@ -106,8 +108,70 @@
                     </ListView.ItemTemplate>
                 </ListView>
 
-                <Grid Grid.Column="1" Margin="12,0,0,0" HorizontalAlignment="Right">
-                    <Image Source="/Assets/SidePanels/Armory.png" Stretch="Uniform" />
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Style="{StaticResource SubHeader}" Foreground="{StaticResource AmberPrimary}"
+                               Margin="0,0,0,8" Text="FIELD MAINTENANCE" />
+                    <ListView Grid.Row="1" SelectionMode="None" ItemsSource="{Binding OwnedEquipment}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                <Setter Property="Padding" Value="0,3,0,3"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,0,0,8" Padding="12,10,12,10"
+                                      Background="{StaticResource ItemBg}"
+                                      BorderBrush="{StaticResource AmberBorder}" BorderThickness="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" Style="{StaticResource ListViewHeader}"
+                                               Margin="0,0,0,6" Text="{Binding Equipment.Name}" />
+                                    <ItemsControl Grid.Row="1" ItemsSource="{Binding Slots}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid Margin="0,0,0,4" Padding="8,6,8,6"
+                                                      Background="{StaticResource PanelBg}"
+                                                      BorderBrush="{StaticResource AmberBorder}" BorderThickness="1">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Grid.Column="0" Style="{StaticResource FieldValue}"
+                                                               VerticalAlignment="Center"
+                                                               Foreground="{StaticResource AmberDim}"
+                                                               Text="{Binding OwnerName}" />
+                                                    <TextBlock Grid.Column="1" Style="{StaticResource FieldValue}"
+                                                               VerticalAlignment="Center" Margin="0,0,12,0"
+                                                               Foreground="{Binding ConditionColor}"
+                                                               Text="{Binding ConditionLabel}" />
+                                                    <StackPanel Grid.Column="2" Orientation="Horizontal"
+                                                                VerticalAlignment="Center" Margin="0,0,8,0">
+                                                        <TextBlock Style="{StaticResource FieldHeader}" Text="$" />
+                                                        <TextBlock Style="{StaticResource FieldValue}"
+                                                                   Foreground="{StaticResource PhosphorGreen}"
+                                                                   Text="{Binding RepairCost}" />
+                                                    </StackPanel>
+                                                    <Button Grid.Column="3" Content="REPAIR"
+                                                            IsEnabled="{Binding CanRepair}"
+                                                            Style="{StaticResource MainButton}"
+                                                            Click="btnRepair_Click" />
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </Grid>
             </Grid>
 

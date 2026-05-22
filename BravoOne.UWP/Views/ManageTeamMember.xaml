@@ -157,13 +157,15 @@
                                             <ColumnDefinition Width="100" />
                                             <ColumnDefinition Width="60" />
                                             <ColumnDefinition Width="60" />
+                                            <ColumnDefinition Width="70" />
                                             <ColumnDefinition Width="120" />
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Grid.Column="0" Style="{StaticResource FieldHeader}" Text="OPERATOR" />
                                         <TextBlock Grid.Column="1" Style="{StaticResource FieldHeader}" Text="SPECIALTY" />
                                         <TextBlock Grid.Column="2" Style="{StaticResource FieldHeader}" Text="SP" />
                                         <TextBlock Grid.Column="3" Style="{StaticResource FieldHeader}" Text="HP" />
-                                        <TextBlock Grid.Column="4" Style="{StaticResource FieldHeader}" Text="" />
+                                        <TextBlock Grid.Column="4" Style="{StaticResource FieldHeader}" Text="FATIGUE" />
+                                        <TextBlock Grid.Column="5" Style="{StaticResource FieldHeader}" Text="" />
                                     </Grid>
 
                                     <!-- ── Row 6: Operator rows ── -->

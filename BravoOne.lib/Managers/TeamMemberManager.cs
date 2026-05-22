@@ -39,8 +39,8 @@ namespace BravoOne.lib.Managers
                 }
                 else if (member.Status == TeamMemberStatus.Injured)
                 {
-                    // Injured members recover 10 health per turn
-                    member.Health = Math.Min(100, member.Health + 10);
+                    // Injured members recover 10 health per turn, capped at their permanent max.
+                    member.Health = Math.Min(member.MaxHealth, member.Health + 10);
 
                     if (member.Health > 20)
                     {
@@ -82,6 +82,7 @@ namespace BravoOne.lib.Managers
                 var member = new TeamMember
                 {
                     Health = 100,
+                    MaxHealth = 100,
                     Status = TeamMemberStatus.Available,
                     Id = Guid.NewGuid(),
                     Age = rng.Next(22, 45),

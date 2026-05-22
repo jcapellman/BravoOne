@@ -30,8 +30,14 @@ namespace BravoOne.UWP.Views
         private void btnPurchase_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             var btn = (Button)sender;
-
             ViewModel.AddEquipment((lib.Objects.Equipment)btn.DataContext);
+        }
+
+        private void btnRepair_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            var btn = (Button)sender;
+            var item = (OwnedEquipmentSlot)btn.DataContext;
+            ViewModel.RepairEquipment(item.Slot);
         }
     }
 }

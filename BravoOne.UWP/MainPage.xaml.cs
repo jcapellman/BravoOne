@@ -30,12 +30,22 @@ namespace BravoOne.UWP
         {
             var result = await ViewModel.EndMonthAsync();
 
-            if (result)
+            var summaryText = ViewModel.BuildTurnSummaryText();
+            if (!string.IsNullOrEmpty(summaryText))
             {
-                return;
+                var dialog = new ContentDialog
+                {
+                    Title = $"SITREP  //  {ViewModel.gWrapper.CurrentGame.CurrentDateString}",
+                    Content = summaryText,
+                    CloseButtonText = "Acknowledged"
+                };
+                await dialog.ShowAsync();
             }
 
-            _ = Frame.Navigate(typeof(EndGame), ViewModel.gWrapper);
+            if (!result)
+            {
+                _ = Frame.Navigate(typeof(EndGame), ViewModel.gWrapper);
+            }
         }
 
         private void btnRecruitment_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)

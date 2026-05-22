@@ -54,15 +54,21 @@ namespace BravoOne.lib.Managers
                 .Where(c => c.Status == ContractStatus.InProgress)
                 .ToList();
 
+            // Track which members are actively working this turn (for fatigue).
+            var activeAssignments = new HashSet<Guid>();
+
             foreach (var contract in contractsToProcess)
             {
                 var affectedMembers = new List<TeamMember>();
+                var allHealthy = true;
 
                 foreach (Guid guid in contract.AssignedTeamMembers)
                 {
                     var teamMember = currentGame.TeamMembers.FirstOrDefault(a => a.Id == guid);
                     if (teamMember == null)
                         continue;
+
+                    activeAssignments.Add(guid);
 
                     var brokenPenalty = teamMember.Equipment
                         .Where(te => te.Status == 0)
@@ -71,6 +77,7 @@ namespace BravoOne.lib.Managers
                         .Sum();
 
                     teamMember.Health -= brokenPenalty / 10;
+                    if (teamMember.Health < 100) allHealthy = false;
 
                     var effective = teamMember.EffectiveSkillPoints(currentGame.TeamEquipment);
 
@@ -93,16 +100,47 @@ namespace BravoOne.lib.Managers
                     foreach (var member in affectedMembers)
                     {
                         if (member.Id != medic.Id)
-                            member.Health = Math.Min(100, member.Health + healing);
+                            member.Health = Math.Min(member.MaxHealth, member.Health + healing);
                     }
                 }
 
                 currentGame.ApplyHealthChanges(affectedMembers);
 
                 if (contract.SkillPointsRemaining == 0)
+                {
+                    // Performance bonus: +20% income if all assigned operators stayed healthy.
+                    if (allHealthy && affectedMembers.Count > 0)
+                    {
+                        contract.Income = (ulong)(contract.Income * 1.20);
+                        currentGame.AddActivityLog(ActivityType.CONTRACT_COMPLETED, "Clean Op Bonus",
+                            $"Flawless execution on {contract.Name} — 20% bonus payout");
+                        currentGame.LastTurnSummary?.ContractsCompleted.Add($"{contract.Name} (CLEAN OP +20%)");
+                    }
+
+                    // Award 1 XP to each surviving operator on the contract.
+                    foreach (Guid guid in contract.AssignedTeamMembers)
+                    {
+                        var member = currentGame.TeamMembers.FirstOrDefault(a =>
+                            a.Id == guid && a.Status == TeamMemberStatus.OnTeam);
+                        if (member != null)
+                            currentGame.AwardOperatorXP(member);
+                    }
+
                     currentGame.CompleteContract(contract);
+                }
                 else if (currentGame.CurrentDate > contract.CompleteDate)
+                {
                     currentGame.FailContract(contract);
+                }
+            }
+
+            // Update fatigue: increment for active members, reset for those who rested.
+            foreach (var member in currentGame.TeamMembers.Where(m => m.Status == TeamMemberStatus.OnTeam))
+            {
+                if (activeAssignments.Contains(member.Id))
+                    member.FatigueMonths++;
+                else
+                    member.FatigueMonths = 0;
             }
 
             currentGame = await RefreshAvailableContractsAsync(currentGame);

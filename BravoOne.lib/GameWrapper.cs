@@ -107,12 +107,15 @@ namespace BravoOne.lib
                 switch (turnResult.Status)
                 {
                     case Enums.TurnStatus.OUT_OF_MONEY:
+                        CurrentGame.FinalizeTurnSummary();
                         return false;
                     default:
+                        CurrentGame.FinalizeTurnSummary();
                         return true;
                 }
             }
 
+            CurrentGame.FinalizeTurnSummary();
             return true;
         }
      }
